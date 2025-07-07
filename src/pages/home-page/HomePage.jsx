@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import Header from '../../components/header/Header.jsx';
-import Footer from '../../components/footer/Footer.jsx';
+import {Header} from '../../components/header/Header.jsx';
+import {Footer} from '../../components/footer/Footer.jsx';
 import PokemonList from '../../components/pokemon-list/PokemonList.jsx';
 import TypesFilter from '../../components/types-filter/TypesFilter.jsx';
 import GenerationsFilter from '../../components/generations-filter/GenerationsFilter.jsx';

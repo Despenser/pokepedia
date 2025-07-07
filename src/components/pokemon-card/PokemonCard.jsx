@@ -1,67 +1,84 @@
-import { useState } from 'react';
+import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getGradientByTypes } from '../../utils/colorUtils.js';
 import { formatPokemonId, formatPokemonName } from '../../utils/formatUtils.js';
 import { getPokemonImage, getFallbackImage } from '../../utils/imageUtils.js';
+import useImageLoad from '../../hooks/useImageLoad.js';
 import TypeBadge from '../type-badge/TypeBadge.jsx';
 import './PokemonCard.css';
 
-const PokemonCard = ({ pokemon }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
+/**
+ * Компонент карточки покемона для отображения основной информации
+ * @param {Object} props - Свойства компонента
+ * @param {Object} props.pokemon - Данные покемона из API
+ */
+const PokemonCard = memo(({ pokemon }) => {
+  // Проверка наличия данных
   if (!pokemon) return null;
 
   const { id, name, types, sprites } = pokemon;
-  const background = getGradientByTypes(types);
-  const imageUrl = getPokemonImage(sprites, id);
 
-  const handleImageLoad = () => {
-    // Короткая задержка для плавного появления
-    setTimeout(() => setImageLoaded(true), 50);
-  };
+  // Получаем URL изображения и запасного изображения
+  const imageUrl = useMemo(() => getPokemonImage(sprites, id), [sprites, id]);
+  const fallbackUrl = useMemo(() => getFallbackImage(id), [id]);
 
-  const handleImageError = (e) => {
-    // При ошибке загрузки показываем хотя бы контейнер и пробуем запасное изображение
-    setImageLoaded(true);
-    e.target.onerror = null;
-    e.target.src = getFallbackImage(id);
-  };
+  // Мемоизируем вычисляемые значения для оптимизации
+  const background = useMemo(() => getGradientByTypes(types), [types]);
+  const displayName = useMemo(() => formatPokemonName(name, pokemon.nameRu), [name, pokemon.nameRu]);
+  const formattedId = useMemo(() => formatPokemonId(id), [id]);
+
+  // Используем хук для управления загрузкой изображения
+  const { isLoaded, handleLoad, handleError } = useImageLoad({
+    fallbackSrc: fallbackUrl
+  });
+
+  // Мемоизируем типы покемона для предотвращения ненужных перерисовок
+  const typesBadges = useMemo(() => {
+    return types?.map((typeInfo, index) => (
+      <TypeBadge key={`${id}-${typeInfo.type.name}`} type={typeInfo.type.name} />
+    ));
+  }, [types, id]);
 
   return (
-    <Link to={`/pokemon/${id}`} className="pokemon-card-link">
+    <Link to={`/pokemon/${id}`} className="pokemon-card-link" aria-label={`Покемон ${displayName}, ${formattedId}`}>
       <div 
-        className={`pokemon-card ${imageLoaded ? 'loaded' : ''}`}
+        className={`pokemon-card ${isLoaded ? 'loaded' : ''}`}
         style={{ background }}
       >
         <div className="pokemon-card-content">
           <div className="pokemon-card-header">
-            <h2 className="pokemon-name">{formatPokemonName(name, pokemon.nameRu)}</h2>
-            <span className="pokemon-id">{formatPokemonId(id)}</span>
+            <h2 className="pokemon-name">{displayName}</h2>
+            <span className="pokemon-id">{formattedId}</span>
           </div>
 
           <div className="pokemon-image-container">
-            {!imageLoaded && <div className="pokemon-image-skeleton"></div>}
+            {!isLoaded && <div className="pokemon-image-skeleton" aria-hidden="true"></div>}
             <img
               src={imageUrl}
-              alt={pokemon.nameRu || name}
+              alt={displayName}
               className="pokemon-image"
-              style={{ display: imageLoaded ? 'block' : 'none' }}
+              style={{ opacity: isLoaded ? 1 : 0 }}
               loading="eager"
               fetchPriority="high"
-              onLoad={handleImageLoad}
-              onError={handleImageError}
+              onLoad={handleLoad}
+              onError={handleError}
+              width="150"
+              height="150"
             />
           </div>
 
           <div className="pokemon-types">
             {types?.map((typeInfo, index) => (
-              <TypeBadge key={index} type={typeInfo.type.name} />
+              <TypeBadge key={`${id}-${typeInfo.type.name}`} type={typeInfo.type.name} />
             ))}
           </div>
         </div>
       </div>
     </Link>
   );
-};
+});
+
+// Добавляем отображаемое имя для отладки
+PokemonCard.displayName = 'PokemonCard';
 
 export default PokemonCard;

@@ -1,22 +1,20 @@
-import Header from '../components/header/Header.jsx';
-import Footer from '../components/footer/Footer.jsx';
-import ErrorMessage from '../components/error-message/ErrorMessage.jsx';
+import {Header} from '../components/header/Header.jsx';
+import {Footer} from '../components/footer/Footer.jsx';
+import {ErrorMessage} from '../components/error-message/ErrorMessage.jsx';
 
 const NotFoundPage = () => {
-  return (
-    <div className="not-found-page">
-      <Header />
-
-      <main className="main-content">
-        <ErrorMessage 
-          message="Страница, которую вы ищете, не существует" 
-          code="404" 
-        />
-      </main>
-
-      <Footer />
-    </div>
-  );
+    return (
+        <div className="not-found-page">
+            <Header/>
+            <main className="main-content">
+                <ErrorMessage
+                    message="Страница, которую вы ищете, не существует"
+                    code="404"
+                />
+            </main>
+            <Footer/>
+        </div>
+    );
 };
 
 export default NotFoundPage;

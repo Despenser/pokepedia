@@ -1,8 +1,12 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { getPokemonList, getPokemonByNameOrId, getPokemonSpecies, getEvolutionChain, getPokemonTypes, getPokemonsByType, getGenerations, getGenerationDetails } from '../api/pokeApi';
+import { getUserFriendlyErrorMessage } from '../utils/errorHandlingUtils.js';
 import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 
-const usePokemonStore = create((set, get) => ({
+  // Определяем тип для состояния хранилища
+  const usePokemonStore = create(
+  persist((set, get) => ({
   // Состояние
   pokemons: [],
   generations: [],
@@ -27,7 +31,7 @@ const usePokemonStore = create((set, get) => ({
   fetchPokemons: async () => {
     const { offset, pokemons, cache, selectedType, searchQuery, selectedGeneration } = get();
 
-    // Пропускаем загрузку если активны фильтры
+    // Пропускаем загрузку, если активны фильтры
     if (searchQuery || selectedType || selectedGeneration) {
       return;
     }
@@ -222,7 +226,7 @@ const usePokemonStore = create((set, get) => ({
         } 
       });
     } catch (error) {
-      set({ error: error.message, loading: false });
+      set({ error: getUserFriendlyErrorMessage(error, 'POKEMON_LOAD'), loading: false });
     }
   },
 
@@ -599,6 +603,21 @@ const usePokemonStore = create((set, get) => ({
       selectedGeneration: null
     });
   }
-}));
+}), {
+    name: 'pokemon-storage', // уникальное имя для localStorage
+    // Указываем, какие поля НЕ нужно сохранять в localStorage
+    partialize: (state) => ({
+      // Сохраняем только нужные данные
+      pokemonTypes: state.pokemonTypes,
+      generations: state.generations,
+      selectedType: state.selectedType,
+      selectedGeneration: state.selectedGeneration,
+      cache: state.cache,
+      // Не сохраняем временные данные
+      loading: false,
+      error: null
+    }),
+  }
+));
 
 export default usePokemonStore;

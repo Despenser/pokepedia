@@ -1,17 +1,33 @@
+:root {
+  --badge-hover-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  --badge-active-color: #3498db;
+  --badge-active-shadow: 0 0 0 2px rgba(52, 152, 219, 0.4);
+  --badge-font-size: 14px;
+  --badge-padding: 6px 12px;
+  --badge-margin: 4px;
+  --badge-hover-y: -2px;
+  --badge-active-scale: 1.05;
+}
+
 .generation-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 12px;
+  padding: var(--badge-padding);
   border-radius: var(--badge-border-radius);
-  margin: 4px;
-  font-size: 14px;
+  margin: var(--badge-margin);
+  font-size: var(--badge-font-size);
   font-weight: 500;
   color: var(--button-text);
   background-color: var(--accent-color);
   border: 2px solid transparent;
-  transition: all var(--animation-duration) ease;
+  transition: 
+    transform var(--animation-duration) var(--ease-out-cubic),
+    background-color var(--animation-duration) var(--ease-out-cubic),
+    box-shadow var(--animation-duration) var(--ease-out-cubic);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  will-change: transform, box-shadow;
+  user-select: none; /* Предотвращает выделение текста при многократных кликах */
 }
 
 .generation-badge.clickable {
@@ -19,12 +35,18 @@
 }
 
 .generation-badge.clickable:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(var(--badge-hover-y));
+  box-shadow: var(--badge-hover-shadow);
 }
 
 .generation-badge.active {
-  background-color: #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.4);
-  transform: scale(1.05);
+  background-color: var(--badge-active-color);
+  box-shadow: var(--badge-active-shadow);
+  transform: scale(var(--badge-active-scale));
+}
+
+/* Стили для фокуса (доступность) */
+.generation-badge.clickable:focus-visible {
+  outline: 2px solid var(--badge-active-color);
+  outline-offset: 2px;
 }

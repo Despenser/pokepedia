@@ -14,7 +14,69 @@
   overflow: hidden;
   z-index: 100;
 }
+.theme-switcher {
+  background: none;
+  border: none;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  color: var(--color-text);
+  position: relative;
+  overflow: hidden;
+}
 
+.theme-switcher:hover {
+  background-color: var(--color-background-hover);
+}
+
+.theme-switcher:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.theme-switcher-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.theme-switcher.transitioning .theme-switcher-icon {
+  transform: rotate(180deg);
+}
+
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme='dark'] {
+  --color-background: #1a1a2e;
+  --color-background-secondary: #16213e;
+  --color-background-hover: #2a2a4e;
+  --color-text: #e6e6e6;
+  --color-text-secondary: #b3b3b3;
+  --color-primary: #4f74c8;
+  --color-secondary: #6c8eff;
+  --color-border: #2c2c44;
+  --color-card-shadow: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='light'] {
+  --color-background: #f5f5f7;
+  --color-background-secondary: #ffffff;
+  --color-background-hover: #ebebeb;
+  --color-text: #2c2c2c;
+  --color-text-secondary: #666666;
+  --color-primary: #3e68b2;
+  --color-secondary: #4d78cc;
+  --color-border: #d1d1d1;
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+}
 .theme-switcher:hover {
   /*background-color: var(--badge-background);*/
   transform: scale(1.1);

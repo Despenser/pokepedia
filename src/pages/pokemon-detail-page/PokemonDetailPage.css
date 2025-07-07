@@ -55,6 +55,12 @@
   flex: 1;
 }
 
+.pokemon-detail-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .pokemon-detail-name {
   font-size: 32px;
   font-weight: 700;

@@ -2,48 +2,30 @@
  * Утилиты для локализации текстов в приложении
  */
 
-// Соответствие типов покемонов на русском языке
-export const typeNamesRu = {
-  normal: 'Нормальный',
-  fire: 'Огненный',
-  water: 'Водный',
-  electric: 'Электрический',
-  grass: 'Травяной',
-  ice: 'Ледяной',
-  fighting: 'Боевой',
-  poison: 'Ядовитый',
-  ground: 'Земляной',
-  flying: 'Летающий',
-  psychic: 'Психический',
-  bug: 'Насекомый',
-  rock: 'Каменный',
-  ghost: 'Призрачный',
-  dragon: 'Драконий',
-  dark: 'Темный',
-  steel: 'Стальной',
-  fairy: 'Волшебный'
-};
+// Импортируем переводы из JSON файлов
+import typeNamesRu from '../assets/translate/pokemon-types-ru.json';
+import statNamesRu from '../assets/translate/pokemon-stats-ru.json';
+import generationNamesRu from '../assets/translate/pokemon-generations-ru.json';
 
-// Соответствие поколений на русском языке
-export const generationNamesRu = {
-  'generation-i': 'Поколение I',
-  'generation-ii': 'Поколение II',
-  'generation-iii': 'Поколение III',
-  'generation-iv': 'Поколение IV',
-  'generation-v': 'Поколение V',
-  'generation-vi': 'Поколение VI',
-  'generation-vii': 'Поколение VII',
-  'generation-viii': 'Поколение VIII',
-  'generation-ix': 'Поколение IX'
-};
+// Экспортируем переводы для обратной совместимости
+export { typeNamesRu, generationNamesRu };
 
 /**
- * Возвращает русское название типа покемона
- * @param {string} type - Название типа на английском
- * @returns {string} - Название типа на русском
+ * Получение перевода типа покемона на русский язык
+ * @param {string} type - Тип покемона на английском
+ * @returns {string} Перевод типа на русский язык или исходный тип
  */
 export const getTypeNameRu = (type) => {
   return typeNamesRu[type] || type;
+};
+
+/**
+ * Получение перевода характеристики покемона на русский язык
+ * @param {string} stat - Характеристика покемона на английском
+ * @returns {string} Перевод характеристики на русский язык или исходная характеристика
+ */
+export const getStatNameRu = (stat) => {
+  return statNamesRu[stat] || stat;
 };
 
 /**

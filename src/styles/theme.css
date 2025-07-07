@@ -1,27 +1,13 @@
 /* Глобальные стили для корректного применения тем */
+/* Импорт общих переменных уже происходит через index.css */
 
 /* Плавные переходы между темами для всех элементов */
 [data-theme] * {
-  transition: background-color var(--animation-duration) ease,
-              color var(--animation-duration) ease,
-              border-color var(--animation-duration) ease,
-              box-shadow var(--animation-duration) ease;
-}
-
-/* Настройки анимаций */
-:root {
-  /* Кривые Безье для плавных анимаций */
-  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
-  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1); /* Эффект отскока */
-  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
-  --ease-elastic: cubic-bezier(0.32, 2, 0.55, 0.27); /* Эластичный эффект */
-  --ease-smooth: cubic-bezier(0.25, 0.8, 0.25, 1); /* Очень плавный */
-
-  /* Длительность анимаций */
-  --hover-transition-duration: 0.4s; /* Оптимизированная для баланса плавности и скорости */
-  --image-transition-duration: 0.5s; /* Оптимизированная для баланса плавности и скорости */
-  --card-transition-duration: 0.3s; /* Оптимизированная для баланса плавности и скорости */
+  transition: 
+    background-color var(--animation-duration) var(--ease-smooth),
+    color var(--animation-duration) var(--ease-smooth),
+    border-color var(--animation-duration) var(--ease-smooth),
+    box-shadow var(--animation-duration) var(--ease-smooth);
 }
 
 /* Заголовки */

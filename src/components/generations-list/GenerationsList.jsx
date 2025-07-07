@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
 import PokemonList from '../pokemon-list/PokemonList.jsx';
 import {Loader} from '../loader/Loader.jsx';
-import ErrorMessage from '../error-message/ErrorMessage.jsx';
+import {ErrorMessage} from '../error-message/ErrorMessage.jsx';
 import { getGenerationNameRu } from '../../utils/localizationUtils.js';
 import './GenerationsList.css';
 

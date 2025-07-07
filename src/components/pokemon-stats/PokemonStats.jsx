@@ -1,4 +1,5 @@
 import { getColorByType } from '../../utils/colorUtils.js';
+import { getStatNameRu } from '../../utils/localizationUtils.js';
 import './PokemonStats.css';
 
 const PokemonStats = ({ stats, types }) => {
@@ -6,16 +7,6 @@ const PokemonStats = ({ stats, types }) => {
 
   // Получаем основной цвет из первого типа покемона
   const mainColor = getColorByType(types[0]?.type.name);
-
-  // Статистики с переводом
-  const statNames = {
-    'hp': 'Здоровье',
-    'attack': 'Атака',
-    'defense': 'Защита',
-    'special-attack': 'Сп. Атака',
-    'special-defense': 'Сп. Защита',
-    'speed': 'Скорость'
-  };
 
   // Максимальные значения статов для визуализации
   const maxStats = {
@@ -33,7 +24,7 @@ const PokemonStats = ({ stats, types }) => {
 
       <div className="stats-container">
         {stats.map((stat) => {
-          const statName = statNames[stat.stat.name] || stat.stat.name;
+          const statName = getStatNameRu(stat.stat.name);
           const maxStat = maxStats[stat.stat.name] || 100;
           const percentage = Math.min(100, (stat.base_stat / maxStat) * 100);
 

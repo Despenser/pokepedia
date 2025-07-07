@@ -136,15 +136,23 @@
 }
 
 .pokemon-image {
-  max-height: 150px;
-  max-width: 150px;
+  --image-shadow: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+  --image-hover-shadow: drop-shadow(0 12px 15px rgba(0, 0, 0, 0.2));
+
+  width: 150px;
+  height: 150px;
   object-fit: contain;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+  transition: 
+    transform var(--animation-duration) var(--ease-out-cubic),
+    filter var(--animation-duration) var(--ease-out-cubic),
+    opacity var(--animation-duration) var(--ease-out-cubic);
+  filter: var(--image-shadow);
   transform-origin: center center;
   z-index: 5;
   position: relative;
-  image-rendering: high-quality;
+  will-change: transform, filter, opacity;
+  image-rendering: auto;
+  opacity: 0; /* Начинаем с прозрачного состояния и показываем после загрузки */
 }
 
 /* Создаем подсветку под изображением */

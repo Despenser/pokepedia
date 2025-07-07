@@ -1,0 +1,8 @@
+{
+  "hp": "Здоровье",
+  "attack": "Атака",
+  "defense": "Защита",
+  "special-attack": "Спец. атака",
+  "special-defense": "Спец. защита",
+  "speed": "Скорость"
+}

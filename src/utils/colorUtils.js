@@ -1,4 +1,6 @@
-// Цвета для различных типов покемонов
+/**
+ * Карта цветов для различных типов покемонов
+ */
 const typeColors = {
   normal: '#e8e8b9',
   fire: '#e17b32',
@@ -20,41 +22,61 @@ const typeColors = {
   fairy: '#EE99AC',
 };
 
-// Получение градиента для карточки покемона на основе его типов
+// Цвет по умолчанию для неизвестных типов
+const DEFAULT_COLOR = '#A8A878';
+
+// Стандартный градиент для покемонов без типа
+const DEFAULT_GRADIENT = 'linear-gradient(to right, #f5f5f5, #e0e0e0)';
+
+/**
+ * Возвращает градиент на основе типов покемона
+ * @param {Array} types - Массив типов покемона
+ * @returns {string} CSS градиент
+ */
 export const getGradientByTypes = (types) => {
-  if (!types || types.length === 0) {
-    return 'linear-gradient(to right, #f5f5f5, #e0e0e0)';
-  }
+  if (!types?.length) return DEFAULT_GRADIENT;
 
   if (types.length === 1) {
-    const color = typeColors[types[0].type.name] || '#A8A878';
+    const color = typeColors[types[0].type.name] || DEFAULT_COLOR;
     return `linear-gradient(135deg, ${color} 0%, white 100%)`;
   }
 
-  const color1 = typeColors[types[0].type.name] || '#A8A878';
-  const color2 = typeColors[types[1].type.name] || '#A8A878';
+  const color1 = typeColors[types[0].type.name] || DEFAULT_COLOR;
+  const color2 = typeColors[types[1].type.name] || DEFAULT_COLOR;
 
   return `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`;
 };
 
-// Получение основного цвета для типа покемона
-export const getColorByType = (typeName) => {
-  return typeColors[typeName] || '#A8A878';
+/**
+ * Возвращает цвет для определенного типа покемона
+ * @param {string} typeName - Название типа покемона
+ * @returns {string} Цвет в формате HEX
+ */
+export const getColorByType = (typeName) => typeColors[typeName] || DEFAULT_COLOR;
+
+/**
+ * Преобразует HEX цвет в RGB объект
+ * @param {string} hex - Цвет в формате HEX
+ * @returns {Object|null} RGB объект или null при неверном формате
+ */
+const hexToRgb = (hex) => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
 };
 
-// Получение более темной версии цвета для границ и теней
+/**
+ * Возвращает затемненную версию цвета
+ * @param {string} color - Исходный цвет в формате HEX
+ * @param {number} percent - Процент затемнения (0-100)
+ * @returns {string} Затемненный цвет в формате HEX
+ */
 export const getDarkerColor = (color, percent = 20) => {
-  const hexToRgb = (hex) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result
-      ? {
-          r: parseInt(result[1], 16),
-          g: parseInt(result[2], 16),
-          b: parseInt(result[3], 16),
-        }
-      : null;
-  };
-
   const rgb = hexToRgb(color);
   if (!rgb) return color;
 

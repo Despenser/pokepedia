@@ -1,0 +1,44 @@
+.favorites-button {
+  background: none;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  color: #ff5a5f;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.favorites-button:hover {
+  transform: scale(1.1);
+}
+
+.favorites-button:active {
+  transform: scale(0.95);
+}
+
+.favorites-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.favorites-button.is-favorite {
+  animation: pulse 0.3s ease;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

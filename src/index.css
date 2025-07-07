@@ -1,35 +1,12 @@
+/* Импорт общих переменных */
+@import './styles/variables.css';
+
 @font-face {
   font-family: 'PermianSansTypeface';
-  src: url('./assets/fonts/PermianSansTypeface.otf')
-       format('woff2'),
-       url('./assets/fonts/PermianSansTypeface.otf')
-       format('woff');
+  src: url('./assets/fonts/PermianSansTypeface.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-}
-
-
-
-/* Общие переменные темы */
-:root {
-  /* Переменные для анимации и интерфейса */
-  --animation-duration: 0.3s;
-  --border-radius: 12px;
-  --card-border-radius: 16px;
-  --badge-border-radius: 20px;
-  --hover-transform: translateY(-6px) scale(1.02); /* Меньшее изменение для более плавного эффекта */
-  --header-height: 70px;
-  --footer-height: 60px;
-
-  /* Цветовые переменные (общие для обеих тем) */
-  --primary-color: #f68837;
-  --primary-dark: #c62828;
-  --primary-light: #ef5350;
-  --accent-color: #2196f3;
-  --error-color: #f44336;
-  --success-color: #4caf50;
-  --warning-color: #ff9800;
-  --info-color: #2196f3;
+  font-display: swap; /* Оптимизация отображения шрифтов */
 }
 
 /* Светлая тема */
@@ -191,6 +168,20 @@ ul {
   height: 4px;
   background-color: var(--primary-color);
   border-radius: 2px;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--animation-duration) ease;
+  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
 }
 
 /* Анимации */

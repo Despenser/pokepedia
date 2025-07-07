@@ -1,11 +1,11 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from '../search-bar/SearchBar.jsx';
-import { ThemeSwitcher } from '../theme-switcher/ThemeSwitcher.jsx';
+import ThemeSwitcher from '../theme-switcher/ThemeSwitcher.jsx';
 import './Header.css';
 
 // Компонент логотипа вынесен для улучшения структуры
-const Logo = memo(() => (
+export const Logo = memo(() => (
   <Link to="/" className="logo-link">
     <div className="logo">
       <img src="/15.png" alt="Pokédex" className="pokeball-logo" />
@@ -15,7 +15,7 @@ const Logo = memo(() => (
 ));
 
 // Компонент элементов управления вынесен для улучшения структуры
-const Controls = memo(() => (
+export const Controls = memo(() => (
   <div className="header-controls">
     <ThemeSwitcher />
     <SearchBar />
@@ -23,7 +23,7 @@ const Controls = memo(() => (
 ));
 
 // Основной компонент шапки
-const Header = memo(() => {
+export const Header = memo(() => {
   return (
     <header className="header">
       <div className="header-content">
@@ -34,4 +34,4 @@ const Header = memo(() => {
   );
 });
 
-export default Header;
+

@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import { getPokemonByNameOrId } from '../../api/pokeApi.js';
 import { formatPokemonName } from '../../utils/formatUtils.js';
 import { getPokemonImage, getFallbackImage } from '../../utils/imageUtils.js';
+import useEvolutionChain from '../../hooks/useEvolutionChain.js';
 import './EvolutionChain.css';
 
 // Отдельный компонент для условий эволюции
-const EvolutionConditions = memo(({ conditions }) => {
+export const EvolutionConditions = memo(({ conditions }) => {
   if (!conditions) return null;
   return <div className="evolution-conditions">{conditions}</div>;
 });
 
 // Отдельный компонент для изображения покемона
-const PokemonImage = memo(({ imageUrl, name, nameRu, id }) => {
+export const PokemonImage = memo(({ imageUrl, name, nameRu, id }) => {
   const handleError = (e) => {
     e.target.onerror = null;
     e.target.src = getFallbackImage(id);
@@ -33,7 +34,7 @@ const PokemonImage = memo(({ imageUrl, name, nameRu, id }) => {
 });
 
 // Отдельный компонент для стрелки эволюции
-const EvolutionArrow = memo(({ conditions, isLastLevel }) => {
+export const EvolutionArrow = memo(({ conditions, isLastLevel }) => {
   if (isLastLevel) return null;
 
   return (
@@ -45,9 +46,12 @@ const EvolutionArrow = memo(({ conditions, isLastLevel }) => {
   );
 });
 
-export const EvolutionChain = ({ evolutionChain }) => {
+  export const EvolutionChain = ({ species }) => {
   const [evolutionData, setEvolutionData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Используем хук для загрузки данных о цепочке эволюции
+  const { evolutionChain, isLoading: isLoadingChain, error: chainError } = useEvolutionChain(species);
 
   // Функция для извлечения условий эволюции
   const getEvolutionConditions = useCallback((evolutionDetails) => {
@@ -132,6 +136,11 @@ export const EvolutionChain = ({ evolutionChain }) => {
 
     fetchEvolutionData();
   }, [evolutionChain, processEvolution]);
+
+  // Отображаем состояние загрузки из хука
+  useEffect(() => {
+    setLoading(isLoadingChain);
+  }, [isLoadingChain]);
 
   if (loading) {
     return <div className="evolution-chain-skeleton"></div>;

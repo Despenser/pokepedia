@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import usePokemonStore from '../../store/pokemonStore.js';
 import PokemonCard from '../pokemon-card/PokemonCard.jsx';
 import PokemonCardSkeleton from '../pokemon-card-skeleton/PokemonCardSkeleton.jsx';
-import ErrorMessage from '../error-message/ErrorMessage.jsx';
+import {ErrorMessage} from '../error-message/ErrorMessage.jsx';
 import './PokemonList.css';
 
 const PokemonList = () => {

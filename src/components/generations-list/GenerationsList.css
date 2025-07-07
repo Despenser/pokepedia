@@ -1,24 +1,47 @@
+/* Основные переменные для компонента */
+:root {
+  --gen-button-blue: #3498db;
+  --gen-button-blue-hover: #2980b9;
+  --gen-button-green: #2ecc71;
+  --gen-button-green-hover: #27ae60;
+  --gen-button-disabled: #95a5a6;
+  --gen-section-margin: 40px;
+  --gen-title-size: 24px;
+  --gen-preview-radius: 8px;
+  --gen-button-radius: 25px;
+  --gen-transition-duration: 0.3s;
+}
+
+/* Список поколений */
 .generations-list {
   width: 100%;
   margin-top: 20px;
 }
 
+/* Секция поколения */
 .generation-section {
-  margin-bottom: 40px;
+  margin-bottom: var(--gen-section-margin);
   background-color: var(--card-background);
-  border-radius: 10px;
+  border-radius: var(--card-border-radius);
   padding: 20px;
-  box-shadow: 0 2px 10px var(--shadow-color);
+  box-shadow: var(--box-shadow);
+  transition: transform var(--gen-transition-duration) var(--ease-out-cubic);
 }
 
+.generation-section:hover {
+  transform: translateY(-2px);
+}
+
+/* Заголовок поколения */
 .generation-title {
-  font-size: 24px;
+  font-size: var(--gen-title-size);
   color: var(--text-color);
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 2px solid var(--border-color);
 }
 
+/* Сетка покемонов */
 .pokemon-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -26,12 +49,17 @@
   margin-top: 15px;
 }
 
+/* Превью покемона */
 .pokemon-preview {
   background-color: var(--badge-background);
-  border-radius: 8px;
+  border-radius: var(--gen-preview-radius);
   padding: 10px;
   text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+  transition: 
+    transform var(--gen-transition-duration) var(--ease-out-cubic),
+    box-shadow var(--gen-transition-duration) var(--ease-out-cubic),
+    background-color var(--gen-transition-duration) var(--ease-out-cubic);
+  will-change: transform, box-shadow; /* Подсказка браузеру о кэшировании слоев */
 }
 
 .pokemon-preview:hover {
@@ -45,7 +73,6 @@
   object-fit: contain;
 }
 
-
 .pokemon-preview p {
   margin-top: 8px;
   font-size: 14px;
@@ -53,32 +80,43 @@
   color: var(--text-color);
 }
 
+/* Контейнер кнопки загрузки */
 .load-generation-container {
   display: flex;
   justify-content: center;
   padding: 20px 0;
 }
 
-.load-generation-button {
-  background-color: #3498db;
-  color: white;
+/* Стили кнопок */
+.load-generation-button,
+.view-all-button {
   border: none;
-  border-radius: 25px;
+  border-radius: var(--gen-button-radius);
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  color: white;
+  transition: background-color var(--gen-transition-duration), 
+              transform var(--gen-transition-duration) var(--ease-out-cubic);
+}
+
+/* Синяя кнопка загрузки */
+.load-generation-button {
+  background-color: var(--gen-button-blue);
 }
 
 .load-generation-button:hover {
-  background-color: #2980b9;
+  background-color: var(--gen-button-blue-hover);
+  transform: translateY(-2px);
 }
 
 .load-generation-button:disabled {
-  background-color: #95a5a6;
+  background-color: var(--gen-button-disabled);
   cursor: not-allowed;
+  transform: none;
 }
 
+/* Контейнер кнопки просмотра всех */
 .view-all-button-container {
   grid-column: 1 / -1;
   display: flex;
@@ -86,17 +124,12 @@
   margin-top: 15px;
 }
 
+/* Зеленая кнопка просмотра всех */
 .view-all-button {
-  background-color: #2ecc71;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background-color: var(--gen-button-green);
 }
 
 .view-all-button:hover {
-  background-color: #27ae60;
+  background-color: var(--gen-button-green-hover);
+  transform: translateY(-2px);
 }

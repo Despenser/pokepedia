@@ -1,0 +1,36 @@
+/**
+ * Стили для экрана загрузки приложения
+ */
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'PermianSansTypeface', sans-serif;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 4px solid rgba(33, 150, 243, 0.1);
+  border-top-color: var(--accent-color);
+  animation: rotate 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.loading-container p {
+  font-size: 18px;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+    border: 4px solid var(--accent-color);
+  }
+}
