@@ -10,7 +10,7 @@ import { safeAsync } from '../utils/errorHandlingUtils';
  * @param {boolean} options.loadDetails - Загружать ли детали для каждого покемона
  * @returns {Object} Состояние и функции для работы со списком покемонов
  */
-const usePokemonList = (options = {}) => {
+export const usePokemonList = (options = {}) => {
   const { 
     limit = 20, 
     initialOffset = 0, 
@@ -111,7 +111,7 @@ const usePokemonList = (options = {}) => {
         abortControllerRef.current.abort();
       }
     };
-  }, []);
+  }, [loadPokemonList]);
 
   /**
    * Загрузка следующей страницы покемонов
@@ -148,4 +148,3 @@ const usePokemonList = (options = {}) => {
   };
 };
 
-export default usePokemonList;

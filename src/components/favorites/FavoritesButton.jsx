@@ -1,5 +1,5 @@
-import { memo, useMemo } from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import { memo } from 'react';
+import { useFavorites } from '../../hooks/useFavorites';
 import './FavoritesButton.css';
 
 /**
@@ -9,35 +9,30 @@ import './FavoritesButton.css';
  * @param {string} props.pokemonName - Имя покемона для доступности
  */
 const FavoritesButton = memo(({ pokemonId, pokemonName }) => {
-  // Используем хук для хранения списка избранных покемонов в localStorage
-  const [favorites, setFavorites] = useLocalStorage('pokemon-favorites', []);
+  // Используем хук для работы с избранными покемонами
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   // Проверяем, находится ли покемон в избранном
-  const isFavorite = useMemo(() => {
-    return favorites.includes(pokemonId);
-  }, [favorites, pokemonId]);
+  const isCurrentPokemonFavorite = isFavorite(pokemonId);
 
   // Обработчик добавления/удаления из избранного
-  const toggleFavorite = () => {
-    if (isFavorite) {
-      // Удаляем из избранного
-      setFavorites(favorites.filter(id => id !== pokemonId));
-    } else {
-      // Добавляем в избранное
-      setFavorites([...favorites, pokemonId]);
-    }
+  const handleToggleFavorite = (e) => {
+    // Предотвращаем всплытие события для карточки
+    e.stopPropagation();
+    e.preventDefault();
+    toggleFavorite(pokemonId);
   };
 
   return (
     <button 
-      onClick={toggleFavorite}
-      className={`favorites-button ${isFavorite ? 'is-favorite' : ''}`}
-      aria-label={isFavorite ? `Удалить ${pokemonName} из избранного` : `Добавить ${pokemonName} в избранное`}
-      title={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+      onClick={handleToggleFavorite}
+      className={`favorites-button ${isCurrentPokemonFavorite ? 'is-favorite' : ''}`}
+      aria-label={isCurrentPokemonFavorite ? `Удалить ${pokemonName} из избранного` : `Добавить ${pokemonName} в избранное`}
+      title={isCurrentPokemonFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
     >
       <svg 
         viewBox="0 0 24 24" 
-        fill={isFavorite ? 'currentColor' : 'none'} 
+        fill={isCurrentPokemonFavorite ? 'currentColor' : 'none'} 
         stroke="currentColor" 
         strokeWidth="2" 
         strokeLinecap="round" 

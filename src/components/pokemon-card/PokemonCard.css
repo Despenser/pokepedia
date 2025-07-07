@@ -1,5 +1,4 @@
 /* Стили для карточки покемона */
-
 .pokemon-card-link {
   text-decoration: none;
   color: var(--text-color) !important;
@@ -130,6 +129,44 @@
   perspective: 1000px;
 }
 
+.pokemon-card-favorite-btn .favorites-button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.pokemon-card-favorite-btn .favorites-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.pokemon-card-favorite-btn .favorites-button.is-favorite {
+  color: #E53935;
+}
+
+.pokemon-card-favorite-btn .favorites-button.is-favorite:hover {
+  color: #C62828;
+}
+
+/* Индикатор избранного на карточке */
+.pokemon-card-favorite-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  color: #E53935;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .pokemon-card {
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -153,7 +190,9 @@
   will-change: transform, filter, opacity;
   image-rendering: auto;
   opacity: 0; /* Начинаем с прозрачного состояния и показываем после загрузки */
+    position: relative;
 }
+
 
 /* Создаем подсветку под изображением */
 .pokemon-image-container::after {

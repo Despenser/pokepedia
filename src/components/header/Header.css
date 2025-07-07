@@ -34,6 +34,24 @@
   align-items: center;
 }
 
+.favorites-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.favorites-link:hover {
+  color: #E53935;
+  transform: scale(1.1);
+}
+
+.favorites-link svg {
+  width: 24px;
+  height: 24px;
+}
+
 .pokeball-logo {
   width: 60px;
   height: 60px;

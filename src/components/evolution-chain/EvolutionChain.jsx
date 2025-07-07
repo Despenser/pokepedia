@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getPokemonByNameOrId } from '../../api/pokeApi.js';
 import { formatPokemonName } from '../../utils/formatUtils.js';
 import { getPokemonImage, getFallbackImage } from '../../utils/imageUtils.js';
-import useEvolutionChain from '../../hooks/useEvolutionChain.js';
+import {useEvolutionChain} from '../../hooks/useEvolutionChain.js';
 import './EvolutionChain.css';
 
 // Отдельный компонент для условий эволюции

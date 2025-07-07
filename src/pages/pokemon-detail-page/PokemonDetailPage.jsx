@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import usePokemonStore from '../../store/pokemonStore.js';
-import usePokemonData from '../../hooks/usePokemonData.js';
+import {usePokemonData} from '../../hooks/usePokemonData.js';
 import FavoritesButton from '../../components/favorites/FavoritesButton.jsx';
 import {Header} from '../../components/header/Header.jsx';
 import {Footer} from '../../components/footer/Footer.jsx';

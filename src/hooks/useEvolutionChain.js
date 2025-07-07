@@ -7,7 +7,7 @@ import { safeAsync } from '../utils/errorHandlingUtils';
  * @param {Object} species - Данные о виде покемона
  * @returns {Object} Состояние загрузки и данные о цепочке эволюции
  */
-const useEvolutionChain = (species) => {
+export const useEvolutionChain = (species) => {
   const [evolutionChain, setEvolutionChain] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -77,5 +77,3 @@ const useEvolutionChain = (species) => {
     refetch
   };
 };
-
-export default useEvolutionChain;

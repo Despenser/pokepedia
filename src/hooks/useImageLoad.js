@@ -8,7 +8,7 @@ import { useState, useCallback } from 'react';
  * @param {string} options.fallbackSrc - Запасной URL изображения при ошибке
  * @returns {Object} Состояние и обработчики загрузки изображения
  */
-const useImageLoad = (options = {}) => {
+export const useImageLoad = (options = {}) => {
   const { 
     onLoad, 
     onError, 
@@ -75,5 +75,3 @@ const useImageLoad = (options = {}) => {
     resetState
   };
 };
-
-export default useImageLoad;

@@ -83,7 +83,7 @@ const SimilarPokemons = ({ pokemonId, types }) => {
         ) : similarPokemons.length > 0 ? (
           // Показываем похожих покемонов
           similarPokemons.map(pokemon => (
-            <PokemonCard key={pokemon.id} pokemon={pokemon} />
+            <PokemonCard key={pokemon.id} pokemon={pokemon} showFavoriteButton={false} />
           ))
         ) : (
           // Если не нашли похожих покемонов

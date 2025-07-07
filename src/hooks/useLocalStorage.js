@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
  * @param {any} initialValue - Начальное значение, если в localStorage ничего нет
  * @returns {Array} [storedValue, setValue] - Текущее значение и функция для его изменения
  */
-const useLocalStorage = (key, initialValue) => {
+export const useLocalStorage = (key, initialValue) => {
   // Создаем функцию для получения начального значения
   const readValue = () => {
     // Проверяем, что мы в браузере
@@ -66,4 +66,3 @@ const useLocalStorage = (key, initialValue) => {
   return [storedValue, setValue];
 };
 
-export default useLocalStorage;

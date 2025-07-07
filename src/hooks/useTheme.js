@@ -9,7 +9,7 @@ const DARK_THEME = 'dark';
  * Хук для управления темой приложения с поддержкой локального хранилища и системных предпочтений
  * @returns {Object} Состояние и функции для управления темой
  */
-const useTheme = () => {
+export const useTheme = () => {
   // Определение начального значения темы из localStorage или системных предпочтений
   const getInitialTheme = () => {
     // Проверяем localStorage
@@ -85,27 +85,18 @@ const useTheme = () => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     const handleChange = (e) => {
-      // Обновляем тему только если пользователь не выбрал ее явно
+      // Обновляем тему, только если пользователь не выбрал ее явно
       if (!localStorage.getItem(THEME_KEY)) {
         setTheme(e.matches ? DARK_THEME : LIGHT_THEME);
       }
     };
 
     // Добавляем слушатель изменений в системных настройках
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handleChange);
-    } else {
-      // Для поддержки старых браузеров
-      mediaQuery.addListener(handleChange);
-    }
+    mediaQuery.addEventListener('change', handleChange);
 
     // Удаляем слушатель при размонтировании
     return () => {
-      if (mediaQuery.removeEventListener) {
-        mediaQuery.removeEventListener('change', handleChange);
-      } else {
-        mediaQuery.removeListener(handleChange);
-      }
+      mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);
 
@@ -118,5 +109,3 @@ const useTheme = () => {
     isTransitioning
   };
 };
-
-export default useTheme;

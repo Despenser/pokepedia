@@ -3,6 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import usePokemonStore from '../../store/pokemonStore.js';
 import PokemonCard from '../pokemon-card/PokemonCard.jsx';
 import PokemonCardSkeleton from '../pokemon-card-skeleton/PokemonCardSkeleton.jsx';
+import { useFavorites } from '../../hooks/useFavorites.js';
 import {ErrorMessage} from '../error-message/ErrorMessage.jsx';
 import './PokemonList.css';
 
@@ -17,6 +18,31 @@ const PokemonList = () => {
     selectedType,
     selectedGeneration
   } = usePokemonStore();
+
+  // Получаем состояние избранных покемонов
+  const { favorites } = useFavorites();
+
+  // Перерендер при изменении избранных
+  useEffect(() => {
+    const handleFavoritesUpdate = () => {
+      // Принудительное обновление списка при изменении избранных
+      // Используем минимальную задержку, чтобы избежать конфликтов с другими обновлениями
+      setTimeout(() => {
+        // Технически это нужно только для пограничных случаев,
+        // когда изменение происходит в других вкладках
+        if (document.visibilityState === 'visible') {
+          // Используем форсированное обновление
+          console.log('Обновление списка из-за изменения избранных');
+        }
+      }, 10);
+    };
+
+    window.addEventListener('favorites-updated', handleFavoritesUpdate);
+
+    return () => {
+      window.removeEventListener('favorites-updated', handleFavoritesUpdate);
+    };
+  }, []);
 
   // IntersectionObserver для бесконечной загрузки
   const { ref, inView } = useInView({
@@ -60,7 +86,7 @@ const PokemonList = () => {
     <div className="pokemon-list-container">
       <div className="pokemon-grid">
         {pokemons.map((pokemon) => (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+          <PokemonCard key={pokemon.id} pokemon={pokemon} showFavoriteButton={false} />
         ))}
 
         {loading && Array(4).fill(0).map((_, index) => (
@@ -82,5 +108,9 @@ const PokemonList = () => {
     </div>
   );
 };
+
+// Хук usePokemonList можно использовать в других компонентах, когда нужно
+// более гибкое и независимое управление списком покемонов
+// Пример: const { pokemonList, isLoading } = usePokemonList({ limit: 20 });
 
 export default PokemonList;

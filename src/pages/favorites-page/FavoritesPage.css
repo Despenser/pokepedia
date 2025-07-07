@@ -1,0 +1,92 @@
+.favorites-title {
+  margin-bottom: 24px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-color);
+  position: relative;
+  display: inline-block;
+}
+
+.favorites-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.empty-favorites {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.empty-favorites-img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.empty-favorites h2 {
+  margin-bottom: 16px;
+  color: var(--text-color);
+  font-size: 22px;
+}
+
+.empty-favorites p {
+  color: var(--text-light);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.favorites-error-container {
+  margin-bottom: 24px;
+}
+
+/* Анимация появления карточек */
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.pokemon-grid > * {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .empty-favorites {
+    padding: 30px 15px;
+  }
+
+  .empty-favorites h2 {
+    font-size: 20px;
+  }
+}

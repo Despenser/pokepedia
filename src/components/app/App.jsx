@@ -3,6 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { useEffect } from 'react';
 import HomePage from '../../pages/home-page/HomePage.jsx';
 import PokemonDetailPage from '../../pages/pokemon-detail-page/PokemonDetailPage.jsx';
+import FavoritesPage from '../../pages/favorites-page/FavoritesPage.jsx';
 import NotFoundPage from '../../pages/NotFoundPage.jsx';
 import useThemeStore from '../../store/themeStore.js';
 
@@ -39,6 +40,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

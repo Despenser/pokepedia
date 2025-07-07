@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { memo } from 'react';
 import useThemeStore from '../../store/themeStore';
-import useTheme from '../../hooks/useTheme';
+import {useTheme} from '../../hooks/useTheme';
 import './ThemeSwitcher.css';
 
 /**

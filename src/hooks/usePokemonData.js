@@ -7,7 +7,7 @@ import { safeAsync } from '../utils/errorHandlingUtils';
  * @param {string|number} pokemonId - ID покемона для загрузки
  * @returns {Object} Состояние загрузки и данные о покемоне
  */
-const usePokemonData = (pokemonId) => {
+export const usePokemonData = (pokemonId) => {
   const [pokemon, setPokemon] = useState(null);
   const [species, setSpecies] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -78,4 +78,4 @@ const usePokemonData = (pokemonId) => {
   };
 };
 
-export default usePokemonData;
+
