@@ -1,0 +1,69 @@
+/* Стили для баджа типа покемона */
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: var(--badge-border-radius);
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  text-transform: capitalize;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+  transition: transform var(--animation-duration) ease, box-shadow var(--animation-duration) ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.type-badge.large {
+  padding: 6px 16px;
+  font-size: 14px;
+}
+
+.type-badge.clickable {
+  cursor: pointer;
+}
+
+.type-badge.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.type-badge.active {
+  transform: translateY(-2px);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.type-badge.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+  .type-badge {
+    padding: 3px 10px;
+    font-size: 11px;
+  }
+
+  .type-badge.large {
+    padding: 5px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .type-badge.large {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+}

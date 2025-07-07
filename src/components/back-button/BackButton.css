@@ -1,0 +1,13 @@
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--animation-duration) ease;
+  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+}

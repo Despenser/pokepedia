@@ -1,0 +1,105 @@
+/* Стили для секции похожих покемонов */
+
+.similar-pokemons {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  perspective: 1000px; /* Добавляем перспективу для 3D-эффекта */
+}
+
+.similar-pokemons h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+  transition: transform 0.4s var(--ease-out-cubic);
+}
+
+.similar-pokemons h3:hover {
+  transform: scale(1.05);
+}
+
+.similar-pokemons h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 50px;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.similar-pokemons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  transform-style: preserve-3d;
+}
+
+/* Анимация появления с задержкой для каждой карточки */
+.similar-pokemons .pokemon-card {
+  animation-name: fadeInPulse;
+  animation-duration: 0.8s;
+  animation-fill-mode: backwards;
+  animation-timing-function: var(--ease-out-cubic);
+}
+
+.similar-pokemons .pokemon-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.similar-pokemons .pokemon-card:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.similar-pokemons .pokemon-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.similar-pokemons .pokemon-card:nth-child(4) {
+  animation-delay: 0.55s;
+}
+
+.no-similar-pokemons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+  background-color: var(--card-background);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  color: var(--text-light);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Медиа-запросы */
+@media (max-width: 1200px) {
+  .similar-pokemons-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .similar-pokemons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .similar-pokemons h3 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 576px) {
+  .similar-pokemons-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .similar-pokemons h3 {
+    font-size: 20px;
+  }
+}

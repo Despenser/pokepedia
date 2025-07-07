@@ -1,0 +1,52 @@
+.generations-filter {
+  background-color: var(--card-background);
+  border-radius: var(--card-border-radius);
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: var(--box-shadow);
+}
+
+.generations-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  background-color: var(--filter-header-bg);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  margin: -15px -15px 15px -15px;
+  padding: 15px;
+}
+
+.generations-filter-header h3 {
+  margin: 0;
+  color: var(--text-color);
+  transition: color var(--animation-duration) ease;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.clear-filter-button {
+  background-color: var(--primary-light);
+  color: var(--button-text);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--animation-duration) ease;
+}
+
+.clear-filter-button:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.generations-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

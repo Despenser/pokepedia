@@ -1,0 +1,103 @@
+/* Стили для статистики покемона */
+
+.pokemon-stats {
+  margin-top: 20px;
+}
+
+.pokemon-stats h3 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  position: relative;
+  display: inline-block;
+}
+
+.pokemon-stats h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 110px 40px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-align: right;
+}
+
+.stat-bar-container {
+  height: 12px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.stat-bar {
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 6px;
+  transition: width 1s ease-in-out;
+  animation: growRight 1s ease-out;
+}
+
+@keyframes growRight {
+  from { width: 0; }
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+  .pokemon-stats h3 {
+    font-size: 18px;
+  }
+
+  .stat-row {
+    grid-template-columns: 100px 35px 1fr;
+    gap: 8px;
+  }
+
+  .stat-name, .stat-value {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .pokemon-stats h3 {
+    font-size: 16px;
+  }
+
+  .stat-row {
+    grid-template-columns: 90px 30px 1fr;
+    gap: 6px;
+  }
+
+  .stat-name, .stat-value {
+    font-size: 12px;
+  }
+
+  .stat-bar-container {
+    height: 10px;
+  }
+}

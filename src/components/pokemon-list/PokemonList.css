@@ -1,0 +1,68 @@
+/* Стили для списка покемонов */
+
+.pokemon-list-container {
+  width: 100%;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.scroll-trigger {
+  height: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.empty-search-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+  text-align: center;
+  color: var(--text-light);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.empty-search-result h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.empty-search-result p {
+  font-size: 16px;
+}
+
+/* Медиа-запросы */
+@media (max-width: 1200px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+  }
+}

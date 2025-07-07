@@ -1,0 +1,271 @@
+/* Стили для карточки покемона */
+
+.pokemon-card-link {
+  text-decoration: none;
+  color: var(--text-color) !important;
+  display: block;
+  height: 100%;
+  transition: all var(--card-transition-duration) var(--ease-smooth);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.pokemon-card {
+  background: linear-gradient(135deg, var(--badge-background) 0%, var(--card-background) 100%);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all var(--card-transition-duration) var(--ease-smooth);
+  animation: fadeIn 0.5s ease-in-out;
+  transform-origin: center center;
+  will-change: transform, box-shadow;
+}
+
+.pokemon-card-link:hover .pokemon-card {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .pokemon-card-link:hover .pokemon-card {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+}
+
+.pokemon-card-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* Более тонкий эффект подсветки без размытия текста, как в цепочке эволюции */
+.pokemon-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  opacity: 0;
+  transition: opacity var(--animation-duration) var(--ease-smooth);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: var(--card-border-radius);
+}
+
+.pokemon-card-link:hover .pokemon-card::after {
+  opacity: 1;
+}
+
+[data-theme='dark'] .pokemon-card::after {
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+
+
+.pokemon-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pokemon-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  text-transform: capitalize;
+  color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+  transition: color var(--animation-duration) ease;
+}
+
+.pokemon-id {
+  font-size: 14px;
+  color: var(--text-light);
+  font-weight: 600;
+  transition: color var(--animation-duration) ease;
+}
+
+.pokemon-image-container {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  overflow: visible;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius);
+  transition: transform var(--card-transition-duration) var(--ease-smooth);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.03);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+[data-theme='dark'] .pokemon-image-container {
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.03);
+}
+
+/* Эффект перспективы */
+.pokemon-card-link {
+  perspective: 1000px;
+}
+
+.pokemon-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.pokemon-image {
+  max-height: 150px;
+  max-width: 150px;
+  object-fit: contain;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+  transform-origin: center center;
+  z-index: 5;
+  position: relative;
+  image-rendering: high-quality;
+}
+
+/* Создаем подсветку под изображением */
+.pokemon-image-container::after {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  width: 80px;
+  height: 15px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 70%);
+  transform: translateX(-50%) scale(0.8);
+  border-radius: 50%;
+  transition: all var(--image-transition-duration) var(--ease-smooth);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Анимации при наведении в стиле эволюции */
+.pokemon-card-link:hover .pokemon-image {
+  transform: translateY(-10px) scale(1.05);
+  filter: drop-shadow(0 12px 15px rgba(0, 0, 0, 0.2));
+  animation: gentleFloat 3s infinite ease-in-out;
+}
+
+/* Используем тот же keyframes что и в EvolutionChain для единообразия */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(-10px) scale(1.05); }
+  50% { transform: translateY(-15px) scale(1.05); }
+}
+
+/* Анимация тени при наведении */
+.pokemon-card-link:hover .pokemon-image-container::after {
+  transform: translateX(-50%) scale(1.2);
+  opacity: 0.8;
+  animation: shadowPulse 3s infinite ease-in-out;
+}
+
+/* Используем тот же keyframes что и в EvolutionChain для единообразия */
+@keyframes shadowPulse {
+  0%, 100% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
+  50% { transform: translateX(-50%) scale(0.9); opacity: 0.6; }
+}
+
+.pokemon-types {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  transition: transform var(--card-transition-duration) var(--ease-out-cubic);
+}
+
+.pokemon-card-link:hover .pokemon-types {
+  transform: translateY(-3px);
+}
+
+/* Последовательная анимация для значков типов при загрузке */
+.pokemon-card.loaded .type-badge {
+  animation: fadeIn 0.5s backwards;
+}
+
+.pokemon-card.loaded .type-badge:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.pokemon-card.loaded .type-badge:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.pokemon-card.loaded {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Анимация появления для изображения */
+.pokemon-card.loaded .pokemon-image {
+  animation: fadeIn 0.4s both ease-out;
+  display: block !important; /* Гарантируем видимость */
+}
+
+/* Упрощенный скелетон загрузки */
+.pokemon-image-skeleton {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--badge-background);
+  opacity: 0.7;
+  margin: auto;
+}
+
+/* Медиа-запросы */
+@media (max-width: 992px) {
+  .pokemon-image-container {
+    height: 160px;
+  }
+
+  .pokemon-image {
+    max-height: 140px;
+    max-width: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pokemon-name {
+    font-size: 16px;
+  }
+
+  .pokemon-id {
+    font-size: 12px;
+  }
+
+  .pokemon-card-content {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .pokemon-image-container {
+    height: 140px;
+  }
+
+  .pokemon-image {
+    max-height: 120px;
+    max-width: 120px;
+  }
+}

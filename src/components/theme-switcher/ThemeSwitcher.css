@@ -1,0 +1,52 @@
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--animation-duration) ease;
+  position: relative;
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.theme-switcher:hover {
+  /*background-color: var(--badge-background);*/
+  transform: scale(1.1);
+}
+
+.theme-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--text-color);
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.sun-icon {
+  color: var(--primary-color);
+}
+
+.moon-icon {
+  color: var(--accent-color);
+}
+
+.theme-switcher:hover .theme-icon {
+  transform: rotate(30deg);
+}
+
+@media (max-width: 768px) {
+  .theme-switcher {
+    width: 36px;
+    height: 36px;
+  }
+
+  .theme-icon {
+    width: 20px;
+    height: 20px;
+  }
+}

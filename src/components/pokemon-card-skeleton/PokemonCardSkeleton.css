@@ -1,0 +1,104 @@
+/* Стили для скелетона карточки покемона */
+
+.pokemon-card-skeleton {
+  background-color: var(--card-background);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.pokemon-card-skeleton-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pokemon-card-skeleton-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pokemon-name-skeleton {
+  height: 20px;
+  width: 70%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.pokemon-id-skeleton {
+  height: 16px;
+  width: 20%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.pokemon-image-skeleton {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--border-radius);
+  margin-bottom: 12px;
+}
+
+.pokemon-types-skeleton {
+  display: flex;
+  gap: 8px;
+}
+
+.type-badge-skeleton {
+  height: 24px;
+  width: 80px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--badge-border-radius);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Медиа-запросы */
+@media (max-width: 992px) {
+  .pokemon-image-skeleton {
+    height: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pokemon-card-skeleton-content {
+    padding: 12px;
+  }
+
+  .pokemon-name-skeleton {
+    height: 18px;
+  }
+
+  .pokemon-id-skeleton {
+    height: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .pokemon-image-skeleton {
+    height: 140px;
+  }
+}

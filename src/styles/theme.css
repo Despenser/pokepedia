@@ -1,0 +1,108 @@
+/* Глобальные стили для корректного применения тем */
+
+/* Плавные переходы между темами для всех элементов */
+[data-theme] * {
+  transition: background-color var(--animation-duration) ease,
+              color var(--animation-duration) ease,
+              border-color var(--animation-duration) ease,
+              box-shadow var(--animation-duration) ease;
+}
+
+/* Настройки анимаций */
+:root {
+  /* Кривые Безье для плавных анимаций */
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1); /* Эффект отскока */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-sine: cubic-bezier(0.37, 0, 0.63, 1);
+  --ease-elastic: cubic-bezier(0.32, 2, 0.55, 0.27); /* Эластичный эффект */
+  --ease-smooth: cubic-bezier(0.25, 0.8, 0.25, 1); /* Очень плавный */
+
+  /* Длительность анимаций */
+  --hover-transition-duration: 0.4s; /* Оптимизированная для баланса плавности и скорости */
+  --image-transition-duration: 0.5s; /* Оптимизированная для баланса плавности и скорости */
+  --card-transition-duration: 0.3s; /* Оптимизированная для баланса плавности и скорости */
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color);
+}
+
+/* Параграфы и текст */
+p, span, div {
+  color: var(--text-color);
+}
+
+/* Карточки */
+.card, .pokemon-card, .types-filter, .generations-filter,
+.evolution-chain-container, .similar-pokemons,
+.pokemon-detail-card, .pokemon-attributes .attribute {
+  background-color: var(--card-background);
+  color: var(--text-color);
+  box-shadow: var(--box-shadow);
+}
+
+/* Бейджи и кнопки */
+.type-badge, .generation-badge {
+  color: var(--button-text);
+}
+
+/* Фильтры */
+.filter-header {
+  background-color: var(--filter-header-bg);
+}
+
+/* Заголовки в фильтрах */
+.types-filter h3, .generations-filter h3 {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+/* Кнопки сброса фильтров */
+.clear-filter-button {
+  background-color: var(--primary-light);
+  color: var(--button-text);
+}
+
+/* Детализация покемонов */
+.pokemon-detail-name {
+  color: var(--text-color);
+}
+
+.pokemon-detail-id {
+  color: var(--text-light);
+}
+
+.pokemon-description p {
+  color: var(--description-text);
+}
+
+.attribute-label {
+  color: var(--text-light);
+}
+
+.attribute-value, .ability {
+  color: var(--ability-text);
+}
+
+/* Эволюция */
+.evolution-pokemon {
+  background-color: var(--evolution-card-bg);
+}
+
+.evolution-name {
+  color: var(--text-color);
+}
+
+/* Статистика */
+.stat-bar {
+  background-color: var(--stat-bg);
+}
+
+/* Режим перехода между темами */
+.theme-transition,
+.theme-transition * {
+  transition: background-color 0.2s ease, 
+              color 0.2s ease !important;
+}
