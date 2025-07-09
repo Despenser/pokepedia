@@ -100,7 +100,6 @@ function EvolutionRow({ nodes, currentPokemonId }) {
                   <line x1="0" y1="16" x2="36" y2="16" stroke="#888" strokeWidth="2.5" />
                   <polygon points="36,10 48,16 36,22" fill="#888" />
                 </svg>
-                <div className="evo-condition-row">{parseEvolutionDetails(node.evolves_to[0]?.evolution_details)}</div>
               </div>
             )}
           </React.Fragment>
@@ -198,6 +197,7 @@ function EvolutionBranch({ node, currentPokemonId }) {
           {arrowData.map((arrow, idx) => arrow && (
             <path
               key={idx}
+              className="evo-arrow-path"
               d={`M${arrow.x1},${arrow.y1} C${arrow.x1},${arrow.y1 + 32} ${arrow.x2},${arrow.y2 - 32} ${arrow.x2},${arrow.y2}`}
               stroke="#888"
               strokeWidth="2.5"
@@ -217,9 +217,6 @@ function EvolutionBranch({ node, currentPokemonId }) {
                   isCurrent={Number(currentPokemonId) === getIdFromSpecies(child.species)}
                 />
               </Link>
-              <div className="evo-condition-multiline" title={parseEvolutionDetails(child.evolution_details)}>
-                {parseEvolutionDetails(child.evolution_details)}
-              </div>
               {child.evolves_to && child.evolves_to.length > 0 && (
                 <EvolutionBranch node={child} currentPokemonId={currentPokemonId} />
               )}
