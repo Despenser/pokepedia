@@ -1,25 +1,24 @@
-import {memo, useMemo} from 'react';
-import {Link} from 'react-router-dom';
-import {getGradientByTypes} from '../../utils/colorUtils.js';
-import {formatPokemonId, formatPokemonName} from '../../utils/formatUtils.js';
-import {getPokemonImage, getFallbackImage} from '../../utils/imageUtils.js';
+import { memo, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { getGradientByTypes } from '../../utils/colorUtils.js';
+import { formatPokemonId, formatPokemonName } from '../../utils/formatUtils.js';
+import { getPokemonImage, getFallbackImage } from '../../utils/imageUtils.js';
 import {useImageLoad} from '../../hooks/useImageLoad.js';
-import TypeBadge from '../type-badge/TypeBadge.jsx';
-
-import { useFavorites } from '../../hooks/useFavorites.js';
+import {TypeBadge} from '../type-badge/TypeBadge.jsx';
 import './PokemonCard.css';
 
 /**
  * Компонент карточки покемона для отображения основной информации
  * @param {Object} props - Свойства компонента
  * @param {Object} props.pokemon - Данные покемона из API
- * @param {boolean} props.showFavoriteButton - Показывать ли кнопку добавления в избранное
+ * @param {boolean} [props.showFavoriteButton=false] - Флаг для отображения кнопки избранного
+ * @param {string} [props.className] - Дополнительные CSS классы для карточки
  */
-const PokemonCard = memo(({pokemon, showFavoriteButton = false}) => {
+const PokemonCard = memo(({ pokemon, showFavoriteButton = false, className = '', asDiv = false }) => {
     // Проверка наличия данных
     if (!pokemon) return null;
 
-    const {id, name, types, sprites} = pokemon;
+    const { id, name, types, sprites } = pokemon;
 
     // Получаем URL изображения и запасного изображения
     const imageUrl = useMemo(() => getPokemonImage(sprites, id), [sprites, id]);
@@ -31,52 +30,58 @@ const PokemonCard = memo(({pokemon, showFavoriteButton = false}) => {
     const formattedId = useMemo(() => formatPokemonId(id), [id]);
 
     // Используем хук для управления загрузкой изображения
-    const {isLoaded, handleLoad, handleError} = useImageLoad({
+    const { isLoaded, handleLoad, handleError } = useImageLoad({
         fallbackSrc: fallbackUrl
     });
 
     // Мемоизируем типы покемона для предотвращения ненужных перерисовок
     const typesBadges = useMemo(() => {
         return types?.map((typeInfo, index) => (
-            <TypeBadge key={`${id}-${typeInfo.type.name}`} type={typeInfo.type.name}/>
+            <TypeBadge key={`${id}-${typeInfo.type.name}`} type={typeInfo.type.name} />
         ));
     }, [types, id]);
 
-    return (
-        <Link to={`/pokemon/${id}`} className="pokemon-card-link" aria-label={`Покемон ${displayName}, ${formattedId}`}>
-            <div
-                className={`pokemon-card ${isLoaded ? 'loaded' : ''}`}
-                style={{background}}
-            >
-                <div className="pokemon-card-content">
-                    <div className="pokemon-card-header">
-                        <h2 className="pokemon-name">{displayName}</h2>
-                        <span className="pokemon-id">{formattedId}</span>
-                    </div>
+    const cardContent = (
+        <div
+            className={`pokemon-card ${isLoaded ? 'loaded' : ''} ${className}`}
+            style={{ background }}
+        >
+            <div className="pokemon-card-content">
+                <div className="pokemon-card-header">
+                    <h2 className="pokemon-name">{displayName}</h2>
+                    <span className="pokemon-id">{formattedId}</span>
+                </div>
 
-                    <div className="pokemon-image-container">
-                        {!isLoaded && <div className="pokemon-image-skeleton" aria-hidden="true"></div>}
-                        <img
-                            src={imageUrl}
-                            alt={displayName}
-                            className="pokemon-image"
-                            style={{opacity: isLoaded ? 1 : 0}}
-                            loading="eager"
-                            fetchPriority="high"
-                            onLoad={handleLoad}
-                            onError={handleError}
-                            width="150"
-                            height="150"
-                        />
-                    </div>
+                <div className="pokemon-image-container">
+                    {!isLoaded && <div className="pokemon-image-skeleton" aria-hidden="true"></div>}
+                    <img
+                        src={imageUrl}
+                        alt={displayName}
+                        className="pokemon-image"
+                        style={{ opacity: isLoaded ? 1 : 0 }}
+                        loading="eager"
+                        fetchPriority="high"
+                        onLoad={handleLoad}
+                        onError={handleError}
+                        width="150"
+                        height="150"
+                    />
+                </div>
 
-                    <div className="pokemon-types">
-                        {types?.map((typeInfo) => (
-                            <TypeBadge key={`${id}-${typeInfo.type.name}`} type={typeInfo.type.name}/>
-                        ))}
-                    </div>
+                <div className="pokemon-types">
+                    {typesBadges}
                 </div>
             </div>
+        </div>
+    );
+
+    if (asDiv) {
+        return cardContent;
+    }
+
+    return (
+        <Link to={`/pokemon/${id}`} className="pokemon-card-link" aria-label={`Покемон ${displayName}, ${formattedId}`}>
+            {cardContent}
         </Link>
     );
 });

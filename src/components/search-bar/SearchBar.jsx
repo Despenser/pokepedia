@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import usePokemonStore from '../../store/pokemonStore.js';
 import './SearchBar.css';
 
-const SearchBar = () => {
+export const SearchBar = () => {
   const { searchQuery, searchPokemons, resetSearch } = usePokemonStore();
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
   const navigate = useNavigate();
@@ -59,5 +59,3 @@ const SearchBar = () => {
     </div>
   );
 };
-
-export default SearchBar;

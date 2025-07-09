@@ -26,7 +26,6 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: var(--text-color);
 }
 
 .logo {
@@ -43,13 +42,13 @@
 }
 
 .favorites-link:hover {
-  color: #E53935;
+  color: #d53a37;
   transform: scale(1.1);
 }
 
 .favorites-link svg {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 .pokeball-logo {
@@ -63,9 +62,9 @@
 }
 
 .logo h1 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  background: var(--primary-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: opacity 0.3s ease;
@@ -84,15 +83,15 @@
 /* Медиа-запросы */
 @media (max-width: 768px) {
   .header-content {
-    padding: 0 15px;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
+    /*padding: 0 15px;*/
+    /*flex-direction: column;*/
+    /*gap: 10px;*/
+    /*justify-content: center;*/
   }
 
   .header {
     height: auto;
-    padding: 10px 0;
+    padding: 10px 40px;
   }
 
   .logo h1 {
@@ -102,11 +101,18 @@
 
 @media (max-width: 576px) {
   .logo h1 {
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .pokeball-logo {
-    width: 24px;
-    height: 24px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .header-content {
+    padding: 0 15px;
+    flex-direction: column;
+    /*gap: 10px;*/
+    /*display: inline-flex;*/
   }
 }

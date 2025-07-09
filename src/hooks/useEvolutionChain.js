@@ -51,10 +51,21 @@ export const useEvolutionChain = (species) => {
 
     if (chainError) {
       setError(chainError);
-    } else {
-      setEvolutionChain(chainData);
+      setIsLoading(false);
+      return;
     }
 
+    // Проверяем, что получены полные данные о цепочке эволюции
+    if (!chainData || !chainData.chain) {
+      setError(new Error('Получены некорректные данные о цепочке эволюции'));
+      setIsLoading(false);
+      return;
+    }
+
+    // Логируем данные о цепочке эволюции для отладки
+    console.log('Получены данные о цепочке эволюции:', chainData);
+
+    setEvolutionChain(chainData);
     setIsLoading(false);
   }, [species, getEvolutionChainId]);
 

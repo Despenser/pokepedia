@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
-import TypeBadge from '../type-badge/TypeBadge.jsx';
+import {TypeBadge} from '../type-badge/TypeBadge.jsx';
 import './TypesFilter.css';
 
 const TypesFilter = () => {
@@ -18,10 +18,6 @@ const TypesFilter = () => {
   const handleTypeClick = (type) => {
     // Создаем уникальный идентификатор запроса
     const requestId = Date.now();
-
-    // Получаем текущее состояние
-    const store = usePokemonStore.getState();
-    const { selectedGeneration } = store;
 
     // Определяем новое значение для selectedType
     const newType = selectedType === type ? null : type;

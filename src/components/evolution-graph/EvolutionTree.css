@@ -1,0 +1,329 @@
+.evo-tree-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 0 32px 0;
+  box-sizing: border-box;
+}
+.evo-tree-root.center {
+  justify-content: center;
+  align-items: center;
+}
+.evo-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  margin: 0 auto;
+  padding: 24px 0;
+}
+.evo-row-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 0 0;
+}
+.evo-condition-row {
+  font-size: 14px;
+  color: #666;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  text-align: center;
+  white-space: nowrap;
+}
+.evo-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.evo-arrow-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  gap: 32px;
+  width: 100%;
+}
+.evo-arrow-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+}
+.evo-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 4px 0;
+}
+.evo-arrow svg {
+  display: block;
+}
+.evo-condition {
+  font-size: 14px;
+  color: #666;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  text-align: center;
+  white-space: nowrap;
+}
+.mini-pokemon-link {
+  display: block;
+  text-decoration: none;
+  margin: 0 4px;
+}
+.mini-pokemon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border: 2px solid transparent;
+  min-width: 100px;
+  max-width: 120px;
+  min-height: 120px;
+  max-height: 140px;
+  padding: 12px 8px 8px 8px;
+  margin: 0 auto;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+.mini-pokemon-card.current {
+  border: 2.5px solid #e3350d;
+  box-shadow: 0 4px 16px rgba(227,53,13,0.10);
+  background: linear-gradient(135deg, #ffe5e0 0%, #fff 100%);
+}
+.mini-pokemon-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  display: block;
+}
+.mini-pokemon-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+.evo-branch-vert {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.evo-arrow-group-vert {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 48px;
+  width: 100%;
+  margin-top: 24px;
+  position: relative;
+  z-index: 2;
+}
+.evo-vert-arrows-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.evo-arrow-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  z-index: 2;
+}
+.evo-branch-vert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  min-height: 120px;
+  position: relative;
+}
+.evo-branch-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.evo-branch-conditions-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 48px;
+  min-height: 28px;
+  max-height: 32px;
+  width: 100%;
+  margin: 0 0 0 0;
+}
+.evo-condition-multiline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  max-width: 110px;
+  min-width: 60px;
+  min-height: 36px;
+  max-height: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.35;
+  padding: 6px 4px 4px 4px;
+  margin-top: 6px;
+}
+.evo-branch-arrows-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 48px;
+  width: 100%;
+  margin: 0 0 -8px 0;
+  min-height: 32px;
+}
+.evo-vert-arrow-svg {
+  display: block;
+}
+.evo-branch-children-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 48px;
+  width: 100%;
+  margin: 0 0 0 0;
+}
+.evo-branch-child-with-condition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 100px;
+  max-width: 120px;
+}
+.evo-mini-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  max-width: 100px;
+  min-height: 100px;
+  max-height: 120px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: box-shadow 0.2s, border 0.2s;
+  border: 2px solid transparent;
+  padding: 6px 4px 12px 4px;
+  margin: 0 auto;
+  background: none;
+}
+.evo-mini-card.current {
+  border: 2.5px solid #e3350d;
+  box-shadow: 0 4px 16px rgba(227,53,13,0.10);
+  background: none;
+}
+.evo-mini-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-bottom: 4px;
+  display: block;
+}
+.evo-mini-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
+  max-height: 32px;
+  line-height: 1.2;
+  padding-bottom: 2px;
+}
+.evo-mini-card, .evo-mini-card.current {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+@media (max-width: 600px) {
+  .mini-pokemon-card {
+    min-width: 60px;
+    max-width: 80px;
+    min-height: 70px;
+    max-height: 90px;
+    padding: 4px 2px 2px 2px;
+  }
+  .mini-pokemon-img {
+    width: 36px;
+    height: 36px;
+  }
+  .mini-pokemon-name {
+    font-size: 10px;
+    max-width: 60px;
+  }
+  .evo-row, .evo-arrow-group, .evo-arrow-group-vert {
+    gap: 12px;
+  }
+  .evo-branch-conditions-row,
+  .evo-branch-arrows-row,
+  .evo-branch-children-row {
+    gap: 12px;
+  }
+  .evo-branch-children-row,
+  .evo-branch-arrows-row {
+    gap: 12px;
+  }
+  .evo-branch-child-with-condition {
+    min-width: 36px;
+    max-width: 60px;
+  }
+  .evo-condition-multiline {
+    font-size: 10px;
+    max-width: 60px;
+    min-width: 36px;
+  }
+  .evo-mini-card {
+    min-width: 40px;
+    max-width: 60px;
+    min-height: 60px;
+    max-height: 80px;
+    padding: 2px 1px 8px 1px;
+  }
+  .evo-mini-img {
+    width: 40px;
+    height: 40px;
+  }
+  .evo-mini-name {
+    font-size: 9px;
+    max-width: 50px;
+    max-height: 18px;
+    padding-bottom: 1px;
+  }
+} 

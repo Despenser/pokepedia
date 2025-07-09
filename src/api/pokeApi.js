@@ -90,6 +90,10 @@ export const getPokemonSpecies = async (nameOrId) => {
         const response = await pokeApi.get(`/pokemon-species/${nameOrId.toString().toLowerCase()}`);
         return response.data;
     } catch (error) {
+        if (error.response && error.response.status === 404) {
+            // species не найден — возвращаем null
+            return null;
+        }
         logError(error, `получение информации о виде покемона ${nameOrId}`);
         throw error;
     }

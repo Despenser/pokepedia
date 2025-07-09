@@ -1,4 +1,14 @@
 /* Стили для карточки покемона */
+
+/* Переменные для карточки */
+:root {
+  /* Переменные для анимаций и переходов */
+  --card-anim-duration: 0.5s;
+  --card-hover-translate: -5px;
+  --card-hover-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  --card-dark-hover-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+}
+
 .pokemon-card-link {
   text-decoration: none;
   color: var(--text-color) !important;
@@ -19,18 +29,26 @@
   flex-direction: column;
   position: relative;
   transition: all var(--card-transition-duration) var(--ease-smooth);
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn var(--card-anim-duration) ease-in-out;
   transform-origin: center center;
   will-change: transform, box-shadow;
+  contain: layout paint; /* Оптимизация рендеринга */
+}
+
+/* Оптимизация для списка карточек */
+.pokemon-list-card {
+  contain: content;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 350px; /* Примерная высота карточки */
 }
 
 .pokemon-card-link:hover .pokemon-card {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(var(--card-hover-translate));
+  box-shadow: var(--card-hover-shadow);
 }
 
 [data-theme='dark'] .pokemon-card-link:hover .pokemon-card {
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--card-dark-hover-shadow);
 }
 
 .pokemon-card-content {
@@ -51,9 +69,9 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0) 60%
+          135deg,
+          rgba(255, 255, 255, 0.05) 0%,
+          rgba(255, 255, 255, 0) 60%
   );
   opacity: 0;
   transition: opacity var(--animation-duration) var(--ease-smooth);
@@ -68,9 +86,9 @@
 
 [data-theme='dark'] .pokemon-card::after {
   background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0) 70%
+          circle,
+          rgba(255, 255, 255, 0.08) 0%,
+          rgba(255, 255, 255, 0) 70%
   );
 }
 
@@ -129,57 +147,27 @@
   perspective: 1000px;
 }
 
-.pokemon-card-favorite-btn .favorites-button {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  padding: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
-}
-
-.pokemon-card-favorite-btn .favorites-button:hover {
-  transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
-.pokemon-card-favorite-btn .favorites-button.is-favorite {
-  color: #E53935;
-}
-
-.pokemon-card-favorite-btn .favorites-button.is-favorite:hover {
-  color: #C62828;
-}
-
-/* Индикатор избранного на карточке */
-.pokemon-card-favorite-indicator {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 5;
-  color: #E53935;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .pokemon-card {
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
 
-.pokemon-image {
+/* Переменные для изображений */
+:root {
+  --image-width: 150px;
+  --image-height: 150px;
   --image-shadow: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
   --image-hover-shadow: drop-shadow(0 12px 15px rgba(0, 0, 0, 0.2));
+  --image-hover-translate: -10px;
+  --image-hover-scale: 1.05;
+  --content-visibility-mode: auto; /* Для оптимизации рендеринга */
+}
 
-  width: 150px;
-  height: 150px;
+.pokemon-image {
+  width: var(--image-width);
+  height: var(--image-height);
   object-fit: contain;
-  transition: 
+  transition:
     transform var(--animation-duration) var(--ease-out-cubic),
     filter var(--animation-duration) var(--ease-out-cubic),
     opacity var(--animation-duration) var(--ease-out-cubic);
@@ -190,9 +178,8 @@
   will-change: transform, filter, opacity;
   image-rendering: auto;
   opacity: 0; /* Начинаем с прозрачного состояния и показываем после загрузки */
-    position: relative;
+  content-visibility: var(--content-visibility-mode); /* Оптимизация рендеринга */
 }
-
 
 /* Создаем подсветку под изображением */
 .pokemon-image-container::after {
@@ -212,15 +199,15 @@
 
 /* Анимации при наведении в стиле эволюции */
 .pokemon-card-link:hover .pokemon-image {
-  transform: translateY(-10px) scale(1.05);
-  filter: drop-shadow(0 12px 15px rgba(0, 0, 0, 0.2));
+  transform: translateY(var(--image-hover-translate)) scale(var(--image-hover-scale));
+  filter: var(--image-hover-shadow);
   animation: gentleFloat 3s infinite ease-in-out;
 }
 
-/* Используем тот же keyframes что и в EvolutionChain для единообразия */
+/* Используем переменные в keyframes для единообразия */
 @keyframes gentleFloat {
-  0%, 100% { transform: translateY(-10px) scale(1.05); }
-  50% { transform: translateY(-15px) scale(1.05); }
+  0%, 100% { transform: translateY(var(--image-hover-translate)) scale(var(--image-hover-scale)); }
+  50% { transform: translateY(calc(var(--image-hover-translate) - 5px)) scale(var(--image-hover-scale)); }
 }
 
 /* Анимация тени при наведении */

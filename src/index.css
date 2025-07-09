@@ -9,61 +9,6 @@
   font-display: swap; /* Оптимизация отображения шрифтов */
 }
 
-/* Светлая тема */
-:root[data-theme='light'] {
-  /* Основные цвета светлой темы */
-  --background-color: #f5f5f5;
-  --card-background: #ffffff;
-  --text-color: #333333;
-  --text-light: #757575;
-  --border-color: #e0e0e0;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --badge-background: #f1f1f1;
-
-  /* Дополнительные цвета светлой темы */
-  --card-header-bg: #fafafa;
-  --card-hover-bg: #ffffff;
-  --input-background: #ffffff;
-  --button-text: #ffffff;
-  --filter-header-bg: #f8f8f8;
-  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  --description-text: #555555;
-  --evolution-card-bg: #ffffff;
-  --ability-text: #333333;
-  --stat-bg: #f5f5f5;
-
-  /* Применение базовых цветов */
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-/* Темная тема */
-:root[data-theme='dark'] {
-  /* Основные цвета темной темы */
-  --background-color: #121212;
-  --card-background: #1e1e1e;
-  --text-color: #e0e0e0;
-  --text-light: #b0b0b0;
-  --border-color: #333333;
-  --shadow-color: rgba(0, 0, 0, 0.3);
-  --badge-background: #2a2a2a;
-
-  /* Дополнительные цвета темной темы */
-  --card-header-bg: #252525;
-  --card-hover-bg: #2c2c2c;
-  --input-background: #2d2d2d;
-  --button-text: #ffffff;
-  --filter-header-bg: #252525;
-  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  --description-text: #cccccc;
-  --evolution-card-bg: #2a2a2a;
-  --ability-text: #d0d0d0;
-  --stat-bg: #252525;
-
-  /* Применение базовых цветов */
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
 
 /* Основные стили приложения */
 :root {

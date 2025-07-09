@@ -7,7 +7,7 @@ const getInitialTheme = () => {
   return prefersDarkScheme.matches ? 'dark' : 'light';
 };
 
-const useThemeStore = create(
+export const useThemeStore = create(
   persist(
     (set) => ({
       // Используем светлую или темную тему
@@ -23,5 +23,3 @@ const useThemeStore = create(
     }
   )
 );
-
-export default useThemeStore;

@@ -7,18 +7,24 @@ const BASE_SPRITE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/maste
 const BASE_ARTWORK_URL = `${BASE_SPRITE_URL}/other/official-artwork`;
 
 /**
+ * Валидация ID покемона
+ * @param {number|string} pokemonId - ID покемона
+ * @returns {number|''} Валидный ID или пустая строка
+ */
+const validatePokemonId = (pokemonId) => {
+  if (!pokemonId) return '';
+  const id = Number(pokemonId);
+  return isNaN(id) ? '' : id;
+};
+
+/**
  * Получение URL официального (большого) изображения покемона
  * @param {number} pokemonId - ID покемона
  * @returns {string} URL изображения высокого качества
  */
 export const getOfficialPokemonImage = (pokemonId) => {
-  if (!pokemonId) return '';
-
-  // Проверяем, что ID является числом
-  const id = Number(pokemonId);
-  if (isNaN(id)) return '';
-
-  return `${BASE_ARTWORK_URL}/${id}.png`;
+  const id = validatePokemonId(pokemonId);
+  return id ? `${BASE_ARTWORK_URL}/${id}.png` : '';
 };
 
 /**
@@ -28,11 +34,10 @@ export const getOfficialPokemonImage = (pokemonId) => {
  * @returns {string} URL изображения высокого качества
  */
 export const getPokemonImage = (sprites, pokemonId) => {
-  if (!sprites || !pokemonId) return '';
+  if (!sprites) return '';
 
-  // Проверяем, что ID является числом
-  const id = Number(pokemonId);
-  if (isNaN(id)) return '';
+  const id = validatePokemonId(pokemonId);
+  if (!id) return '';
 
   // Приоритет источников изображений
   const officialArtwork = sprites.other?.['official-artwork']?.front_default;
@@ -56,13 +61,8 @@ export const getPokemonImage = (sprites, pokemonId) => {
  * @returns {string} URL запасного изображения
  */
 export const getFallbackImage = (pokemonId) => {
-  if (!pokemonId) return '';
-
-  // Проверяем, что ID является числом
-  const id = Number(pokemonId);
-  if (isNaN(id)) return '';
-
-  return `${BASE_SPRITE_URL}/${id}.png`;
+  const id = validatePokemonId(pokemonId);
+  return id ? `${BASE_SPRITE_URL}/${id}.png` : '';
 };
 
 /**
@@ -74,8 +74,9 @@ export const getFallbackImage = (pokemonId) => {
 export const getAnimatedSprite = (sprites, pokemonId) => {
   if (!sprites) return getFallbackImage(pokemonId);
 
-  // Проверяем наличие анимированного спрайта
-  return sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default ||
-         sprites.front_default ||
-         getFallbackImage(pokemonId);
+  // Получаем анимированный спрайт или обычное изображение
+  const animatedSprite = sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default;
+  const defaultSprite = sprites.front_default;
+
+  return animatedSprite || defaultSprite || getFallbackImage(pokemonId);
 };

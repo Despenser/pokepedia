@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getPokemonByNameOrId, getPokemonSpecies } from '../api/pokeApi';
+import { getPokemonByNameOrId, getPokemonSpecies, getEvolutionChain } from '../api/pokeApi';
 import { safeAsync } from '../utils/errorHandlingUtils';
+import usePokemonStore from '../store/pokemonStore';
+import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 
 /**
  * Хук для загрузки данных о покемоне и его виде
@@ -10,8 +12,12 @@ import { safeAsync } from '../utils/errorHandlingUtils';
 export const usePokemonData = (pokemonId) => {
   const [pokemon, setPokemon] = useState(null);
   const [species, setSpecies] = useState(null);
+  const [evolutionChain, setEvolutionChain] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // Получаем функцию для обновления цепочки эволюции в глобальном хранилище
+  const updateEvolutionChain = usePokemonStore(state => state.updateEvolutionChain);
 
   /**
    * Загрузка данных о покемоне и его виде
@@ -37,7 +43,11 @@ export const usePokemonData = (pokemonId) => {
       return;
     }
 
-    setPokemon(pokemonData);
+    // Добавляем nameRu к данным покемона
+    setPokemon({
+      ...pokemonData,
+      nameRu: pokemonNamesRu[pokemonData.name] || undefined
+    });
 
     // Загружаем данные о виде покемона
     const [speciesError, speciesData] = await safeAsync(
@@ -52,6 +62,25 @@ export const usePokemonData = (pokemonId) => {
       setError(speciesError);
     } else {
       setSpecies(speciesData);
+
+      // Загружаем цепочку эволюции, если доступна ссылка
+      if (speciesData && speciesData.evolution_chain && speciesData.evolution_chain.url) {
+        const [evolutionError, evolutionData] = await safeAsync(
+          () => getEvolutionChain(speciesData.evolution_chain.url),
+          {
+            errorContext: 'загрузка цепочки эволюции',
+            errorType: 'EVOLUTION_LOAD'
+          }
+        );
+
+        if (!evolutionError) {
+          setEvolutionChain(evolutionData);
+          // Обновляем цепочку эволюции в глобальном хранилище
+          updateEvolutionChain(evolutionData);
+        } else {
+          console.error('Ошибка загрузки цепочки эволюции:', evolutionError);
+        }
+      }
     }
 
     setIsLoading(false);
@@ -72,6 +101,7 @@ export const usePokemonData = (pokemonId) => {
   return {
     pokemon,
     species,
+    evolutionChain,
     isLoading,
     error,
     refetch

@@ -90,7 +90,7 @@ const FavoritesPage = () => {
 
           {!isLoading && favoriteIds.length === 0 ? (
             <div className="empty-favorites">
-              <img src="/empty-favorites.svg" alt="Нет избранных покемонов" className="empty-favorites-img" />
+              <img src="/favorites.svg" alt="Нет избранных покемонов" className="empty-favorites-img" />
               <h2>У вас пока нет избранных покемонов</h2>
               <p>Добавляйте покемонов в избранное, нажимая на значок сердечка на странице покемона</p>
             </div>

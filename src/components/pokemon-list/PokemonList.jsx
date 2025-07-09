@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import usePokemonStore from '../../store/pokemonStore.js';
 import PokemonCard from '../pokemon-card/PokemonCard.jsx';
 import PokemonCardSkeleton from '../pokemon-card-skeleton/PokemonCardSkeleton.jsx';
 import { useFavorites } from '../../hooks/useFavorites.js';
 import {ErrorMessage} from '../error-message/ErrorMessage.jsx';
+import usePrevious from '../../hooks/usePrevious.js';
 import './PokemonList.css';
 
 const PokemonList = () => {
@@ -50,27 +51,53 @@ const PokemonList = () => {
     triggerOnce: false
   });
 
+  // Мемоизация условий загрузки для предотвращения лишних вычислений
+  const shouldLoadInitialData = useMemo(() => {
+    return pokemons.length === 0 && !searchQuery && !selectedType && !selectedGeneration && !loading;
+  }, [pokemons.length, searchQuery, selectedType, selectedGeneration, loading]);
+
+  // Мемоизация условия загрузки при сбросе поиска
+  const shouldLoadAfterSearchReset = useMemo(() => {
+    return !searchQuery && pokemons.length === 0 && !loading;
+  }, [searchQuery, pokemons.length, loading]);
+
+  // Мемоизация условия подгрузки при скролле
+  const shouldLoadOnScroll = useMemo(() => {
+    return inView && hasMore && !loading && !searchQuery && !selectedType && !selectedGeneration;
+  }, [inView, hasMore, loading, searchQuery, selectedType, selectedGeneration]);
+
+  // Отслеживаем предыдущий поисковый запрос для определения момента сброса
+  const prevSearchQuery = usePrevious(searchQuery);
+
+  // Обработчик загрузки мемоизируем для оптимизации
+  const handleLoadData = useCallback(() => {
+    console.log('Загрузка данных');
+    fetchPokemons();
+  }, [fetchPokemons]);
+
   // Загрузка начальных данных
   useEffect(() => {
-    if (pokemons.length === 0 && !searchQuery && !selectedType && !selectedGeneration && !loading) {
+    if (shouldLoadInitialData) {
       console.log('Загрузка начальных данных');
-      fetchPokemons();
+      handleLoadData();
     }
-  }, [fetchPokemons, pokemons.length, searchQuery, selectedType, selectedGeneration, loading]);
+  }, [shouldLoadInitialData, handleLoadData]);
 
   // Принудительная загрузка при сбросе поиска
   useEffect(() => {
-    if (!searchQuery && pokemons.length === 0) {
-      fetchPokemons();
+    if (prevSearchQuery && !searchQuery && pokemons.length === 0 && !loading) {
+      console.log('Загрузка после сброса поиска');
+      handleLoadData();
     }
-  }, [searchQuery, fetchPokemons, pokemons.length]);
+  }, [searchQuery, pokemons.length, loading, prevSearchQuery, handleLoadData]);
 
   // Подгрузка при скролле
   useEffect(() => {
-    if (inView && hasMore && !loading && !searchQuery && !selectedType && !selectedGeneration) {
-      fetchPokemons();
+    if (shouldLoadOnScroll) {
+      console.log('Подгрузка при скролле');
+      handleLoadData();
     }
-  }, [inView, hasMore, loading, fetchPokemons, searchQuery, selectedType, selectedGeneration]);
+  }, [shouldLoadOnScroll, handleLoadData]);
 
   if (error && pokemons.length === 0) {
     return <ErrorMessage message={error} />;
@@ -86,7 +113,12 @@ const PokemonList = () => {
     <div className="pokemon-list-container">
       <div className="pokemon-grid">
         {pokemons.map((pokemon) => (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} showFavoriteButton={false} />
+          <PokemonCard 
+            key={pokemon.id} 
+            pokemon={pokemon} 
+            showFavoriteButton={false} 
+            className="pokemon-list-card"
+          />
         ))}
 
         {loading && Array(4).fill(0).map((_, index) => (
