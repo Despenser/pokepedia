@@ -64,7 +64,7 @@
 .pokemon-detail-name {
   font-size: 32px;
   font-weight: 700;
-  margin: 0 0 8px;
+  margin: 0 0 24px;
   text-transform: capitalize;
   color: var(--text-color);
 }
@@ -73,7 +73,7 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--text-light);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .pokemon-detail-types {
@@ -138,19 +138,24 @@
 
 .pokemon-attributes {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: 
+    "height abilities"
+    "weight abilities";
+  gap: 20px;
   margin-bottom: 30px;
+  padding: 0 10px;
 }
 
 .attribute {
   display: flex;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.5);
-  padding: 12px;
+  padding: 16px;
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition: transform var(--animation-duration) ease, background-color var(--animation-duration) ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform var(--animation-duration) ease, box-shadow var(--animation-duration) ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 [data-theme='dark'] .attribute {
@@ -159,19 +164,90 @@
 }
 
 .attribute:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.attribute-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.attribute-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-color);
+  flex-shrink: 0;
 }
 
 .attribute-label {
   font-size: 14px;
-  color: var(--text-light);
-  margin-bottom: 4px;
+  color: var(--text-color);
+  font-weight: 500;
 }
 
 .attribute-value {
   font-size: 16px;
   font-weight: 600;
+  color: var(--text-light);
+}
+
+.attribute:nth-child(1) {
+  grid-area: height;
+}
+
+.attribute:nth-child(2) {
+  grid-area: weight;
+}
+
+.abilities-attribute {
+  grid-area: abilities;
+  grid-column: span 1;
+}
+
+.abilities-attribute .attribute-header {
+  justify-content: center;
+}
+
+.abilities-attribute .abilities-list {
+  text-align: left;
+  display: block;
+}
+
+.abilities-list {
+  list-style: disc inside;
+  padding-left: 18px;
+  margin: 0;
+  display: block;
+}
+
+.ability-item {
+  display: list-item;
+  align-items: initial;
+  gap: 0;
+  padding: 4px 0;
+  background: none;
+  border-radius: 0;
+  transition: none;
+}
+
+.ability-icon {
+  display: none;
+}
+
+.ability-name {
+  font-size: 14px;
+  font-weight: 500;
   color: var(--text-color);
+  text-transform: capitalize;
+}
+
+.hidden-ability {
+  color: var(--text-light);
+  font-style: italic;
+  font-size: 12px;
 }
 
 .ability {
@@ -225,7 +301,16 @@
   }
 
   .pokemon-attributes {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "height weight"
+      "abilities abilities";
+    gap: 16px;
+    padding: 0 5px;
+  }
+
+  .abilities-attribute {
+    grid-column: span 1;
   }
 }
 
@@ -272,6 +357,18 @@
 
   .pokemon-attributes {
     grid-template-columns: 1fr;
+    grid-template-areas: 
+      "height"
+      "weight"
+      "abilities";
+    gap: 12px;
+    padding: 0;
+  }
+  .abilities-attribute {
+    grid-column: span 1;
+  }
+  .attribute {
+    padding: 12px;
   }
 
   .pokemon-description p {
@@ -281,6 +378,20 @@
   .back-button {
     padding: 6px 12px;
     font-size: 12px;
+  }
+
+  .attribute-header {
+    gap: 6px;
+  }
+
+  .attribute-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ability-icon {
+    width: 14px;
+    height: 14px;
   }
 }
 

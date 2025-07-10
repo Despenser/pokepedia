@@ -50,7 +50,7 @@ const replacePokemon = (text) => {
 };
 
 /**
- * Перевод текста через MyMemory API (бесплатный, без ключа)
+ * Перевод текста через Google Translate API (бесплатный, без ключа)
  * @param {string} text - Текст для перевода
  * @param {string} to - Язык перевода (например, 'ru')
  * @param {string} from - Исходный язык (например, 'en')
@@ -63,16 +63,22 @@ export const translateText = async (text, to = 'ru', from = 'en') => {
     return translationCache.get(cacheKey);
   }
   try {
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${from}|${to}`;
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
     const res = await fetch(url);
+    
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    
     const data = await res.json();
-    const translated = data.responseData?.translatedText || '';
+    const translated = data[0]?.map(item => item[0]).join('') || '';
     const finalText = replacePokemon(translated);
     translationCache.set(cacheKey, finalText);
     return finalText;
   } catch (error) {
-    console.error('Ошибка при переводе текста (MyMemory):', error);
-    // Fallback: заменяем POKéMON в оригинальном тексте
-    return replacePokemon(text);
+    console.error('Ошибка при переводе текста (Google Translate):', error);
+    // Fallback: возвращаем оригинальный текст без изменений
+    translationCache.set(cacheKey, text);
+    return text;
   }
 };

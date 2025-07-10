@@ -12,7 +12,7 @@ import {TypeBadge} from '../../components/type-badge/TypeBadge.jsx';
 import PokemonStats from '../../components/pokemon-stats/PokemonStats.jsx';
 import SimilarPokemons from '../../components/similar-pokemons/SimilarPokemons.jsx';
 import EvolutionTree from '../../components/evolution-graph/EvolutionTree.jsx';
-import { getGradientByTypes } from '../../utils/colorUtils.js';
+import { getGradientByTypes, getGradientByTypesWithOpacity } from '../../utils/colorUtils.js';
 import { getUserFriendlyErrorMessage } from '../../utils/errorHandlingUtils.js';
 import { 
   formatPokemonId, 
@@ -131,6 +131,9 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
           <div className="pokemon-detail-card" style={{ background }}>
             <div className="pokemon-detail-header">
               <div className="pokemon-detail-info">
+                <div className="pokemon-detail-id">
+                    {formatPokemonId(pokemonId)}
+                </div>
                 <div className="pokemon-detail-title">
                   <h1 className="pokemon-detail-name">
                     {formatPokemonName(pokemon.name, pokemon.nameRu)}
@@ -140,9 +143,7 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
                     pokemonName={formatPokemonName(pokemon.name, pokemon.nameRu)} 
                   />
                 </div>
-                <div className="pokemon-detail-id">
-                  {formatPokemonId(pokemonId)}
-                </div>
+              
                 <div className="pokemon-detail-types">
                   {pokemon.types.map((typeInfo, index) => (
                     <TypeBadge key={index} type={typeInfo.type.name} large />
@@ -186,32 +187,50 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
               ))}
 
               <div className="pokemon-attributes">
-                <div className="attribute">
-                  <span className="attribute-label">Высота:</span>
+                <div className="attribute" style={{ background: getGradientByTypesWithOpacity(pokemon.types, 0.1) }}>
+                  <div className="attribute-header">
+                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2L5 9h4v8h6V9h4z"/>
+                    </svg>
+                    <span className="attribute-label">Высота</span>
+                  </div>
                   <span className="attribute-value">{formatHeight(pokemon.height)}</span>
                 </div>
-                <div className="attribute">
-                  <span className="attribute-label">Вес:</span>
+                <div className="attribute" style={{ background: getGradientByTypesWithOpacity(pokemon.types, 0.1) }}>
+                  <div className="attribute-header">
+                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M16 6.82V5a4 4 0 0 0-8 0v1.82A7 7 0 1 0 12 21a7 7 0 0 0 4-14.18ZM10 5a2 2 0 1 1 4 0v1.05A7.06 7.06 0 0 0 12 6a7.06 7.06 0 0 0-2 .29V5Zm2 14a5 5 0 1 1 5-5 5 5 0 0 1-5 5Z"/>
+                    </svg>
+                    <span className="attribute-label">Вес</span>
+                  </div>
                   <span className="attribute-value">{formatWeight(pokemon.weight)}</span>
                 </div>
-                <div className="attribute">
-                  <span className="attribute-label">Способности:</span>
-                  <span className="attribute-value">
+                <div className="attribute abilities-attribute" style={{ background: getGradientByTypesWithOpacity(pokemon.types, 0.1) }}>
+                  <div className="attribute-header">
+                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                    </svg>
+                    <span className="attribute-label">Способности</span>
+                  </div>
+                  <div className="attribute-value">
                     {isTranslatingAbilities ? (
                       <div className="description-skeleton" style={{width: '100%', maxWidth: 300}}>
                         <div className="skeleton-line"></div>
                         <div className="skeleton-line short"></div>
                       </div>
                     ) : (
-                      pokemon.abilities.map((ability, index) => (
-                        <span key={index} className="ability">
-                          {translatedAbilities[index] || formatPokemonName(ability.ability.name)}
-                          {ability.is_hidden && ' (скрытая)'}
-                          {index < pokemon.abilities.length - 1 ? ', ' : ''}
-                        </span>
-                      ))
+                      <ul className="abilities-list">
+                        {pokemon.abilities.map((ability, index) => (
+                          <li key={index} className="ability-item">
+                            <span className="ability-name">
+                              {translatedAbilities[index] || formatPokemonName(ability.ability.name)}
+                              {ability.is_hidden && <span className="hidden-ability"> (скрытая)</span>}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
                     )}
-                  </span>
+                  </div>
                 </div>
               </div>
 

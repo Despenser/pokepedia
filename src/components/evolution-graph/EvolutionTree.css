@@ -109,15 +109,31 @@
   max-height: 140px;
   padding: 12px 8px 8px 8px;
   margin: 0 auto;
-  transition: box-shadow 0.2s, border 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   z-index: 2;
   background: #fff;
+  cursor: pointer;
+}
+
+.mini-pokemon-card:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-color: #e3350d;
+}
+
+.mini-pokemon-card:hover .mini-pokemon-img {
+  transform: scale(1.1);
+}
+
+.mini-pokemon-card:hover .mini-pokemon-name {
+  color: #e3350d;
+  font-weight: 700;
 }
 .mini-pokemon-card.current {
   border: 2.5px solid #e3350d;
   box-shadow: 0 4px 16px rgba(227,53,13,0.10);
-  background: linear-gradient(135deg, #ffe5e0 0%, #fff 100%);
+  background: var(--card-background);
 }
 .mini-pokemon-img {
   width: 72px;
@@ -125,17 +141,19 @@
   object-fit: contain;
   margin-bottom: 8px;
   display: block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .mini-pokemon-name {
   font-size: 16px;
   font-weight: 600;
-  color: #222;
+  color: var(--text-color);
   text-align: center;
   text-transform: capitalize;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100px;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-weight 0.3s ease;
 }
 .evo-branch-vert {
   position: relative;
@@ -256,30 +274,44 @@
   max-height: 120px;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  transition: box-shadow 0.2s, border 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 2px solid transparent;
   padding: 6px 4px 12px 4px;
   margin: 0 auto;
   background: #fff;
   position: relative;
   z-index: 2;
+  cursor: pointer;
 }
-.evo-mini-card.current {
-  border: 2.5px solid #e3350d;
-  box-shadow: 0 4px 16px rgba(227,53,13,0.10);
-  background: none;
+
+.evo-mini-card:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-color: #e3350d;
 }
+
+.evo-mini-card:hover .evo-mini-img {
+  transform: scale(1.1);
+}
+
+.evo-mini-card:hover .evo-mini-name {
+  color: #e3350d;
+  font-weight: 700;
+}
+
 .evo-mini-img {
   width: 72px;
   height: 72px;
   object-fit: contain;
   margin-bottom: 4px;
   display: block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .evo-mini-name {
   font-size: 13px;
   font-weight: 600;
-  color: #222;
+  color: var(--text-color);
   text-align: center;
   text-transform: capitalize;
   white-space: nowrap;
@@ -289,9 +321,10 @@
   max-height: 32px;
   line-height: 1.2;
   padding-bottom: 2px;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-weight 0.3s ease;
 }
 .evo-mini-card, .evo-mini-card.current {
-  background: #fff !important;
+  background: var(--card-background) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07) !important;
 }
 
@@ -343,18 +376,19 @@
     min-width: 80px;
     max-width: 100px;
   }
-  .mini-pokemon-card {
+  /* Для сложной эволюции - уменьшаем размеры */
+  .evo-branch-vert .mini-pokemon-card {
     min-width: 80px;
     max-width: 100px;
     min-height: 90px;
     max-height: 110px;
     padding: 8px 4px 6px 4px;
   }
-  .mini-pokemon-img {
+  .evo-branch-vert .mini-pokemon-img {
     width: 56px;
     height: 56px;
   }
-  .mini-pokemon-name {
+  .evo-branch-vert .mini-pokemon-name {
     font-size: 12px;
     max-width: 80px;
   }
@@ -401,18 +435,19 @@
     min-width: 70px;
     max-width: 90px;
   }
-  .mini-pokemon-card {
+  /* Для сложной эволюции - уменьшаем размеры */
+  .evo-branch-vert .mini-pokemon-card {
     min-width: 70px;
     max-width: 90px;
     min-height: 80px;
     max-height: 100px;
     padding: 6px 3px 4px 3px;
   }
-  .mini-pokemon-img {
+  .evo-branch-vert .mini-pokemon-img {
     width: 48px;
     height: 48px;
   }
-  .mini-pokemon-name {
+  .evo-branch-vert .mini-pokemon-name {
     font-size: 11px;
     max-width: 70px;
   }
@@ -500,18 +535,19 @@
 }
 
 @media (max-width: 600px) {
-  .mini-pokemon-card {
+  /* Для сложной эволюции - уменьшаем размеры */
+  .evo-branch-vert .mini-pokemon-card {
     min-width: 60px;
     max-width: 80px;
     min-height: 70px;
     max-height: 90px;
     padding: 4px 2px 2px 2px;
   }
-  .mini-pokemon-img {
+  .evo-branch-vert .mini-pokemon-img {
     width: 36px;
     height: 36px;
   }
-  .mini-pokemon-name {
+  .evo-branch-vert .mini-pokemon-name {
     font-size: 10px;
     max-width: 60px;
   }
@@ -636,5 +672,104 @@
   .evo-row-arrow {
     transform: rotate(90deg);
     margin: 8px 0;
+  }
+} 
+
+.evo-mini-card.current {
+  border: 2.5px solid #e3350d !important;
+  box-shadow: 0 4px 24px rgba(227,53,13,0.15) !important;
+  background: var(--card-background) !important;
+  z-index: 4;
+}
+
+.evo-mini-card.current:hover {
+  transform: none;
+  box-shadow: 0 4px 24px rgba(227,53,13,0.18) !important;
+  border-color: #e3350d !important;
+  background: var(--card-background) !important;
+}
+
+.evo-mini-card.current .evo-mini-name {
+  color: #e3350d !important;
+  font-weight: 800 !important;
+} 
+
+/* Для простой (линейной) эволюции - сохраняем большие размеры на брейкпоинтах */
+@media (max-width: 900px) {
+  .evo-row .evo-mini-card {
+    min-width: 100px !important;
+    max-width: 120px !important;
+    min-height: 120px !important;
+    max-height: 140px !important;
+    padding: 12px 8px 8px 8px !important;
+  }
+  .evo-row .evo-mini-img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+  .evo-row .evo-mini-name {
+    font-size: 16px !important;
+    max-width: 110px !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+  }
+}
+
+@media (max-width: 776px) {
+  .evo-row .evo-mini-card {
+    min-width: 95px !important;
+    max-width: 115px !important;
+    min-height: 115px !important;
+    max-height: 135px !important;
+    padding: 10px 7px 7px 7px !important;
+  }
+  .evo-row .evo-mini-img {
+    width: 68px !important;
+    height: 68px !important;
+  }
+  .evo-row .evo-mini-name {
+    font-size: 15px !important;
+    max-width: 95px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .evo-row .evo-mini-card {
+    min-width: 90px !important;
+    max-width: 110px !important;
+    min-height: 110px !important;
+    max-height: 130px !important;
+    padding: 8px 6px 6px 6px !important;
+  }
+  .evo-row .evo-mini-img {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  .evo-row .evo-mini-name {
+    font-size: 14px !important;
+    max-width: 90px !important;
+  }
+}
+
+/* Для диапазона 900px - 1200px */
+@media (min-width: 901px) and (max-width: 1199px) {
+  .evo-row .evo-mini-card {
+    min-width: 100px !important;
+    max-width: 120px !important;
+    min-height: 120px !important;
+    max-height: 140px !important;
+    padding: 12px 8px 8px 8px !important;
+  }
+  .evo-row .evo-mini-img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+  .evo-row .evo-mini-name {
+    font-size: 16px !important;
+    max-width: 110px !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
   }
 } 

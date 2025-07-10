@@ -1,26 +1,26 @@
-/* Стили для секции похожих покемонов с каруселью */
+/* Стили для секции похожих покемонов с современной каруселью */
 
 .similar-pokemons {
-  margin-top: 40px;
-  margin-bottom: 30px;
-  perspective: 1000px; /* Добавляем перспективу для 3D-эффекта */
+  margin: 40px 0 30px;
+  position: relative;
 }
 
-/* Стили для заголовка */
+/* Заголовок секции */
 .similar-pokemons-header {
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .similar-pokemons h3 {
   font-size: 24px;
+  margin-bottom: 20px;
   position: relative;
   display: inline-block;
-  transition: transform 0.4s var(--ease-out-cubic);
-  margin: 0;
-}
-
-.similar-pokemons h3:hover {
-  transform: scale(1.05);
+  color: var(--text-color);
 }
 
 .similar-pokemons h3::after {
@@ -34,186 +34,335 @@
   border-radius: 2px;
 }
 
-/* Обертка для карусели и стрелок */
+
+
+/* Обертка карусели */
 .carousel-wrapper {
   position: relative;
   display: flex;
   align-items: center;
+  gap: 16px;
   width: 100%;
-  padding: 0 40px; /* Уменьшенные отступы для стрелок */
-  box-sizing: border-box;
 }
 
-@media (max-width: 992px) {
-  .carousel-wrapper {
-    padding: 0;
-  }
-}
-
-/* Стили для контейнера карусели */
+/* Контейнер карусели */
 .carousel-container {
-  position: relative;
-  overflow: hidden;
   flex: 1;
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  position: relative;
   width: 100%;
-  box-sizing: border-box;
-  padding: 0 2px; /* Минимальные отступы для контейнера */
 }
 
-/* Стили для трека карусели */
+/* Трек карусели */
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease;
-  margin: 0 -4px; /* Уменьшенная компенсация отступов карточек */
+  padding: 16px;
+  box-sizing: border-box;
   width: 100%;
-  box-sizing: border-box;
 }
 
-/* Базовые стили для элемента карусели - будут переопределены для разных размеров экрана */
+/* Элементы карусели */
 .carousel-item {
+  flex: 0 0 25%;
+  min-width: 0;
+  animation: fadeInUp 0.6s var(--ease-out-cubic) both;
   box-sizing: border-box;
-  padding: 0 4px; /* Уменьшенные отступы между карточками */
+  padding: 0 6px;
 }
 
-/* Стили для кнопок навигации по бокам */
+.carousel-item .pokemon-card {
+  height: 100%;
+  margin: 0;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.carousel-item .pokemon-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Стрелки навигации */
 .carousel-arrow {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primary-color);
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 18px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  margin: 0;
+  transition: all 0.3s var(--ease-smooth);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
-  position: absolute;
-}
-
-.carousel-arrow-prev {
-  left: 0;
-}
-
-.carousel-arrow-next {
-  right: 0;
-}
-
-.carousel-arrow:hover {
-  background-color: var(--primary-color-dark);
-  transform: scale(1.1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.carousel-arrow:active {
-  transform: scale(1);
-}
-
-/* Анимация появления с задержкой для каждой карточки */
-.carousel-item .pokemon-card {
-  animation-name: fadeInPulse;
-  animation-duration: 0.8s;
-  animation-fill-mode: backwards;
-  animation-timing-function: var(--ease-out-cubic);
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  margin: 0;
-}
-
-.carousel-item:nth-child(1) .pokemon-card {
-  animation-delay: 0.1s;
-}
-
-.carousel-item:nth-child(2) .pokemon-card {
-  animation-delay: 0.25s;
-}
-
-.carousel-item:nth-child(3) .pokemon-card {
-  animation-delay: 0.4s;
-}
-
-.carousel-item:nth-child(4) .pokemon-card {
-  animation-delay: 0.55s;
-}
-
-/* Центрирование карточек внутри контейнера */
-.carousel-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   overflow: hidden;
 }
 
+.carousel-arrow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s var(--ease-smooth);
+}
+
+.carousel-arrow:hover::before {
+  left: 100%;
+}
+
+.carousel-arrow:hover {
+  background: var(--primary-color-dark);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.carousel-arrow:active {
+  transform: scale(0.95);
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.carousel-arrow:disabled:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-arrow svg {
+  transition: transform 0.3s var(--ease-smooth);
+}
+
+.carousel-arrow:hover svg {
+  transform: scale(1.1);
+}
+
+/* Сообщение об отсутствии покемонов */
 .no-similar-pokemons {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   min-height: 200px;
   width: 100%;
-  background-color: var(--card-background);
-  border-radius: var(--card-border-radius);
-  box-shadow: var(--box-shadow);
-  color: var(--text-light);
-  font-style: italic;
+  padding: 40px 20px;
+}
+
+.no-pokemons-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   text-align: center;
-  padding: 20px;
+  color: var(--text-light);
 }
 
+.no-pokemons-content svg {
+  opacity: 0.6;
+  color: var(--text-light);
+}
 
-/* Медиа-запросы для адаптивности */
-@media (max-width: 1200px) {
-  /* На экранах до 1200px показываем 4 элемента ровно */
-  .carousel-item {
-    flex: 0 0 calc(25% - 20px);
-    max-width: 25%;
+.no-pokemons-content p {
+  margin: 0;
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* Анимации */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 992px) {
-  /* Скрываем стрелки на планшетах */
+/* Адаптивность для больших экранов */
+@media (min-width: 1200px) {
+  .carousel-item {
+    flex: 0 0 25%;
+    padding: 0 6px;
+  }
+  
+  .carousel-track {
+    padding: 16px;
+  }
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .carousel-item {
+    flex: 0 0 33.333%;
+    padding: 0 4px;
+  }
+  
+  .carousel-wrapper {
+    gap: 12px;
+  }
+  
+  .carousel-track {
+    padding: 12px;
+  }
+  
   .carousel-arrow {
-    display: none;
-  }
-
-  /* Корректируем размер карточек для планшетов */
-  .carousel-item {
-    flex: 0 0 calc(50% - 20px);
-  }
-
-  /* Показываем две полные карточки без обрезки */
-  .carousel-container {
-    overflow: hidden;
-    padding-right: 0;
+    width: 40px;
+    height: 40px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) and (min-width: 576px) {
+  .similar-pokemons-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .carousel-wrapper {
+    gap: 8px;
+  }
+  
+  .carousel-track {
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .carousel-item {
+    flex: 0 0 50%;
+    padding: 0 3px;
+  }
+  
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .carousel-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 575px) {
+  .similar-pokemons {
+    margin: 30px 0 20px;
+  }
+  
   .similar-pokemons h3 {
     font-size: 22px;
   }
+  
+  .carousel-wrapper {
+    gap: 4px;
+  }
+  
+  .carousel-track {
+    gap: 8px;
+    padding: 8px;
+  }
+  
+  .carousel-item {
+    flex: 0 0 100%;
+    padding: 0 2px;
+  }
+  
+  .carousel-arrow {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .carousel-arrow svg {
+    width: 14px;
+    height: 14px;
+  }
 }
 
-@media (max-width: 576px) {
-  /* На маленьких экранах показываем одну карточку с оптимальным размером */
-  .carousel-item {
-    flex: 0 0 calc(100% - 20px);
+@media (max-width: 575px) {
+  .similar-pokemons-header {
+    margin-bottom: 16px;
   }
-
+  
   .carousel-container {
-    padding-right: 0;
-    overflow: hidden;
+    border-radius: 12px;
   }
+  
+  .carousel-track {
+    padding: 12px;
+  }
+  
+  .carousel-item .pokemon-card {
+    border-radius: 12px;
+  }
+  
+  .no-similar-pokemons {
+    min-height: 150px;
+  }
+  
+  .no-pokemons-content svg {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .no-pokemons-content p {
+    font-size: 14px;
+  }
+}
 
-  .similar-pokemons h3 {
-    font-size: 20px;
+/* Улучшения для touch устройств */
+@media (hover: none) and (pointer: coarse) {
+  .carousel-arrow:hover {
+    transform: none;
+  }
+  
+  .carousel-arrow:active {
+    transform: scale(0.95);
+    background: var(--primary-color-dark);
+  }
+  
+  .carousel-item .pokemon-card:hover {
+    transform: none;
+  }
+  
+  .carousel-item .pokemon-card:active {
+    transform: scale(0.98);
+  }
+  
+  /* Улучшенная поддержка свайпов */
+  .carousel-container {
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  
+  .carousel-track {
+    touch-action: pan-x;
+  }
+}
+
+/* Поддержка reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track,
+  .carousel-arrow,
+  .carousel-item,
+  .carousel-item .pokemon-card {
+    transition: none;
+  }
+  
+  .carousel-item {
+    animation: none;
+  }
+  
+  .carousel-arrow::before {
+    display: none;
   }
 }
