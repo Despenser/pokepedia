@@ -31,7 +31,7 @@ const GenerationsList = () => {
   }
 
   if (error && generations.length === 0) {
-    return <ErrorMessage message={error} />;
+    return <ErrorMessage error={typeof error === 'string' ? new Error(error) : error} />;
   }
 
   if (loading && generations.length === 0) {

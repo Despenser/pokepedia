@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getPokemonList, getPokemonByNameOrId } from '../api/pokeApi';
-import { safeAsync } from '../utils/errorHandlingUtils';
+import { safeAsync, logError } from '../utils/errorHandlingUtils';
 
 /**
  * Хук для загрузки списка покемонов с поддержкой пагинации и загрузки деталей
@@ -73,7 +73,7 @@ export const usePokemonList = (options = {}) => {
     );
 
     if (listError) {
-      setError(listError);
+      setError(listError instanceof Error ? listError : new Error(listError?.message || listError));
       setIsLoading(false);
       return;
     }

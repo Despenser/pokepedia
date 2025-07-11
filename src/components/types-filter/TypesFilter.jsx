@@ -45,7 +45,7 @@ const TypesFilter = () => {
         <h3>Фильтр по типам</h3>
         {selectedType && (
           <button 
-            className="clear-filter-button"
+            className="back-button"
             onClick={() => {
               // Создаем уникальный идентификатор запроса
               const requestId = Date.now();

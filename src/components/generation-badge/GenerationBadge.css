@@ -13,21 +13,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--badge-padding);
-  border-radius: var(--badge-border-radius);
-  margin: var(--badge-margin);
-  font-size: var(--badge-font-size);
-  font-weight: 500;
-  color: var(--button-text);
-  background-color: var(--accent-color);
-  border: 2px solid transparent;
-  transition: 
-    transform var(--animation-duration) var(--ease-out-cubic),
-    background-color var(--animation-duration) var(--ease-out-cubic),
-    box-shadow var(--animation-duration) var(--ease-out-cubic);
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  will-change: transform, box-shadow;
-  user-select: none; /* Предотвращает выделение текста при многократных кликах */
+  padding: 10px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  
+  background: var(--badge-bg, #fff);
+  border: 1px solid var(--border-color);
+  text-transform: capitalize;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+  transition: transform var(--animation-duration) ease, box-shadow var(--animation-duration) ease;
+  margin: 4px;
 }
 
 .generation-badge.clickable {
@@ -35,18 +31,47 @@
 }
 
 .generation-badge.clickable:hover {
-  transform: translateY(var(--badge-hover-y));
-  box-shadow: var(--badge-hover-shadow);
+  transform: translateY(-2px);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .generation-badge.active {
-  background-color: var(--badge-active-color);
-  box-shadow: var(--badge-active-shadow);
-  transform: scale(var(--badge-active-scale));
+  transform: translateY(-2px);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--primary-color);
 }
 
 /* Стили для фокуса (доступность) */
 .generation-badge.clickable:focus-visible {
   outline: 2px solid var(--badge-active-color);
   outline-offset: 2px;
+}
+
+.generation-badge-roman {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.generation-badge-name {
+  font-size: 1em;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 600;
+  opacity: 0.92;
+}
+
+@media (max-width: 768px) {
+  .generation-badge {
+    padding: 7px 12px;
+    font-size: 12px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .generation-badge {
+    padding: 7px 12px;
+    font-size: 12px;
+    border-radius: 12px;
+  }
 }

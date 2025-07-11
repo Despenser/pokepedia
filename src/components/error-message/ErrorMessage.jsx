@@ -1,44 +1,26 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getErrorInfo } from '../../utils/errorHandlingUtils';
-import { ERROR_MESSAGES } from '../../utils/errors';
 import './ErrorMessage.css';
 
 /**
- * Компонент для отображения сообщений об ошибках
- * @param {Object|string} message - Сообщение об ошибке или объект ошибки
- * @param {string} code - Код ошибки (404, 500 и т.д.)
- * @param {string} errorType - Тип ошибки из ERROR_MESSAGES для автоматического выбора сообщения
- * @param {boolean} hasBackButton - Показывать ли кнопку возврата на главную
- * @returns {JSX.Element} Компонент сообщения об ошибке
+ * Универсальный компонент для отображения ошибок
+ * @param {Object|null} error - Объект ошибки или null
+ * @param {string} code - Код ошибки (404, 500 и т.д.) для выбора картинки
+ * @param {boolean} hasBackButton - Показывать ли кнопку возврата на главную (по умолчанию true)
  */
-export const ErrorMessage = ({message, code, errorType, hasBackButton = true}) => {
-
-    const errorCode = code || (message && message.status ? message.status.toString() : null);
-    let errorInfo;
-
-    if (typeof message === 'string') {
-        errorInfo = {
-            title: ERROR_MESSAGES.DEFAULT.title,
-            message: message
-        };
-    } else if (errorCode && ERROR_MESSAGES[errorCode]) {
-        errorInfo = ERROR_MESSAGES[errorCode];
-    } else if (errorType) {
-        errorInfo = getErrorInfo(null, errorType);
-    } else if (message && typeof message === 'object') {
-        errorInfo = getErrorInfo(message);
-    } else {
-        errorInfo = ERROR_MESSAGES.DEFAULT;
-    }
-
+export const ErrorMessage = ({ error, code, hasBackButton = true }) => {
+    const location = useLocation();
+    const errorInfo = getErrorInfo(error, code);
+    const errorCode = code || (error && error.status ? error.status.toString() : null);
     const errorImages = {
         '404': '/error-404.png',
         '500': '/error-500.png',
-        'default': '/error-generic.png'
+        'default': '/error-500.png'
     };
-
-    // Выбираем изображение для ошибки
     const imageUrl = errorImages[errorCode] || errorImages.default;
+
+    // Кнопка не показывается, если уже на главной или hasBackButton === false
+    const showBackButton = hasBackButton && location.pathname !== '/';
 
     return (
         <div className="error-container">
@@ -47,7 +29,7 @@ export const ErrorMessage = ({message, code, errorType, hasBackButton = true}) =
                 <h2>{errorInfo.title}</h2>
                 <p>{errorInfo.message}</p>
                 <div className="error-actions">
-                    {hasBackButton && (
+                    {showBackButton && (
                         <Link to="/" className="back-button">Вернуться на главную</Link>
                     )}
                 </div>

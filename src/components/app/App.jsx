@@ -7,15 +7,10 @@ import PokemonDetailPage from '../../pages/pokemon-detail-page/PokemonDetailPage
 import FavoritesPage from '../../pages/favorites-page/FavoritesPage.jsx';
 import NotFoundPage from '../../pages/NotFoundPage.jsx';
 import { Header } from '../header/Header.jsx';
+import { ErrorMessage } from '../error-message/ErrorMessage.jsx';
 
 const ErrorFallback = ({ error }) => (
-    <div className="error-page">
-        <h1>Что-то пошло не так...</h1>
-        <p>{ error.message }</p>
-        <button onClick={() => window.location.href = '/'}>
-            Вернуться на главную
-        </button>
-    </div>
+    <ErrorMessage error={error} code={error?.status || '500'} hasBackButton={true} />
 );
 
 export const App = () => {

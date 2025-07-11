@@ -121,4 +121,18 @@ export const getDarkerColor = (color, percent = 20) => {
     .padStart(2, '0')}${darkerRgb.b.toString(16).padStart(2, '0')}`;
 };
 
+const generationColors = {
+  'generation-i': '#e8e8b9',
+  'generation-ii': '#e35b31',
+  'generation-iii': '#6890F0',
+  'generation-iv': '#e5f36f',
+  'generation-v': '#79bd5a',
+  'generation-vi': '#98D8D8',
+  'generation-vii': '#cc82cc',
+  'generation-viii': '#B8B8D0',
+  'generation-ix': '#EE99AC',
+};
+
+export const getColorByGeneration = (generation) => generationColors[generation] || '#A8A878';
+
 export { typeColors };

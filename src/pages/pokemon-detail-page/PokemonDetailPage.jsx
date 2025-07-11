@@ -40,13 +40,12 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
 
   // Если данных нет и загрузка завершена, показываем ошибку
   if (!pokemon && !isLoading) {
-    return <ErrorMessage message="Покемон не найден" code="404" />;
+    return <ErrorMessage error={new Error('Покемон не найден')} code="404" />;
   }
 
   // Показываем ошибку только если она есть и загрузка завершена
   if (error && !isLoading) {
-    const errorMessage = getUserFriendlyErrorMessage(error, 'POKEMON_LOAD');
-    return <ErrorMessage message={errorMessage} code="404" />;
+    return <ErrorMessage error={error} code="404" />;
   }
 
   // Если покемон загружен, рендерим детали

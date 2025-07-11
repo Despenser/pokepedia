@@ -1,5 +1,7 @@
 import { memo } from 'react';
 import './GenerationBadge.css';
+import { getGenerationNameRu } from '../../utils/localizationUtils.js';
+import { getColorByGeneration } from '../../utils/colorUtils.js';
 
 /**
  * Карта локализованных названий поколений
@@ -24,8 +26,11 @@ const GENERATION_MAP = {
  * @param {boolean} [props.isActive=false] - Флаг активного состояния
  */
 const GenerationBadge = ({ generation, onClick, isActive = false }) => {
+  // Римская цифра поколения
+  const roman = GENERATION_MAP[generation] || generation;
   // Локализованное название поколения
-  const displayName = GENERATION_MAP[generation] || generation;
+  const nameRu = getGenerationNameRu(generation);
+  const backgroundColor = getColorByGeneration(generation);
 
   // Формирование классов для бейджа
   const badgeClasses = [
@@ -38,8 +43,8 @@ const GenerationBadge = ({ generation, onClick, isActive = false }) => {
   const handleClick = onClick ? () => onClick(generation) : undefined;
 
   return (
-    <div className={badgeClasses} onClick={handleClick} aria-label={`Поколение ${displayName}`}>
-      {displayName}
+    <div className={badgeClasses} onClick={handleClick} aria-label={`Поколение ${nameRu}`} style={{ backgroundColor, color: 'rgba(0,0,0,0.65)' }}>
+      <span className="generation-badge-name">{nameRu}</span>
     </div>
   );
 };

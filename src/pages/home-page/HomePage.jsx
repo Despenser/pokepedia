@@ -57,7 +57,7 @@ const HomePage = () => {
                         <GenerationsFilter/>
                         {(selectedType || selectedGeneration) && (
                             <button
-                                className="reset-all-filters"
+                                className="reset-all-filters back-button"
                                 onClick={handleResetFilters}
                             >
                                 Сбросить все фильтры

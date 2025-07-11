@@ -49,7 +49,7 @@ const GenerationsFilter = () => {
         <h3>Фильтр по поколениям</h3>
         {selectedGeneration && (
           <button 
-            className="clear-filter-button"
+            className="back-button"
             onClick={() => {
               // Создаем уникальный идентификатор запроса
               const requestId = Date.now();

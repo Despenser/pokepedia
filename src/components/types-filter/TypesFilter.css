@@ -1,49 +1,41 @@
 /* Стили для фильтра типов покемонов */
 
 .types-filter {
-  margin-bottom: 30px;
-  padding: 20px;
   background-color: var(--card-background);
   border-radius: var(--card-border-radius);
+  padding: 15px;
+  margin-bottom: 20px;
   box-shadow: var(--box-shadow);
-  animation: slideUp 0.5s ease-in-out;
 }
 
 .types-filter-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 15px;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
   background-color: var(--filter-header-bg);
   border-radius: var(--border-radius) var(--border-radius) 0 0;
-  margin: -20px -20px 15px -20px;
-  padding: 15px 20px;
+  margin: -15px -15px 15px -15px;
+  padding: 15px;
+}
+.types-filter-header h3 {
+  line-height: normal;
+}
+.types-filter-header .back-button {
+  align-self: auto;
+  margin-bottom: 0;
 }
 
 .types-filter h3 {
-  font-size: 18px;
-  font-weight: 600;
   margin: 0;
   color: var(--text-color);
-}
-
-.clear-filter-button {
-  padding: 6px 12px;
-  background-color: var(--primary-light);
-  color: white;
-  border-radius: 20px;
-  font-size: 12px;
+  transition: color var(--animation-duration) ease;
+  font-size: 18px;
   font-weight: 600;
-  cursor: pointer;
-  transition: all var(--animation-duration) ease;
-}
-
-.clear-filter-button:hover {
-  background-color: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .types-badges {
@@ -56,13 +48,15 @@
 /* Медиа-запросы */
 @media (max-width: 768px) {
   .types-filter {
-    padding: 15px;
+    padding: 12px;
   }
-
+  .types-filter-header {
+    padding: 12px;
+    margin: -12px -12px 15px -12px;
+  }
   .types-filter h3 {
     font-size: 16px;
   }
-
   .types-badges {
     gap: 8px;
   }
@@ -70,11 +64,10 @@
 
 @media (max-width: 576px) {
   .types-filter {
-    padding: 12px;
+    padding: 8px;
   }
-
-  .clear-filter-button {
-    padding: 5px 10px;
-    font-size: 11px;
+  .types-filter-header {
+    padding: 8px;
+    margin: -8px -8px 15px -8px;
   }
 }

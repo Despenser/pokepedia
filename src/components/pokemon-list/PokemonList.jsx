@@ -95,7 +95,7 @@ const PokemonList = () => {
   }, [shouldLoadOnScroll, handleLoadData]);
 
   if (error && pokemons.length === 0) {
-    return <ErrorMessage message={error} />;
+    return <ErrorMessage error={typeof error === 'string' ? new Error(error) : error} />;
   }
 
   // Показываем сообщение об отсутствии покемонов только когда уже не идёт загрузка

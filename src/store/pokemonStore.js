@@ -10,7 +10,7 @@ import {
     getGenerations,
     getGenerationDetails
 } from '../api/pokeApi';
-import {getUserFriendlyErrorMessage} from '../utils/errorHandlingUtils.js';
+import {getUserFriendlyErrorMessage, logError} from '../utils/errorHandlingUtils.js';
 import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 
 // Определяем тип для состояния хранилища
@@ -84,7 +84,7 @@ const usePokemonStore = create(
                                     weight: detailedPokemon.weight,
                                 };
                             } catch (err) {
-                                console.error(`Ошибка при загрузке данных покемона ${pokemon.name}:`, err);
+                                logError(`Ошибка при загрузке данных покемона ${pokemon.name}:`, err);
                                 return null;
                             }
                         })
@@ -104,7 +104,7 @@ const usePokemonStore = create(
                         }
                     });
                 } catch (error) {
-                    set({error: error.message, loading: false});
+                    set({error: error instanceof Error ? error : new Error(error?.message || error), loading: false});
                 }
             },
 
@@ -129,7 +129,7 @@ const usePokemonStore = create(
 
                     return data;
                 } catch (error) {
-                    set({error: error.message, loading: false});
+                    set({error: error instanceof Error ? error : new Error(error?.message || error), loading: false});
                     return Promise.reject(error);
                 }
             },
@@ -174,7 +174,7 @@ const usePokemonStore = create(
                 try {
                     return await get().withCache(cacheKey, fetchPokemonData, setStateOnHit, setStateOnFetch);
                 } catch (error) {
-                    set({error: error.message, loading: false});
+                    set({error: error instanceof Error ? error : new Error(error?.message || error), loading: false});
                     return Promise.reject(error);
                 }
             },
@@ -207,7 +207,7 @@ const usePokemonStore = create(
 
                     set({pokemonTypes: filteredTypes, loading: false, cache: updatedCache});
                 } catch (error) {
-                    set({error: error.message, loading: false});
+                    set({error: error instanceof Error ? error : new Error(error?.message || error), loading: false});
                 }
             },
 
@@ -227,7 +227,7 @@ const usePokemonStore = create(
                         weight: detailedPokemon.weight,
                     };
                 } catch (err) {
-                    console.error(`Ошибка при загрузке данных покемона ${pokemonNameOrId}:`, err);
+                    logError(`Ошибка при загрузке данных покемона ${pokemonNameOrId}:`, err);
                     return null;
                 }
             },
@@ -373,7 +373,6 @@ const usePokemonStore = create(
 
                 // Используем Promise.resolve() вместо setTimeout для микрозадачи
                 Promise.resolve().then(() => {
-
                     // Проверяем комбинацию фильтров
                     if (newType && selectedGeneration) {
                         // Если выбраны и тип и поколение
@@ -382,8 +381,7 @@ const usePokemonStore = create(
                         // Если выбран только тип
                         get().fetchPokemonsByType(newType);
                     } else if (selectedGeneration) {
-                        // Если выбрано только поколение
-                        console.log('Загрузка покемонов поколения:', selectedGeneration);
+                        // Если выбран только generation
                         get().fetchPokemonsByGeneration(selectedGeneration);
                     } else {
                         // Если нет активных фильтров
@@ -471,7 +469,7 @@ const usePokemonStore = create(
 
                     set({generations: sortedGenerations, loading: false, cache: updatedCache});
                 } catch (error) {
-                    set({error: error.message, loading: false});
+                    set({error: error instanceof Error ? error : new Error(error?.message || error), loading: false});
                 }
             },
 
@@ -560,7 +558,7 @@ const usePokemonStore = create(
                                 }
                                 return null;
                             } catch (err) {
-                                console.error(`Ошибка при загрузке данных покемона ${species.name}:`, err);
+                                logError(`Ошибка при загрузке данных покемона ${species.name}:`, err);
                                 return null;
                             }
                         })
@@ -590,7 +588,7 @@ const usePokemonStore = create(
                         error: filteredPokemons.length === 0 ? 'Покемоны не найдены' : null
                     });
                 } catch (error) {
-                    set({error: error.message, loading: false});
+                    set({error: error instanceof Error ? error : new Error(error?.message || error), loading: false});
                 }
             },
 
@@ -641,7 +639,7 @@ const usePokemonStore = create(
                                     generation: generationId
                                 };
                             } catch (err) {
-                                console.error(`Ошибка при загрузке данных покемона ${species.name}:`, err);
+                                logError(`Ошибка при загрузке данных покемона ${species.name}:`, err);
                                 return null;
                             }
                         })
@@ -664,7 +662,7 @@ const usePokemonStore = create(
                         hasMore: false
                     });
                 } catch (error) {
-                    set({error: error.message, loading: false});
+                    set({error: error instanceof Error ? error : new Error(error?.message || error), loading: false});
                 }
             },
 

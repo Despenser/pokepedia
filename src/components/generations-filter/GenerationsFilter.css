@@ -8,8 +8,10 @@
 
 .generations-filter-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 15px;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 10px;
@@ -25,28 +27,17 @@
   transition: color var(--animation-duration) ease;
   font-size: 18px;
   font-weight: 600;
+  line-height: normal;
 }
 
-.clear-filter-button {
-  background-color: var(--primary-light);
-  color: var(--button-text);
-  border: none;
-  padding: 6px 12px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all var(--animation-duration) ease;
-}
-
-.clear-filter-button:hover {
-  background-color: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px var(--shadow-color);
+.generations-filter-header .back-button {
+  align-self: auto;
+  margin-bottom: 0;
 }
 
 .generations-badges {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
 }

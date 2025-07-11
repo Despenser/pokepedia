@@ -83,7 +83,7 @@ const FavoritesPage = () => {
 
           {error && (
             <div className="favorites-error-container">
-              <ErrorMessage message={error.message} />
+              <ErrorMessage error={typeof error === 'string' ? new Error(error) : error} />
             </div>
           )}
 

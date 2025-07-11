@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getPokemonByNameOrId, getPokemonSpecies, getEvolutionChain } from '../api/pokeApi';
-import { safeAsync } from '../utils/errorHandlingUtils';
+import { safeAsync, logError } from '../utils/errorHandlingUtils';
 import usePokemonStore from '../store/pokemonStore';
 import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 
@@ -38,7 +38,7 @@ export const usePokemonData = (pokemonId) => {
     );
 
     if (pokemonError) {
-      setError(pokemonError);
+      setError(pokemonError instanceof Error ? pokemonError : new Error(pokemonError?.message || pokemonError));
       setIsLoading(false);
       return;
     }
@@ -59,7 +59,7 @@ export const usePokemonData = (pokemonId) => {
     );
 
     if (speciesError) {
-      setError(speciesError);
+      setError(speciesError instanceof Error ? speciesError : new Error(speciesError?.message || speciesError));
     } else {
       setSpecies(speciesData);
 
@@ -78,7 +78,7 @@ export const usePokemonData = (pokemonId) => {
           // Обновляем цепочку эволюции в глобальном хранилище
           updateEvolutionChain(evolutionData);
         } else {
-          console.error('Ошибка загрузки цепочки эволюции:', evolutionError);
+          logError(evolutionError, 'Ошибка загрузки цепочки эволюции');
         }
       }
     }

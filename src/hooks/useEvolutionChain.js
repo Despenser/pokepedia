@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getEvolutionChain } from '../api/pokeApi';
-import { safeAsync } from '../utils/errorHandlingUtils';
+import { safeAsync, logError } from '../utils/errorHandlingUtils';
 
 /**
  * Хук для загрузки и обработки цепочки эволюции покемона
@@ -24,7 +24,7 @@ export const useEvolutionChain = (species) => {
       // URL имеет формат https://pokeapi.co/api/v2/evolution-chain/1/
       return species.evolution_chain.url.split('/').filter(Boolean).pop();
     } catch (error) {
-      console.error('Ошибка при извлечении ID цепочки эволюции:', error);
+      logError(error, 'Ошибка при извлечении ID цепочки эволюции');
       return null;
     }
   }, []);
@@ -50,7 +50,7 @@ export const useEvolutionChain = (species) => {
     );
 
     if (chainError) {
-      setError(chainError);
+      setError(chainError instanceof Error ? chainError : new Error(chainError?.message || chainError));
       setIsLoading(false);
       return;
     }
