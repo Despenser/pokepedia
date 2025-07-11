@@ -23,6 +23,9 @@ export const App = () => {
     const {theme} = useThemeStore();
 
     useEffect(() => {
+        // Удаляем data-theme с body на всякий случай
+        document.body.removeAttribute('data-theme');
+        // Ставим data-theme только на <html>
         document.documentElement.classList.add('theme-transition');
         document.documentElement.setAttribute('data-theme', theme);
 

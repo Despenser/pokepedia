@@ -23,7 +23,7 @@ p, span, div {
 /* Карточки */
 .card, .pokemon-card, .types-filter, .generations-filter,
 .evolution-chain-container,
-.pokemon-detail-card, .pokemon-attributes .attribute {
+.pokemon-detail-card {
   background-color: var(--card-background);
   color: var(--text-color);
   box-shadow: var(--box-shadow);
