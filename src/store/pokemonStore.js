@@ -187,17 +187,25 @@ const usePokemonStore = create(
                     // Проверяем кеш
                     const cacheKey = 'pokemon-types';
                     if (cache[cacheKey]) {
-                        set({pokemonTypes: cache[cacheKey], loading: false});
+                        // Фильтруем типы перед сохранением в стор
+                        const filteredTypes = cache[cacheKey].filter(
+                            t => t.name !== 'stellar' && t.name !== 'unknown'
+                        );
+                        set({pokemonTypes: filteredTypes, loading: false});
                         return;
                     }
 
                     const types = await getPokemonTypes();
+                    // Фильтруем типы перед сохранением в стор и кеш
+                    const filteredTypes = types.filter(
+                        t => t.name !== 'stellar' && t.name !== 'unknown'
+                    );
 
                     // Обновляем кеш
                     const updatedCache = {...cache};
-                    updatedCache[cacheKey] = types;
+                    updatedCache[cacheKey] = filteredTypes;
 
-                    set({pokemonTypes: types, loading: false, cache: updatedCache});
+                    set({pokemonTypes: filteredTypes, loading: false, cache: updatedCache});
                 } catch (error) {
                     set({error: error.message, loading: false});
                 }
@@ -718,7 +726,7 @@ const usePokemonStore = create(
                 generations: state.generations,
                 selectedType: state.selectedType,
                 selectedGeneration: state.selectedGeneration,
-                cache: state.cache,
+                // Не сохраняем кеш и подробные данные о покемонах!
                 // Не сохраняем временные данные
                 loading: false,
                 error: null

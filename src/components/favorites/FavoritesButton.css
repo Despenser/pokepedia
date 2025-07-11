@@ -1,5 +1,5 @@
 .favorites-button {
-  background: none;
+  background-color: rgba(255, 255, 255, 0.3);
   border: none;
   width: 40px;
   height: 40px;
@@ -7,15 +7,17 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   color: #ff5a5f;
-  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
-.favorites-button:hover {
-  transform: scale(1.1);
+.favorites-button:hover,
+.favorites-button:focus {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
 }
 
 .favorites-button:active {

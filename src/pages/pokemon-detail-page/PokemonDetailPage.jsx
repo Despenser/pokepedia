@@ -143,22 +143,28 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
                     pokemonName={formatPokemonName(pokemon.name, pokemon.nameRu)} 
                   />
                 </div>
-              
-                <div className="pokemon-detail-types">
+                <div className="pokemon-detail-types pokemon-detail-types--info">
                   {pokemon.types.map((typeInfo, index) => (
                     <TypeBadge key={index} type={typeInfo.type.name} large />
                   ))}
                 </div>
               </div>
 
-              <div className="pokemon-detail-image-container">
-                <img 
-                  src={imageUrl} 
-                  alt={pokemon.nameRu || pokemon.name} 
-                  className="pokemon-detail-image"
-                  loading="eager"
-                  fetchPriority="high"
-                />
+              <div className="pokemon-detail-image-row">
+                <div className="pokemon-detail-image-container">
+                  <img 
+                    src={imageUrl} 
+                    alt={pokemon.nameRu || pokemon.name} 
+                    className="pokemon-detail-image"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                </div>
+                <div className="pokemon-detail-types pokemon-detail-types--image">
+                  {pokemon.types.map((typeInfo, index) => (
+                    <TypeBadge key={index} type={typeInfo.type.name} large />
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -187,28 +193,37 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
               ))}
 
               <div className="pokemon-attributes">
-                <div className="attribute" style={{ background: getGradientByTypesWithOpacity(pokemon.types, 0.1) }}>
+                <div className="attribute height-attribute">
                   <div className="attribute-header">
-                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M12 2L5 9h4v8h6V9h4z"/>
                     </svg>
-                    <span className="attribute-label">Высота</span>
+                    <span className="attribute-label">Рост</span>
                   </div>
                   <span className="attribute-value">{formatHeight(pokemon.height)}</span>
                 </div>
-                <div className="attribute" style={{ background: getGradientByTypesWithOpacity(pokemon.types, 0.1) }}>
+                <div className="attribute weight-attribute">
                   <div className="attribute-header">
-                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M16 6.82V5a4 4 0 0 0-8 0v1.82A7 7 0 1 0 12 21a7 7 0 0 0 4-14.18ZM10 5a2 2 0 1 1 4 0v1.05A7.06 7.06 0 0 0 12 6a7.06 7.06 0 0 0-2 .29V5Zm2 14a5 5 0 1 1 5-5 5 5 0 0 1-5 5Z"/>
+                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M8 8a4 4 0 0 1 8 0"/>
+                      <circle cx="12" cy="15" r="7"/>
                     </svg>
                     <span className="attribute-label">Вес</span>
                   </div>
                   <span className="attribute-value">{formatWeight(pokemon.weight)}</span>
                 </div>
-                <div className="attribute abilities-attribute" style={{ background: getGradientByTypesWithOpacity(pokemon.types, 0.1) }}>
+                <div className="attribute abilities-attribute">
                   <div className="attribute-header">
-                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                    <svg className="attribute-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="5"/>
+                      <path d="M12 2v2"/>
+                      <path d="M12 20v2"/>
+                      <path d="M2 12h2"/>
+                      <path d="M20 12h2"/>
+                      <path d="M4.93 4.93l1.41 1.41"/>
+                      <path d="M17.66 17.66l1.41 1.41"/>
+                      <path d="M4.93 19.07l1.41-1.41"/>
+                      <path d="M17.66 6.34l1.41-1.41"/>
                     </svg>
                     <span className="attribute-label">Способности</span>
                   </div>

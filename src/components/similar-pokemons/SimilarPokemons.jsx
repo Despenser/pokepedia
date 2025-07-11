@@ -3,6 +3,8 @@ import usePokemonStore from '../../store/pokemonStore.js';
 import { getPokemonsByType, getPokemonByNameOrId } from '../../api/pokeApi.js';
 import PokemonCard from '../pokemon-card/PokemonCard.jsx';
 import PokemonCardSkeleton from '../pokemon-card-skeleton/PokemonCardSkeleton.jsx';
+import { formatPokemonName } from '../../utils/formatUtils.js';
+import pokemonNamesRu from '../../assets/translate/pokemon-names-ru.json';
 import './SimilarPokemons.css';
 
 const SimilarPokemons = ({ pokemonId, types }) => {
@@ -77,7 +79,8 @@ const SimilarPokemons = ({ pokemonId, types }) => {
         // Фильтруем и ограничиваем количество
         const filtered = detailedPokemons
           .filter(p => p !== null && p.id !== Number(pokemonId))
-          .slice(0, 8);
+          .slice(0, 8)
+          .map(p => ({ ...p, nameRu: pokemonNamesRu[p.name] || p.name }));
 
         setSimilarPokemons(filtered);
       } catch (error) {
@@ -195,7 +198,7 @@ const SimilarPokemons = ({ pokemonId, types }) => {
   // Вычисляем стили для трека карусели
   const trackStyle = {
     transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
-    transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+    transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
   };
 
   const maxIndex = Math.max(0, similarPokemons.length - visibleCards);

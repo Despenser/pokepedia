@@ -32,7 +32,7 @@
   animation: fadeIn var(--card-anim-duration) ease-in-out;
   transform-origin: center center;
   will-change: transform, box-shadow;
-  contain: layout paint; /* Оптимизация рендеринга */
+  contain: layout paint;
 }
 
 /* Оптимизация для списка карточек */
@@ -115,7 +115,7 @@
 
 .pokemon-id {
   font-size: 14px;
-  color: var(--text-light);
+  color: #222;
   font-weight: 600;
   transition: color var(--animation-duration) ease;
 }
@@ -269,6 +269,9 @@
 
 /* Медиа-запросы */
 @media (max-width: 992px) {
+  .pokemon-types {
+    justify-content: center;
+  }
   .pokemon-image-container {
     height: 160px;
   }

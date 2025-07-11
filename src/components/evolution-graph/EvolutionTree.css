@@ -367,12 +367,21 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+  .evo-branch-parent {
+    margin-bottom: 32px !important;
+  }
   .evo-branch-children-row {
-    gap: 24px;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    width: 100%;
+    gap: 10px;
+    margin: 0 auto 0 auto !important;
+    margin-top: 8px !important;
   }
   .evo-branch-child-with-condition {
+    width: auto !important;
     min-width: 80px;
     max-width: 100px;
   }
@@ -410,6 +419,15 @@
   /* На адаптивных экранах стрелки проходят под карточками */
   .evo-branch-arrows-svg {
     z-index: 0;
+  }
+  .evo-branch-vert {
+    width: auto !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    vertical-align: top !important;
   }
 }
 
@@ -771,5 +789,214 @@
     overflow: visible !important;
     text-overflow: clip !important;
     white-space: normal !important;
+  }
+} 
+
+/* --- Гарантированный минимальный размер для карточек в ветвях эволюции --- */
+.evo-branch-children-row .evo-mini-card {
+  min-width: 70px !important;
+  max-width: 90px !important;
+  min-height: 90px !important;
+  max-height: 110px !important;
+  padding: 6px 4px 12px 4px !important;
+}
+.evo-branch-children-row .evo-mini-img {
+  width: 56px !important;
+  height: 56px !important;
+}
+.evo-branch-children-row .evo-mini-name {
+  font-size: 12px !important;
+  max-width: 80px !important;
+}
+
+/* --- В медиазапросах не уменьшаем карточки в ветвях эволюции ниже этого порога --- */
+@media (max-width: 900px) {
+  .evo-branch-children-row .evo-mini-card {
+    min-width: 70px !important;
+    max-width: 90px !important;
+    min-height: 90px !important;
+    max-height: 110px !important;
+    padding: 6px 4px 12px 4px !important;
+  }
+  .evo-branch-children-row .evo-mini-img {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .evo-branch-children-row .evo-mini-name {
+    font-size: 12px !important;
+    max-width: 80px !important;
+  }
+}
+@media (max-width: 776px) {
+  .evo-branch-children-row .evo-mini-card {
+    min-width: 68px !important;
+    max-width: 88px !important;
+    min-height: 88px !important;
+    max-height: 108px !important;
+    padding: 5px 3px 10px 3px !important;
+  }
+  .evo-branch-children-row .evo-mini-img {
+    width: 52px !important;
+    height: 52px !important;
+  }
+  .evo-branch-children-row .evo-mini-name {
+    font-size: 11px !important;
+    max-width: 75px !important;
+  }
+}
+@media (max-width: 600px) {
+  .evo-branch-children-row .evo-mini-card {
+    min-width: 65px !important;
+    max-width: 85px !important;
+    min-height: 85px !important;
+    max-height: 105px !important;
+    padding: 4px 2px 8px 2px !important;
+  }
+  .evo-branch-children-row .evo-mini-img {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  .evo-branch-children-row .evo-mini-name {
+    font-size: 10px !important;
+    max-width: 65px !important;
+  }
+} 
+
+/* --- Гарантированный увеличенный минимальный размер для карточек в ветвях эволюции --- */
+.evo-branch-children-row .evo-mini-card {
+  min-width: 90px !important;
+  max-width: 120px !important;
+  min-height: 120px !important;
+  max-height: 150px !important;
+  padding: 10px 8px 16px 8px !important;
+}
+.evo-branch-children-row .evo-mini-img {
+  width: 72px !important;
+  height: 72px !important;
+}
+.evo-branch-children-row .evo-mini-name {
+  font-size: 15px !important;
+  max-width: 110px !important;
+}
+
+/* --- В медиазапросах не уменьшаем карточки в ветвях эволюции ниже этого порога --- */
+@media (max-width: 900px) {
+  .evo-branch-children-row .evo-mini-card {
+    min-width: 90px !important;
+    max-width: 120px !important;
+    min-height: 120px !important;
+    max-height: 150px !important;
+    padding: 10px 8px 16px 8px !important;
+  }
+  .evo-branch-children-row .evo-mini-img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+  .evo-branch-children-row .evo-mini-name {
+    font-size: 15px !important;
+    max-width: 110px !important;
+  }
+}
+@media (max-width: 776px) {
+  .evo-branch-children-row .evo-mini-card {
+    min-width: 85px !important;
+    max-width: 110px !important;
+    min-height: 110px !important;
+    max-height: 135px !important;
+    padding: 8px 6px 12px 6px !important;
+  }
+  .evo-branch-children-row .evo-mini-img {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  .evo-branch-children-row .evo-mini-name {
+    font-size: 13px !important;
+    max-width: 95px !important;
+  }
+}
+@media (max-width: 600px) {
+  .evo-branch-children-row .evo-mini-card {
+    min-width: 80px !important;
+    max-width: 100px !important;
+    min-height: 100px !important;
+    max-height: 120px !important;
+    padding: 6px 4px 10px 4px !important;
+  }
+  .evo-branch-children-row .evo-mini-img {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .evo-branch-children-row .evo-mini-name {
+    font-size: 12px !important;
+    max-width: 80px !important;
+  }
+} 
+
+/* --- Родительская карточка в ветвях эволюции такого же размера, как и потомки --- */
+.evo-branch-parent .evo-mini-card {
+  min-width: 90px !important;
+  max-width: 120px !important;
+  min-height: 120px !important;
+  max-height: 150px !important;
+  padding: 10px 8px 16px 8px !important;
+}
+.evo-branch-parent .evo-mini-img {
+  width: 72px !important;
+  height: 72px !important;
+}
+.evo-branch-parent .evo-mini-name {
+  font-size: 15px !important;
+  max-width: 110px !important;
+}
+
+@media (max-width: 900px) {
+  .evo-branch-parent .evo-mini-card {
+    min-width: 90px !important;
+    max-width: 120px !important;
+    min-height: 120px !important;
+    max-height: 150px !important;
+    padding: 10px 8px 16px 8px !important;
+  }
+  .evo-branch-parent .evo-mini-img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+  .evo-branch-parent .evo-mini-name {
+    font-size: 15px !important;
+    max-width: 110px !important;
+  }
+}
+@media (max-width: 776px) {
+  .evo-branch-parent .evo-mini-card {
+    min-width: 85px !important;
+    max-width: 110px !important;
+    min-height: 110px !important;
+    max-height: 135px !important;
+    padding: 8px 6px 12px 6px !important;
+  }
+  .evo-branch-parent .evo-mini-img {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  .evo-branch-parent .evo-mini-name {
+    font-size: 13px !important;
+    max-width: 95px !important;
+  }
+}
+@media (max-width: 600px) {
+  .evo-branch-parent .evo-mini-card {
+    min-width: 80px !important;
+    max-width: 100px !important;
+    min-height: 100px !important;
+    max-height: 120px !important;
+    padding: 6px 4px 10px 4px !important;
+  }
+  .evo-branch-parent .evo-mini-img {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .evo-branch-parent .evo-mini-name {
+    font-size: 12px !important;
+    max-width: 80px !important;
   }
 } 
