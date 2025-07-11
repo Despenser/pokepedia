@@ -6,7 +6,7 @@ import HomePage from '../../pages/home-page/HomePage.jsx';
 import PokemonDetailPage from '../../pages/pokemon-detail-page/PokemonDetailPage.jsx';
 import FavoritesPage from '../../pages/favorites-page/FavoritesPage.jsx';
 import NotFoundPage from '../../pages/NotFoundPage.jsx';
-
+import { Header } from '../header/Header.jsx';
 
 const ErrorFallback = ({ error }) => (
     <div className="error-page">
@@ -18,33 +18,31 @@ const ErrorFallback = ({ error }) => (
     </div>
 );
 
-
 export const App = () => {
     const {theme} = useThemeStore();
 
     useEffect(() => {
-        // Удаляем data-theme с body на всякий случай
         document.body.removeAttribute('data-theme');
-        // Ставим data-theme только на <html>
         document.documentElement.classList.add('theme-transition');
         document.documentElement.setAttribute('data-theme', theme);
-
         const timer = setTimeout(() => {
             document.documentElement.classList.remove('theme-transition');
         }, 300);
-
         return () => clearTimeout(timer);
     }, [theme]);
 
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
             <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="/pokemon/:id" element={<PokemonDetailPage/>}/>
-                    <Route path="/favorites" element={<FavoritesPage/>}/>
-                    <Route path="*" element={<NotFoundPage/>}/>
-                </Routes>
+                <Header />
+                <main className="main-content">
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
+                        <Route path="/favorites" element={<FavoritesPage />} />
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                </main>
             </BrowserRouter>
         </ErrorBoundary>
     );

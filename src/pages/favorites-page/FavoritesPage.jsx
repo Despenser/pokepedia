@@ -76,8 +76,7 @@ const FavoritesPage = () => {
 
   return (
     <div className="favorites-page">
-      <Header />
-
+      {/* <Header /> удалён */}
       <main className="main-content">
         <div className="container">
           <h1 className="favorites-title">Избранные покемоны</h1>

@@ -36,25 +36,6 @@
   margin-top: 20px;
 }
 
-.back-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 30px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all var(--animation-duration) ease;
-  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
-}
-
-.back-button:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(229, 57, 53, 0.4);
-  color: white;
-}
-
 /* Медиа-запросы */
 @media (max-width: 768px) {
   .error-image {
@@ -73,10 +54,5 @@
 
   .error-content h2 {
     font-size: 20px;
-  }
-
-  .back-button {
-    padding: 8px 16px;
-    font-size: 14px;
   }
 }

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import usePokemonStore from '../../store/pokemonStore.js';
 import './SearchBar.css';
 
+console.log('SearchBar rendered');
+
 export const SearchBar = () => {
   const { searchQuery, searchPokemons, resetSearch } = usePokemonStore();
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery);
@@ -19,7 +21,7 @@ export const SearchBar = () => {
       if (localSearchQuery.trim() !== searchQuery) {
         if (!localSearchQuery.trim()) {
           resetSearch();
-          navigate('/');
+          // navigate('/'); // убираем переход
         } else {
           searchPokemons(localSearchQuery.trim());
           navigate('/');
@@ -33,7 +35,7 @@ export const SearchBar = () => {
   const handleReset = () => {
     setLocalSearchQuery('');
     resetSearch();
-    navigate('/');
+    // navigate('/'); // убираем переход
   };
 
   return (

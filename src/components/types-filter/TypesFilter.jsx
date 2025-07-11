@@ -35,8 +35,6 @@ const TypesFilter = () => {
       // Проверяем, не был ли этот запрос перезаписан новым
       if (usePokemonStore.getState().lastRequestId === requestId) {
         setSelectedType(newType);
-      } else {
-        console.log('Пропуск устаревшего запроса');
       }
     }, 50);
   };
@@ -65,8 +63,6 @@ const TypesFilter = () => {
                 // Проверяем, не был ли этот запрос перезаписан новым
                 if (usePokemonStore.getState().lastRequestId === requestId) {
                   setSelectedType(null);
-                } else {
-                  console.log('Пропуск устаревшего запроса');
                 }
               }, 50);
             }}

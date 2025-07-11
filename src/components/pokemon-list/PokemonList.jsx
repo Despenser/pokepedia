@@ -33,7 +33,6 @@ const PokemonList = () => {
         // когда изменение происходит в других вкладках
         if (document.visibilityState === 'visible') {
           // Используем форсированное обновление
-          console.log('Обновление списка из-за изменения избранных');
         }
       }, 10);
     };
@@ -71,14 +70,12 @@ const PokemonList = () => {
 
   // Обработчик загрузки мемоизируем для оптимизации
   const handleLoadData = useCallback(() => {
-    console.log('Загрузка данных');
     fetchPokemons();
   }, [fetchPokemons]);
 
   // Загрузка начальных данных
   useEffect(() => {
     if (shouldLoadInitialData) {
-      console.log('Загрузка начальных данных');
       handleLoadData();
     }
   }, [shouldLoadInitialData, handleLoadData]);
@@ -86,7 +83,6 @@ const PokemonList = () => {
   // Принудительная загрузка при сбросе поиска
   useEffect(() => {
     if (prevSearchQuery && !searchQuery && pokemons.length === 0 && !loading) {
-      console.log('Загрузка после сброса поиска');
       handleLoadData();
     }
   }, [searchQuery, pokemons.length, loading, prevSearchQuery, handleLoadData]);
@@ -94,7 +90,6 @@ const PokemonList = () => {
   // Подгрузка при скролле
   useEffect(() => {
     if (shouldLoadOnScroll) {
-      console.log('Подгрузка при скролле');
       handleLoadData();
     }
   }, [shouldLoadOnScroll, handleLoadData]);

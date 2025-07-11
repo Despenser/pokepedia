@@ -39,8 +39,6 @@ const GenerationsFilter = () => {
       // Проверяем, не был ли этот запрос перезаписан новым
       if (usePokemonStore.getState().lastRequestId === requestId) {
         setSelectedGeneration(newGeneration);
-      } else {
-        console.log('Пропуск устаревшего запроса');
       }
     }, 50);
   };
@@ -69,8 +67,6 @@ const GenerationsFilter = () => {
                 // Проверяем, не был ли этот запрос перезаписан новым
                 if (usePokemonStore.getState().lastRequestId === requestId) {
                   setSelectedGeneration(null);
-                } else {
-                  console.log('Пропуск устаревшего запроса');
                 }
               }, 50);
             }}

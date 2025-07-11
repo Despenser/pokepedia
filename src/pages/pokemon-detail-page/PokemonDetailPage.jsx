@@ -117,7 +117,7 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
 
   return (
     <div className="pokemon-detail-page">
-      <Header />
+      {/* <Header /> удалён */}
 
       <main className="detail-content">
         <div className="container">
@@ -125,7 +125,10 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
             className="back-button" 
             onClick={() => navigate(-1)}
           >
-            ← Назад
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{marginRight: 8, verticalAlign: 'middle'}}>
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+            Назад
           </button>
 
           <div className="pokemon-detail-card" style={{ background }}>

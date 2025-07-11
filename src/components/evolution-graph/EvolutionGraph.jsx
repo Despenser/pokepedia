@@ -123,7 +123,6 @@ const EvolutionGraph = ({ evolutionChain, currentPokemonId }) => {
           </marker>
         </defs>
                 {arrows.map((arrow, i) => {
-          console.log('Rendering arrow', i, 'without text labels');
           return (
             <g key={i}>
               <path d={arrow.path} stroke="#888" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />

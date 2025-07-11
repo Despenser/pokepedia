@@ -1,4 +1,4 @@
-import {useEffect, useCallback, useMemo} from 'react';
+import {useEffect, useCallback, useMemo, useState} from 'react';
 import {Header} from '../../components/header/Header.jsx';
 import {Footer} from '../../components/footer/Footer.jsx';
 import PokemonList from '../../components/pokemon-list/PokemonList.jsx';
@@ -7,6 +7,7 @@ import GenerationsFilter from '../../components/generations-filter/GenerationsFi
 import {Loader} from '../../components/loader/Loader.jsx';
 import usePokemonStore from '../../store/pokemonStore.js';
 import {getTypeNameRu} from '../../utils/localizationUtils.js';
+import {SearchBar} from '../../components/search-bar/SearchBar';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -48,8 +49,7 @@ const HomePage = () => {
 
     return (
         <div className="home-page">
-            <Header/>
-
+            {/* <Header /> удалён */}
             <main className="main-content">
                 <div className="container">
                     <div className="filters-container">
