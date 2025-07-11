@@ -18,7 +18,7 @@ export const Logo = memo(({ onClick }) => (
 // Пункт "Избранные" для бургер-меню
 export const BurgerMenuContent = memo(({ onClick }) => (
     <div className="burger-menu-content" onClick={onClick}>
-        <Link to="/favorites-legendary" className="favorites-link burger-menu-link" title="Легендарные покемоны">
+        <Link to="/legendary" className="favorites-link burger-menu-link" title="Легендарные покемоны">
             <span className="menu-icon menu-icon-lightning" aria-hidden="true">
                 <svg width="36" height="36" viewBox="0 0 24 24">
                   <path className="icon-stroke" d="M7 2v11h3v9l7-12h-4l4-8z" fill="none" stroke="transparent" strokeWidth="4" strokeLinejoin="round"/>

@@ -8,6 +8,7 @@ import { ErrorMessage } from '../../components/error-message/ErrorMessage.jsx';
 import { getPokemonByNameOrId } from '../../api/pokeApi';
 import { safeAsync } from '../../utils/errorHandlingUtils';
 import './FavoritesPage.css';
+import pokemonNamesRu from '../../assets/translate/pokemon-names-ru.json';
 
 /**
  * Страница со списком избранных покемонов
@@ -53,7 +54,11 @@ const FavoritesPage = () => {
           console.error(`Ошибка при загрузке покемона #${favoriteIds[index]}:`, error);
           hasErrors = true;
         } else if (pokemon) {
-          loadedPokemons.push(pokemon);
+          // Добавляем русское имя
+          loadedPokemons.push({
+            ...pokemon,
+            nameRu: pokemonNamesRu[pokemon.name] || undefined
+          });
         }
       });
 

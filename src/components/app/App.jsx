@@ -6,6 +6,7 @@ import HomePage from '../../pages/home-page/HomePage.jsx';
 import PokemonDetailPage from '../../pages/pokemon-detail-page/PokemonDetailPage.jsx';
 import FavoritesPage from '../../pages/favorites-page/FavoritesPage.jsx';
 import NotFoundPage from '../../pages/NotFoundPage.jsx';
+import LegendaryPage from '../../pages/LegendaryPage.jsx';
 import { Header } from '../header/Header.jsx';
 import { ErrorMessage } from '../error-message/ErrorMessage.jsx';
 
@@ -35,6 +36,7 @@ export const App = () => {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
                         <Route path="/favorites" element={<FavoritesPage />} />
+                        <Route path="/legendary" element={<LegendaryPage />} />
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </main>
