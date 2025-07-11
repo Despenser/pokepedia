@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
+import { useFilterState } from '../../hooks/useFilterState';
 import GenerationBadge from '../generation-badge/GenerationBadge.jsx';
 import './GenerationsFilter.css';
 
@@ -7,39 +8,14 @@ const GenerationsFilter = () => {
   const { 
     generations, 
     selectedGeneration, 
-    fetchGenerations, 
-    setSelectedGeneration 
+    fetchGenerations
   } = usePokemonStore();
+
+  const { handleFilterClick, handleFilterReset } = useFilterState('generation');
 
   useEffect(() => {
     fetchGenerations();
   }, [fetchGenerations, generations.length]);
-
-  const handleGenerationClick = (generation) => {
-    // Создаем уникальный идентификатор запроса
-    const requestId = Date.now();
-
-
-
-    // Определяем новое значение для selectedGeneration
-    const newGeneration = selectedGeneration === generation ? null : generation;
-
-    // Показываем состояние загрузки и сохраняем идентификатор запроса
-    usePokemonStore.setState({
-      loading: true,
-      pokemons: [],
-      error: null,
-      lastRequestId: requestId
-    });
-
-    // Выполняем действие с небольшой задержкой
-    setTimeout(() => {
-      // Проверяем, не был ли этот запрос перезаписан новым
-      if (usePokemonStore.getState().lastRequestId === requestId) {
-        setSelectedGeneration(newGeneration);
-      }
-    }, 50);
-  };
 
   return (
     <div className="generations-filter">
@@ -48,26 +24,7 @@ const GenerationsFilter = () => {
         {selectedGeneration && (
           <button 
             className="back-button"
-            onClick={() => {
-              // Создаем уникальный идентификатор запроса
-              const requestId = Date.now();
-
-              // Сначала устанавливаем состояние загрузки и сохраняем идентификатор запроса
-              usePokemonStore.setState({ 
-                loading: true, 
-                pokemons: [],
-                error: null,
-                lastRequestId: requestId 
-              });
-
-              // Выполняем действие с небольшой задержкой
-              setTimeout(() => {
-                // Проверяем, не был ли этот запрос перезаписан новым
-                if (usePokemonStore.getState().lastRequestId === requestId) {
-                  setSelectedGeneration(null);
-                }
-              }, 50);
-            }}
+            onClick={handleFilterReset}
           >
             Сбросить поколение
           </button>
@@ -79,7 +36,7 @@ const GenerationsFilter = () => {
           <GenerationBadge
             key={generationInfo.name}
             generation={generationInfo.name}
-            onClick={handleGenerationClick}
+            onClick={handleFilterClick}
             isActive={selectedGeneration === generationInfo.name}
           />
         ))}

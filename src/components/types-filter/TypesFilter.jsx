@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
+import { useFilterState } from '../../hooks/useFilterState';
 import {TypeBadge} from '../type-badge/TypeBadge.jsx';
 import './TypesFilter.css';
 
@@ -7,37 +8,14 @@ const TypesFilter = () => {
   const { 
     pokemonTypes, 
     selectedType, 
-    fetchPokemonTypes, 
-    setSelectedType 
+    fetchPokemonTypes
   } = usePokemonStore();
+
+  const { handleFilterClick, handleFilterReset } = useFilterState('type');
 
   useEffect(() => {
     fetchPokemonTypes();
   }, [fetchPokemonTypes]);
-
-  const handleTypeClick = (type) => {
-    // Создаем уникальный идентификатор запроса
-    const requestId = Date.now();
-
-    // Определяем новое значение для selectedType
-    const newType = selectedType === type ? null : type;
-
-    // Показываем состояние загрузки и сохраняем идентификатор запроса
-    usePokemonStore.setState({
-      loading: true,
-      pokemons: [],
-      error: null,
-      lastRequestId: requestId
-    });
-
-    // Выполняем действие с небольшой задержкой
-    setTimeout(() => {
-      // Проверяем, не был ли этот запрос перезаписан новым
-      if (usePokemonStore.getState().lastRequestId === requestId) {
-        setSelectedType(newType);
-      }
-    }, 50);
-  };
 
   return (
     <div className="types-filter">
@@ -46,26 +24,7 @@ const TypesFilter = () => {
         {selectedType && (
           <button 
             className="back-button"
-            onClick={() => {
-              // Создаем уникальный идентификатор запроса
-              const requestId = Date.now();
-
-              // Сначала устанавливаем состояние загрузки и сохраняем идентификатор запроса
-              usePokemonStore.setState({ 
-                loading: true, 
-                pokemons: [],
-                error: null,
-                lastRequestId: requestId 
-              });
-
-              // Выполняем действие с небольшой задержкой
-              setTimeout(() => {
-                // Проверяем, не был ли этот запрос перезаписан новым
-                if (usePokemonStore.getState().lastRequestId === requestId) {
-                  setSelectedType(null);
-                }
-              }, 50);
-            }}
+            onClick={handleFilterReset}
           >
             Сбросить тип
           </button>
@@ -77,7 +36,7 @@ const TypesFilter = () => {
           <TypeBadge
             key={typeInfo.name}
             type={typeInfo.name}
-            onClick={handleTypeClick}
+            onClick={handleFilterClick}
             isActive={selectedType === typeInfo.name}
           />
         ))}
