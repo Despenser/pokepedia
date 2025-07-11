@@ -26,8 +26,6 @@ const GENERATION_MAP = {
  * @param {boolean} [props.isActive=false] - Флаг активного состояния
  */
 const GenerationBadge = ({ generation, onClick, isActive = false }) => {
-  // Римская цифра поколения
-  const roman = GENERATION_MAP[generation] || generation;
   // Локализованное название поколения
   const nameRu = getGenerationNameRu(generation);
   const backgroundColor = getColorByGeneration(generation);

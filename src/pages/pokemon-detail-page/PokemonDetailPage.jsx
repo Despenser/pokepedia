@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import usePokemonStore from '../../store/pokemonStore.js';
+
 import {usePokemonData} from '../../hooks/usePokemonData.js';
 import FavoritesButton from '../../components/favorites/FavoritesButton.jsx';
 import {Header} from '../../components/header/Header.jsx';
@@ -12,14 +12,13 @@ import {TypeBadge} from '../../components/type-badge/TypeBadge.jsx';
 import PokemonStats from '../../components/pokemon-stats/PokemonStats.jsx';
 import SimilarPokemons from '../../components/similar-pokemons/SimilarPokemons.jsx';
 import EvolutionTree from '../../components/evolution-graph/EvolutionTree.jsx';
-import { getGradientByTypes, getGradientByTypesWithOpacity } from '../../utils/colorUtils.js';
+import { getGradientByTypes } from '../../utils/colorUtils.js';
 import { getUserFriendlyErrorMessage } from '../../utils/errorHandlingUtils.js';
 import { 
   formatPokemonId, 
   formatPokemonName, 
   formatHeight, 
-  formatWeight,
-  getRussianDescription
+  formatWeight
 } from '../../utils/formatUtils.js';
 import { getPokemonImage } from '../../utils/imageUtils.js';
 import { translateText } from '../../utils/localizationUtils.js';
@@ -38,18 +37,6 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
   const [translatedAbilities, setTranslatedAbilities] = useState([]);
   const [isTranslatingAbilities, setIsTranslatingAbilities] = useState(false);
 
-  // Если данных нет и загрузка завершена, показываем ошибку
-  if (!pokemon && !isLoading) {
-    return <ErrorMessage error={new Error('Покемон не найден')} code="404" />;
-  }
-
-  // Показываем ошибку только если она есть и загрузка завершена
-  if (error && !isLoading) {
-    return <ErrorMessage error={error} code="404" />;
-  }
-
-  // Если покемон загружен, рендерим детали
-  const background = getGradientByTypes(pokemon.types);
   // Проверяем наличие русского описания
   let description = null;
   if (species && species.flavor_text_entries) {
@@ -58,9 +45,6 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
     );
     description = ruEntry ? ruEntry.flavor_text.replace(/\s+/g, ' ').replace(/[\n\r\u2028\u2029]+/g, ' ').trim() : null;
   }
-  const imageUrl = getPokemonImage(pokemon.sprites, pokemon.id);
-  const pokemonId = pokemon.id || id;
-
   // Получаем английское описание, если русского нет
   let englishDescription = null;
   if (species && species.flavor_text_entries) {
@@ -80,7 +64,8 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
           setTranslatedDescription(translated);
           setIsTranslating(false);
         }
-      }).catch(e => {
+      }).catch(() => {
+        // Игнорируем ошибки перевода
       });
     } else {
       setTranslatedDescription(null);
@@ -114,10 +99,23 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
     return () => { ignore = true; };
   }, [pokemon]);
 
+  // Если данных нет и загрузка завершена, показываем ошибку
+  if (!pokemon && !isLoading) {
+    return <ErrorMessage error={new Error('Покемон не найден')} code="404" />;
+  }
+
+  // Показываем ошибку только если она есть и загрузка завершена
+  if (error && !isLoading) {
+    return <ErrorMessage error={error} code="404" />;
+  }
+
+  // Если покемон загружен, рендерим детали
+  const background = getGradientByTypes(pokemon?.types || []);
+  const imageUrl = getPokemonImage(pokemon?.sprites, pokemon?.id);
+  const pokemonId = pokemon?.id || id;
+
   return (
     <div className="pokemon-detail-page">
-      {/* <Header /> удалён */}
-
       <main className="detail-content">
         <div className="container">
           <button 
@@ -138,15 +136,15 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
                 </div>
                 <div className="pokemon-detail-title">
                   <h1 className="pokemon-detail-name">
-                    {formatPokemonName(pokemon.name, pokemon.nameRu)}
+                    {formatPokemonName(pokemon?.name, pokemon?.nameRu)}
                   </h1>
                   <FavoritesButton 
                     pokemonId={pokemonId} 
-                    pokemonName={formatPokemonName(pokemon.name, pokemon.nameRu)} 
+                    pokemonName={formatPokemonName(pokemon?.name, pokemon?.nameRu)} 
                   />
                 </div>
                 <div className="pokemon-detail-types pokemon-detail-types--info">
-                  {pokemon.types.map((typeInfo, index) => (
+                  {pokemon?.types?.map((typeInfo, index) => (
                     <TypeBadge key={index} type={typeInfo.type.name} large />
                   ))}
                 </div>
@@ -156,14 +154,14 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
                 <div className="pokemon-detail-image-container">
                   <img 
                     src={imageUrl} 
-                    alt={pokemon.nameRu || pokemon.name} 
+                    alt={pokemon?.nameRu || pokemon?.name} 
                     className="pokemon-detail-image"
                     loading="eager"
                     fetchPriority="high"
                   />
                 </div>
                 <div className="pokemon-detail-types pokemon-detail-types--image">
-                  {pokemon.types.map((typeInfo, index) => (
+                  {pokemon?.types?.map((typeInfo, index) => (
                     <TypeBadge key={index} type={typeInfo.type.name} large />
                   ))}
                 </div>
@@ -202,7 +200,7 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
                     </svg>
                     <span className="attribute-label">Рост</span>
                   </div>
-                  <span className="attribute-value">{formatHeight(pokemon.height)}</span>
+                  <span className="attribute-value">{formatHeight(pokemon?.height)}</span>
                 </div>
                 <div className="attribute weight-attribute">
                   <div className="attribute-header">
@@ -212,7 +210,7 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
                     </svg>
                     <span className="attribute-label">Вес</span>
                   </div>
-                  <span className="attribute-value">{formatWeight(pokemon.weight)}</span>
+                  <span className="attribute-value">{formatWeight(pokemon?.weight)}</span>
                 </div>
                 <div className="attribute abilities-attribute">
                   <div className="attribute-header">
@@ -237,7 +235,7 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
                       </div>
                     ) : (
                       <ul className="abilities-list">
-                        {pokemon.abilities.map((ability, index) => (
+                        {pokemon?.abilities?.map((ability, index) => (
                           <li key={index} className="ability-item">
                             <span className="ability-name">
                               {translatedAbilities[index] || formatPokemonName(ability.ability.name)}
@@ -251,7 +249,7 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
                 </div>
               </div>
 
-              <PokemonStats stats={pokemon.stats} types={pokemon.types} />
+              <PokemonStats stats={pokemon?.stats} types={pokemon?.types} />
             </div>
           </div>
 
@@ -260,14 +258,14 @@ export const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading,
             {species && evolutionChain ? (
               <EvolutionTree 
                 evolutionChain={evolutionChain}
-                currentPokemonId={pokemon.id}
+                currentPokemonId={pokemon?.id}
               />
             ) : (
               <div>Информация о цепочке эволюции недоступна</div>
             )}
           </div>
 
-          <SimilarPokemons pokemonId={pokemonId} types={pokemon.types} />
+          <SimilarPokemons pokemonId={pokemonId} types={pokemon?.types} />
         </div>
       </main>
 

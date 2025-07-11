@@ -21,7 +21,7 @@ const PokemonList = () => {
   } = usePokemonStore();
 
   // Получаем состояние избранных покемонов
-  const { favorites } = useFavorites();
+  const { favorites: _favorites } = useFavorites();
 
   // Перерендер при изменении избранных
   useEffect(() => {
@@ -56,7 +56,7 @@ const PokemonList = () => {
   }, [pokemons.length, searchQuery, selectedType, selectedGeneration, loading]);
 
   // Мемоизация условия загрузки при сбросе поиска
-  const shouldLoadAfterSearchReset = useMemo(() => {
+  const _shouldLoadAfterSearchReset = useMemo(() => {
     return !searchQuery && pokemons.length === 0 && !loading;
   }, [searchQuery, pokemons.length, loading]);
 
@@ -111,7 +111,7 @@ const PokemonList = () => {
           <PokemonCard 
             key={pokemon.id} 
             pokemon={pokemon} 
-            showFavoriteButton={false} 
+             
             className="pokemon-list-card"
           />
         ))}

@@ -1,6 +1,6 @@
-/* Дополнительные анимации для приложения */
 /**
- * Файл с анимациями для всего приложения
+ * Анимации для приложения Poképedia
+ * Только используемые анимации
  */
 
 /* Уважение предпочтений пользователя по сокращению движения */
@@ -13,13 +13,12 @@
   }
 }
 
-/* Базовое появление элемента */
+/* Базовые анимации, используемые в проекте */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* Появление с движением снизу вверх */
 @keyframes slideUp {
   from {
     transform: translateY(20px);
@@ -31,117 +30,26 @@
   }
 }
 
-/* Появление с движением сверху вниз */
-@keyframes slideDown {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Появление с движением слева направо */
-@keyframes slideRight {
-  from {
-    transform: translateX(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Появление с движением справа налево */
-@keyframes slideLeft {
-  from {
-    transform: translateX(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Пульсирующая анимация */
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
 
-/* Мягкое появление с увеличением */
-@keyframes zoomIn {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Вращение */
 @keyframes rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-/* Мерцание */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+/* Специальные анимации для карточек покемонов */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-/* Классы для применения анимаций с will-change для оптимизации */
-.fade-in {
-  animation: fadeIn var(--animation-duration) var(--ease-out-cubic) forwards;
-  will-change: opacity;
-}
-
-.slide-up {
-  animation: slideUp var(--animation-duration) var(--ease-out-cubic) forwards;
-  will-change: transform, opacity;
-}
-
-.slide-down {
-  animation: slideDown var(--animation-duration) var(--ease-out-cubic) forwards;
-  will-change: transform, opacity;
-}
-
-.slide-right {
-  animation: slideRight var(--animation-duration) var(--ease-out-cubic) forwards;
-  will-change: transform, opacity;
-}
-
-.slide-left {
-  animation: slideLeft var(--animation-duration) var(--ease-out-cubic) forwards;
-  will-change: transform, opacity;
-}
-
-.pulse {
-  animation: pulse 2s var(--ease-in-out-sine) infinite;
-  will-change: transform;
-}
-
-.zoom-in {
-  animation: zoomIn var(--animation-duration) var(--ease-out-back) forwards;
-  will-change: transform, opacity;
-}
-
-.rotate {
-  animation: rotate 2s linear infinite;
-  will-change: transform;
-}
-
-.blink {
-  animation: blink 1.5s var(--ease-in-out-sine) infinite;
-  will-change: opacity;
+@keyframes shadowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(0.8); opacity: 0.6; }
 }
 
 /* Режим перехода между темами */
@@ -149,128 +57,4 @@
 .theme-transition * {
   transition: background-color 0.2s ease, 
               color 0.2s ease !important;
-}
-/* Плавное появление */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Плавное появление снизу */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Плавное появление с эффектом пульсации */
-@keyframes fadeInPulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1.02);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Парящий эффект для карточек */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-/* Тонкая пульсация для привлечения внимания */
-@keyframes subtlePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-}
-
-/* Парящий эффект с поворотом */
-@keyframes floatRotate {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-5px) rotate(1deg);
-  }
-  75% {
-    transform: translateY(5px) rotate(-1deg);
-  }
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-}
-
-/* Мягкое мерцание */
-@keyframes softGlow {
-  0%, 100% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  }
-}
-
-/* Мягкое парение без масштабирования */
-@keyframes gentleFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Плавная пульсация тени */
-@keyframes shadowPulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(0.8); opacity: 0.6; }
-}
-
-/* Вращение по часовой стрелке */
-@keyframes rotateClockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Плавное смещение градиента */
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Мягкое увеличение */
-@keyframes gentleScale {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-/* Анимация для темного режима */
-[data-theme='dark'] .soft-glow {
-  animation: softGlow 3s infinite var(--ease-in-out-sine);
-}
-
-/* Класс для применения парящего эффекта */
-.float-animation {
-  animation: float 3s infinite var(--ease-in-out-sine);
-}
-
-/* Класс для применения тонкой пульсации */
-.pulse-animation {
-  animation: subtlePulse 2s infinite var(--ease-in-out-sine);
 }

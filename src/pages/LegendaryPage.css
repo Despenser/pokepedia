@@ -1,0 +1,17 @@
+/* Стили для страницы легендарных покемонов */
+
+/* Специфичные стили для заголовков поколений на странице легендарных покемонов */
+.section-title.generation {
+  color: var(--primary-color);
+}
+
+.section-title.generation::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+  border-radius: 1px;
+} 

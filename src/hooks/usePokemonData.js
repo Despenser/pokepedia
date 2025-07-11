@@ -84,7 +84,7 @@ export const usePokemonData = (pokemonId) => {
     }
 
     setIsLoading(false);
-  }, [pokemonId]);
+  }, [pokemonId, updateEvolutionChain]);
 
   // Загружаем данные при монтировании или изменении ID
   useEffect(() => {

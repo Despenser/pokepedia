@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useFavorites } from '../../hooks/useFavorites';
-import {Header} from '../../components/header/Header.jsx';
 import {Footer} from '../../components/footer/Footer.jsx';
 import PokemonCard from '../../components/pokemon-card/PokemonCard.jsx';
 import PokemonCardSkeleton from '../../components/pokemon-card-skeleton/PokemonCardSkeleton.jsx';
@@ -81,7 +80,6 @@ const FavoritesPage = () => {
 
   return (
     <div className="favorites-page">
-      {/* <Header /> удалён */}
       <main className="main-content">
         <div className="container">
           <h1 className="favorites-title">Избранные покемоны</h1>
@@ -101,7 +99,7 @@ const FavoritesPage = () => {
           ) : (
             <div className="pokemon-grid">
               {favoritePokemons.map(pokemon => (
-                <PokemonCard key={pokemon.id} pokemon={pokemon} showFavoriteButton={true} />
+                <PokemonCard key={pokemon.id} pokemon={pokemon} />
               ))}
 
               {isLoading && favoriteIds.map((id, index) => (

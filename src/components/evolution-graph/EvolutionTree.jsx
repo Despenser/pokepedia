@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect, useMemo } from 'react';
 import './EvolutionTree.css';
 import { Link } from 'react-router-dom';
 import { getPokemonImage, getFallbackImage } from '../../utils/imageUtils';
@@ -13,47 +13,7 @@ function getPokemonNameRu(name) {
   return pokemonNamesRu[name] || name;
 }
 
-function parseEvolutionDetails(details) {
-  if (!details || details.length === 0) return '';
-  // Собираем все условия из каждого объекта details
-  const allConditions = details.map((d) => {
-    const conds = [];
-    if (d.trigger?.name === 'level-up' && d.min_level) conds.push(`Уровень ${d.min_level}`);
-    if (d.trigger?.name === 'use-item' && d.item) conds.push(`Использовать ${ruItem(d.item.name)}`);
-    if (d.trigger?.name === 'trade') conds.push('Обмен');
-    if (d.min_happiness) conds.push('Дружба');
-    if (d.time_of_day && d.time_of_day !== '') conds.push(ruTime(d.time_of_day));
-    if (d.held_item) conds.push(`Держит: ${ruItem(d.held_item.name)}`);
-    if (d.known_move) conds.push(`Знает приём: ${ruMove(d.known_move.name)}`);
-    if (d.location) conds.push(`Локация: ${ruLocation(d.location.name)}`);
-    if (d.gender === 1) conds.push('Только самка');
-    if (d.gender === 2) conds.push('Только самец');
-    if (conds.length === 0 && d.trigger?.name) conds.push(ruTrigger(d.trigger.name));
-    return conds.join(', ');
-  }).filter(Boolean);
-  // Убираем дубликаты и объединяем через запятую
-  const unique = Array.from(new Set(allConditions));
-  return unique.join(', ');
-}
-function ruItem(name) {
-  const map = { 'moon-stone': 'лунный камень', 'fire-stone': 'огненный камень', 'thunder-stone': 'грозовой камень', 'ice-stone': 'ледяной камень', 'water-stone': 'водный камень' };
-  return map[name] || name.replace(/-/g, ' ');
-}
-function ruTime(time) {
-  if (time === 'day') return 'день';
-  if (time === 'night') return 'ночь';
-  return time;
-}
-function ruMove(name) {
-  return name.replace(/-/g, ' ');
-}
-function ruLocation(name) {
-  return name.replace(/-/g, ' ');
-}
-function ruTrigger(name) {
-  const map = { 'level-up': 'Уровень', 'use-item': 'Использовать предмет', 'trade': 'Обмен', 'other': 'Другое' };
-  return map[name] || name.replace(/-/g, ' ');
-}
+
 
 const EvoMiniCard = React.forwardRef(({ id, name, sprites, types, isCurrent }, ref) => {
   const imageUrl = getPokemonImage(sprites, id) || getFallbackImage(id);
@@ -80,11 +40,16 @@ function hasBranches(node) {
 const EvolutionBranch = React.forwardRef(({ node, currentPokemonId }, ref) => {
   const id = getIdFromSpecies(node.species);
   const isCurrent = Number(currentPokemonId) === id;
-  const children = node.evolves_to || [];
+  const children = useMemo(() => node.evolves_to || [], [node.evolves_to]);
   const arrowsContainerRef = useRef(null);
   const parentRef = useRef(null);
-  const childRefs = children.map(() => useRef(null));
   const [arrowData, setArrowData] = useState([]);
+  
+  // Создаем refs для дочерних элементов
+  const childRefs = useMemo(() => 
+    children.map(() => React.createRef()), 
+    [children]
+  );
 
   // Функция для пересчёта стрелок
   const recalcArrows = () => {

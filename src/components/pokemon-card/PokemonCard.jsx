@@ -11,14 +11,11 @@ import './PokemonCard.css';
  * Компонент карточки покемона для отображения основной информации
  * @param {Object} props - Свойства компонента
  * @param {Object} props.pokemon - Данные покемона из API
- * @param {boolean} [props.showFavoriteButton=false] - Флаг для отображения кнопки избранного
  * @param {string} [props.className] - Дополнительные CSS классы для карточки
+ * @param {boolean} [props.asDiv=false] - Рендерить как div вместо Link
  */
-const PokemonCard = memo(({ pokemon, showFavoriteButton = false, className = '', asDiv = false }) => {
-    // Проверка наличия данных
-    if (!pokemon) return null;
-
-    const { id, name, types, sprites } = pokemon;
+const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
+    const { id, name, types, sprites } = pokemon || {};
 
     // Получаем URL изображения и запасного изображения
     const imageUrl = useMemo(() => getPokemonImage(sprites, id), [sprites, id]);
@@ -26,7 +23,7 @@ const PokemonCard = memo(({ pokemon, showFavoriteButton = false, className = '',
 
     // Мемоизируем вычисляемые значения для оптимизации
     const background = useMemo(() => getGradientByTypes(types), [types]);
-    const displayName = useMemo(() => formatPokemonName(name, pokemon.nameRu), [name, pokemon.nameRu]);
+    const displayName = useMemo(() => formatPokemonName(name, pokemon?.nameRu), [name, pokemon?.nameRu]);
     const formattedId = useMemo(() => formatPokemonId(id), [id]);
 
     // Используем хук для управления загрузкой изображения
@@ -36,10 +33,13 @@ const PokemonCard = memo(({ pokemon, showFavoriteButton = false, className = '',
 
     // Мемоизируем типы покемона для предотвращения ненужных перерисовок
     const typesBadges = useMemo(() => {
-        return types?.map((typeInfo, index) => (
+        return types?.map((typeInfo) => (
             <TypeBadge key={`${id}-${typeInfo.type.name}`} type={typeInfo.type.name} />
         ));
     }, [types, id]);
+
+    // Проверка наличия данных
+    if (!pokemon) return null;
 
     const cardContent = (
         <div

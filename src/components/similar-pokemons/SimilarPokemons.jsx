@@ -3,7 +3,7 @@ import usePokemonStore from '../../store/pokemonStore.js';
 import { getPokemonsByType, getPokemonByNameOrId } from '../../api/pokeApi.js';
 import PokemonCard from '../pokemon-card/PokemonCard.jsx';
 import PokemonCardSkeleton from '../pokemon-card-skeleton/PokemonCardSkeleton.jsx';
-import { formatPokemonName } from '../../utils/formatUtils.js';
+
 import pokemonNamesRu from '../../assets/translate/pokemon-names-ru.json';
 import './SimilarPokemons.css';
 
@@ -252,7 +252,7 @@ const SimilarPokemons = ({ pokemonId, types }) => {
                   key={pokemon.id}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <PokemonCard pokemon={pokemon} showFavoriteButton={false} />
+                  <PokemonCard pokemon={pokemon} />
                 </div>
               ))
             ) : (

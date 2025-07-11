@@ -1,5 +1,4 @@
-import {useEffect, useCallback, useMemo, useState} from 'react';
-import {Header} from '../../components/header/Header.jsx';
+import {useEffect, useCallback, useMemo} from 'react';
 import {Footer} from '../../components/footer/Footer.jsx';
 import PokemonList from '../../components/pokemon-list/PokemonList.jsx';
 import TypesFilter from '../../components/types-filter/TypesFilter.jsx';
@@ -49,7 +48,6 @@ const HomePage = () => {
 
     return (
         <div className="home-page">
-            {/* <Header /> удалён */}
             <main className="main-content">
                 <div className="container">
                     <div className="filters-container">

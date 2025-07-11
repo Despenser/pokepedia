@@ -100,26 +100,7 @@ const hexToRgb = (hex) => {
     : null;
 };
 
-/**
- * Возвращает затемненную версию цвета
- * @param {string} color - Исходный цвет в формате HEX
- * @param {number} percent - Процент затемнения (0-100)
- * @returns {string} Затемненный цвет в формате HEX
- */
-export const getDarkerColor = (color, percent = 20) => {
-  const rgb = hexToRgb(color);
-  if (!rgb) return color;
 
-  const darkerRgb = {
-    r: Math.max(0, rgb.r - Math.round((rgb.r * percent) / 100)),
-    g: Math.max(0, rgb.g - Math.round((rgb.g * percent) / 100)),
-    b: Math.max(0, rgb.b - Math.round((rgb.b * percent) / 100)),
-  };
-
-  return `#${darkerRgb.r.toString(16).padStart(2, '0')}${darkerRgb.g
-    .toString(16)
-    .padStart(2, '0')}${darkerRgb.b.toString(16).padStart(2, '0')}`;
-};
 
 const generationColors = {
   'generation-i': '#e8e8b9',

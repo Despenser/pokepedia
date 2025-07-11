@@ -77,23 +77,22 @@ const EvolutionGraph = ({ evolutionChain, currentPokemonId }) => {
     return buildEvolutionColumns(evolutionChain.chain);
   }, [evolutionChain]);
 
-  const { nodeMap, height, columns: gridColumns } = useMemo(() => {
-    if (!columns.length) return { nodeMap: new Map(), height: 180, columns: [] };
+  const { nodeMap, height } = useMemo(() => {
+    if (!columns.length) return { nodeMap: new Map(), height: 180 };
     return assignColumnPositions(columns);
   }, [columns]);
 
   // Стрелки: строго горизонтальные между уровнями
   const arrows = useMemo(() => {
     let arr = [];
-    nodeMap.forEach(({ node, x, y, col }) => {
+    nodeMap.forEach(({ node, x, y }) => {
       (node.evolves_to || []).forEach(child => {
         const childId = getIdFromSpecies(child.species);
         const target = nodeMap.get(childId);
         if (target) {
-          const startX = x + NODE_WIDTH;
-          const startY = y + NODE_HEIGHT / 2;
-          const endX = target.x;
-          const endY = target.y + NODE_HEIGHT / 2;
+                  const startX = x + NODE_WIDTH;
+        const startY = y + NODE_HEIGHT / 2;
+        const endX = target.x;
           arr.push({
             path: `M${startX},${startY} H${endX}`,
             labelX: (startX + endX) / 2 - 10,
@@ -141,7 +140,7 @@ const EvolutionGraph = ({ evolutionChain, currentPokemonId }) => {
                 className={`evolution-graph-card-wrapper mini${isCurrent ? ' current' : ''}`}
                 style={{ position: 'absolute', left: x, top: y, width: NODE_WIDTH, height: NODE_HEIGHT, zIndex: isCurrent ? 2 : 1 }}
               >
-                <PokemonCard pokemon={getPokemonForCard(node)} showFavoriteButton={false} className="evolution-graph-card mini" asDiv={true} />
+                <PokemonCard pokemon={getPokemonForCard(node)} className="evolution-graph-card mini" asDiv={true} />
               </div>
             );
           })}

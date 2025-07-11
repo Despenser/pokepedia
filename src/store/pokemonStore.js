@@ -145,7 +145,6 @@ const usePokemonStore = create(
 
                     const species = await getPokemonSpecies(nameOrId);
                     const evolutionData = await getEvolutionChain(species.evolution_chain.url);
-                    console.log('Loaded evolution chain:', evolutionData);
 
                     return {pokemonDetails, species, evolutionChain: evolutionData};
                 };
@@ -254,12 +253,9 @@ const usePokemonStore = create(
 
                     const filteredPokemons = detailedPokemons.filter(Boolean);
 
-                    console.log(`Загружено ${filteredPokemons.length} покемонов типа ${type}`);
-
                     // Проверяем, не был ли фильтр сброшен во время загрузки
                     const currentState = get();
                     if (currentState.selectedType !== type) {
-                        console.log('Фильтр типа был изменен во время загрузки, пропускаем обновление');
                         return;
                     }
 
@@ -330,7 +326,7 @@ const usePokemonStore = create(
                                 height: detailedPokemon.height,
                                 weight: detailedPokemon.weight,
                             };
-                        } catch (err) {
+                        } catch {
                             return null;
                         }
                     }));
@@ -350,7 +346,7 @@ const usePokemonStore = create(
                             hasMore: false
                         });
                     }
-                } catch (error) {
+                } catch {
                     set({
                         pokemons: [],
                         error: 'Ошибка поиска покемонов',
@@ -391,8 +387,6 @@ const usePokemonStore = create(
             },
 
             resetSearch: () => {
-                console.log('Сброс всех фильтров');
-
                 // Создаем уникальный идентификатор запроса для защиты от гонок
                 const requestId = Date.now();
 
@@ -415,7 +409,7 @@ const usePokemonStore = create(
                     if (get().lastRequestId === requestId) {
                         get().fetchPokemons();
                     } else {
-                        console.log('Пропуск устаревшего запроса при сбросе всех фильтров');
+                        // Удалено все console.log/info/debug по всему файлу
                     }
                 });
             },
@@ -493,7 +487,6 @@ const usePokemonStore = create(
                         get().fetchPokemonsByGeneration(generation);
                     } else if (selectedType) {
                         // Если выбран только тип
-                        console.log('Загрузка покемонов типа:', selectedType);
                         get().fetchPokemonsByType(selectedType);
                     } else {
                         // Если нет активных фильтров
@@ -570,13 +563,9 @@ const usePokemonStore = create(
                     const updatedCache = {...cache};
                     updatedCache[cacheKey] = filteredPokemons;
 
-                    console.log(`Загружено ${filteredPokemons.length} покемонов поколения ${generationId}`);
-
                     // Проверяем, не были ли фильтры сброшены во время загрузки
                     const currentState = get();
                     if (currentState.selectedType !== type || currentState.selectedGeneration !== generationId) {
-                        console.log('Фильтры были изменены во время загрузки, пропускаем обновление');
-                        console.log('Фильтр поколения был изменен во время загрузки, пропускаем обновление');
                         return;
                     }
 
@@ -690,7 +679,6 @@ const usePokemonStore = create(
 
             // Метод для очистки кеша при низком уровне памяти
             clearCache: () => {
-                console.log('Очистка кеша для экономии памяти');
                 const {selectedType, selectedGeneration} = get();
 
                 // Сохраняем только актуальные кеши для текущих фильтров

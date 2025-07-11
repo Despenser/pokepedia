@@ -136,6 +136,43 @@ ul {
   opacity: 1;
 }
 
+/* Общие стили для заголовков страниц */
+.favorites-title {
+  margin-bottom: 24px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-color);
+  position: relative;
+  display: inline-block;
+}
+
+.favorites-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.favorites-error-container {
+  margin-bottom: 24px;
+}
+
+/* Общие стили для сеток покемонов */
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.pokemon-grid > * {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -215,6 +252,11 @@ ul {
   .section-title {
     font-size: 24px;
   }
+
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -224,6 +266,11 @@ ul {
 
   .section-title {
     font-size: 22px;
+  }
+
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
   }
 }
 

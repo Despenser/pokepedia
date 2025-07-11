@@ -65,18 +65,4 @@ export const getFallbackImage = (pokemonId) => {
   return id ? `${BASE_SPRITE_URL}/${id}.png` : '';
 };
 
-/**
- * Получение URL анимированного спрайта покемона (если доступен)
- * @param {Object} sprites - Объект со спрайтами из API
- * @param {number} pokemonId - ID покемона
- * @returns {string} URL анимированного спрайта или обычного изображения
- */
-export const getAnimatedSprite = (sprites, pokemonId) => {
-  if (!sprites) return getFallbackImage(pokemonId);
 
-  // Получаем анимированный спрайт или обычное изображение
-  const animatedSprite = sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default;
-  const defaultSprite = sprites.front_default;
-
-  return animatedSprite || defaultSprite || getFallbackImage(pokemonId);
-};

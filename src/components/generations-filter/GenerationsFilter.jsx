@@ -19,9 +19,7 @@ const GenerationsFilter = () => {
     // Создаем уникальный идентификатор запроса
     const requestId = Date.now();
 
-    // Получаем текущее состояние
-    const store = usePokemonStore.getState();
-    const { selectedType } = store;
+
 
     // Определяем новое значение для selectedGeneration
     const newGeneration = selectedGeneration === generation ? null : generation;

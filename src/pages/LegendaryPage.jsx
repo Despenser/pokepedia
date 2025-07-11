@@ -5,7 +5,7 @@ import PokemonCardSkeleton from '../components/pokemon-card-skeleton/PokemonCard
 import { getPokemonByNameOrId, getPokemonSpecies } from '../api/pokeApi';
 import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 import { getGenerationNameRu } from '../utils/localizationUtils';
-import './favorites-page/FavoritesPage.css';
+import './LegendaryPage.css';
 
 // Локальный список имен легендарных покемонов (по данным PokeAPI, только дефолтные формы)
 const LEGENDARY_NAMES = [
@@ -133,7 +133,7 @@ const LegendaryPage = () => {
                 <h2 className="section-title generation" style={{ marginTop: 32 }}>{getGenerationNameRu(gen)}</h2>
                 <div className="pokemon-grid">
                   {grouped[gen].map(pokemon => (
-                    <PokemonCard key={pokemon.id} pokemon={pokemon} showFavoriteButton={false} />
+                    <PokemonCard key={pokemon.id} pokemon={pokemon} />
                   ))}
                 </div>
               </div>
