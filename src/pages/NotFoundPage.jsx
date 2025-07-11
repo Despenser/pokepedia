@@ -5,7 +5,10 @@ const NotFoundPage = () => {
     return (
         <div className="not-found-page">
             <main className="main-content">
-                <ErrorMessage error={new Error('Страница, которую вы ищете, не существует')} code="404" />
+                <ErrorMessage
+                    error={new Error('Страница, которую вы ищете, не существует')}
+                    code="404"
+                />
             </main>
             <Footer/>
         </div>

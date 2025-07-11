@@ -33,7 +33,6 @@ export const getGenerations = async () => {
  */
 export const getGenerationDetails = async (nameOrId) => {
     if (!nameOrId) throw new Error('Имя или ID поколения не указаны');
-
     try {
         const response = await pokeApi.get(`/generation/${nameOrId.toString().toLowerCase()}`);
         return response.data;
@@ -51,10 +50,9 @@ export const getGenerationDetails = async (nameOrId) => {
  */
 export const getPokemonList = async (limit = 20, offset = 0) => {
     try {
-        const response = await pokeApi.get('/pokemon', {
-            params: {limit, offset}
-        });
+        const response = await pokeApi.get('/pokemon', {params: {limit, offset}});
         return response.data;
+
     } catch (error) {
         logError(error, 'получение списка покемонов');
         throw error;
@@ -68,10 +66,10 @@ export const getPokemonList = async (limit = 20, offset = 0) => {
  */
 export const getPokemonByNameOrId = async (nameOrId) => {
     if (!nameOrId) throw new Error('Имя или ID покемона не указаны');
-
     try {
         const response = await pokeApi.get(`/pokemon/${nameOrId.toString().toLowerCase()}`);
         return response.data;
+
     } catch (error) {
         logError(error, `получение покемона ${nameOrId}`);
         throw error;
@@ -85,13 +83,12 @@ export const getPokemonByNameOrId = async (nameOrId) => {
  */
 export const getPokemonSpecies = async (nameOrId) => {
     if (!nameOrId) throw new Error('Имя или ID покемона не указаны');
-
     try {
         const response = await pokeApi.get(`/pokemon-species/${nameOrId.toString().toLowerCase()}`);
         return response.data;
+
     } catch (error) {
         if (error.response && error.response.status === 404) {
-            // species не найден — возвращаем null
             return null;
         }
         logError(error, `получение информации о виде покемона ${nameOrId}`);
@@ -106,7 +103,6 @@ export const getPokemonSpecies = async (nameOrId) => {
  */
 export const getEvolutionChain = async (idOrUrl) => {
     if (!idOrUrl) throw new Error('ID или URL цепочки эволюции не указаны');
-
     try {
         // Определяем, является ли параметр URL-ом или ID
         let id;
@@ -118,6 +114,7 @@ export const getEvolutionChain = async (idOrUrl) => {
 
         const response = await pokeApi.get(`/evolution-chain/${id}`);
         return response.data;
+
     } catch (error) {
         logError(error, 'получение цепочки эволюции');
         throw error;
@@ -132,6 +129,7 @@ export const getPokemonTypes = async () => {
     try {
         const response = await pokeApi.get('/type');
         return response.data.results;
+
     } catch (error) {
         logError(error, 'получение типов покемонов');
         throw error;
@@ -149,6 +147,7 @@ export const getPokemonsByType = async (type) => {
     try {
         const response = await pokeApi.get(`/type/${type.toString().toLowerCase()}`);
         return response.data.pokemon;
+
     } catch (error) {
         logError(error, `получение покемонов типа ${type}`);
         throw error;
