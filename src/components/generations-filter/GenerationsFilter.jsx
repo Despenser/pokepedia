@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
 import { useFilterState } from '../../hooks/useFilterState';
 import GenerationBadge from '../generation-badge/GenerationBadge.jsx';
 import './GenerationsFilter.css';
 
-const GenerationsFilter = () => {
+const GenerationsFilter = memo(() => {
   const { 
     generations, 
     selectedGeneration, 
@@ -43,6 +43,6 @@ const GenerationsFilter = () => {
       </div>
     </div>
   );
-};
+});
 
 export default GenerationsFilter;

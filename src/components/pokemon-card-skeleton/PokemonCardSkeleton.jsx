@@ -1,6 +1,7 @@
 import './PokemonCardSkeleton.css';
+import { memo } from 'react';
 
-const PokemonCardSkeleton = () => {
+const PokemonCardSkeleton = memo(() => {
   return (
     <div className="pokemon-card-skeleton">
       <div className="pokemon-card-skeleton-content">
@@ -18,6 +19,6 @@ const PokemonCardSkeleton = () => {
       </div>
     </div>
   );
-};
+});
 
 export default PokemonCardSkeleton;

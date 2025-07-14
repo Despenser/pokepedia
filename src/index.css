@@ -116,24 +116,11 @@ ul {
 }
 
 .section-title.generation {
-  margin-bottom: 18px;
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--text-color);
-  position: relative;
-  display: inline-block;
+  color: var(--primary-color);
+  font-weight: 700;
 }
-
 .section-title.generation::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 60px;
-  height: 4px;
-  background-color: var(--primary-color);
-  border-radius: 2px;
-  opacity: 1;
+  display: none;
 }
 
 /* Общие стили для заголовков страниц */

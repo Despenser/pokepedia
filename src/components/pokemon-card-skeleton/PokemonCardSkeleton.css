@@ -77,13 +77,23 @@
 }
 
 /* Медиа-запросы */
-@media (max-width: 992px) {
+@media (max-width: 1199px) {
   .pokemon-image-skeleton {
-    height: 160px;
+    height: 150px;
+  }
+}
+@media (max-width: 899px) {
+  .pokemon-image-skeleton {
+    height: 100px;
+  }
+}
+@media (max-width: 599px) {
+  .pokemon-image-skeleton {
+    height: 70px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .pokemon-card-skeleton-content {
     padding: 12px;
   }

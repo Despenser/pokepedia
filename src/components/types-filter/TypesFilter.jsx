@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
 import { useFilterState } from '../../hooks/useFilterState';
 import {TypeBadge} from '../type-badge/TypeBadge.jsx';
 import './TypesFilter.css';
 
-const TypesFilter = () => {
+const TypesFilter = memo(() => {
   const { 
     pokemonTypes, 
     selectedType, 
@@ -43,6 +43,6 @@ const TypesFilter = () => {
       </div>
     </div>
   );
-};
+});
 
 export default TypesFilter;

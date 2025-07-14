@@ -26,19 +26,13 @@ const PokemonList = () => {
   // Перерендер при изменении избранных
   useEffect(() => {
     const handleFavoritesUpdate = () => {
-      // Принудительное обновление списка при изменении избранных
-      // Используем минимальную задержку, чтобы избежать конфликтов с другими обновлениями
       setTimeout(() => {
-        // Технически это нужно только для пограничных случаев,
-        // когда изменение происходит в других вкладках
         if (document.visibilityState === 'visible') {
           // Используем форсированное обновление
         }
       }, 10);
     };
-
     window.addEventListener('favorites-updated', handleFavoritesUpdate);
-
     return () => {
       window.removeEventListener('favorites-updated', handleFavoritesUpdate);
     };
@@ -111,23 +105,19 @@ const PokemonList = () => {
           <PokemonCard 
             key={pokemon.id} 
             pokemon={pokemon} 
-             
             className="pokemon-list-card"
           />
         ))}
-
         {loading && Array(4).fill(0).map((_, index) => (
           <PokemonCardSkeleton key={`skeleton-${index}`} />
         ))}
       </div>
-
       {pokemons.length === 0 && !loading && searchQuery && (
         <div className="empty-search-result">
           <h3>Покемоны не найдены</h3>
           <p>Попробуйте изменить поисковый запрос</p>
         </div>
       )}
-
       {/* Наблюдатель для бесконечного скролла */}
       {hasMore && !searchQuery && !selectedType && !selectedGeneration && (
         <div ref={ref} className="scroll-trigger"></div>

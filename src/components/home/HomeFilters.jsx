@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import TypesFilter from '../types-filter/TypesFilter';
 import GenerationsFilter from '../generations-filter/GenerationsFilter';
 
 /**
  * Компонент для отображения фильтров на главной странице
  */
-const HomeFilters = ({ selectedType, selectedGeneration, onResetFilters }) => {
+const HomeFilters = memo(({ selectedType, selectedGeneration, onResetFilters }) => {
   return (
     <div className="filters-container">
       <TypesFilter />
@@ -20,6 +20,6 @@ const HomeFilters = ({ selectedType, selectedGeneration, onResetFilters }) => {
       )}
     </div>
   );
-};
+});
 
 export default HomeFilters; 

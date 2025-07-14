@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { getPokemonsByType, getPokemonByNameOrId } from '../api/pokeApi';
 import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 
@@ -72,5 +72,5 @@ export const useSimilarPokemons = (pokemonId, types, cache) => {
     fetchSimilarPokemons();
   }, [pokemonId, types, cache]);
 
-  return { similarPokemons, loading };
+  return useMemo(() => ({ similarPokemons, loading }), [similarPokemons, loading]);
 }; 

@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { formatHeight, formatWeight, formatPokemonName } from '../../utils/formatUtils';
 import { useBatchTranslation } from '../../hooks/useTranslation';
 
 /**
  * Компонент для отображения атрибутов покемона (рост, вес, способности)
  */
-const PokemonAttributes = ({ pokemon }) => {
+const PokemonAttributes = memo(({ pokemon }) => {
   // abilities мемоизирован для стабильности зависимостей
   const abilities = useMemo(() => pokemon?.abilities || [], [pokemon?.abilities]);
   const abilityNames = useMemo(
@@ -74,6 +74,6 @@ const PokemonAttributes = ({ pokemon }) => {
       </div>
     </div>
   );
-};
+});
 
 export default PokemonAttributes; 

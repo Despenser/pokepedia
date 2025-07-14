@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getPokemonByNameOrId, getPokemonSpecies, getEvolutionChain } from '../api/pokeApi';
 import { safeAsync, logError } from '../utils/errorHandlingUtils';
 import usePokemonStore from '../store/pokemonStore';
@@ -98,14 +98,14 @@ export const usePokemonData = (pokemonId) => {
     loadPokemonData();
   }, [loadPokemonData]);
 
-  return {
+  return useMemo(() => ({
     pokemon,
     species,
     evolutionChain,
     isLoading,
     error,
     refetch
-  };
+  }), [pokemon, species, evolutionChain, isLoading, error, refetch]);
 };
 
 

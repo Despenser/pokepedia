@@ -9,16 +9,29 @@ import { useTheme } from '../../hooks/useTheme';
 export const Logo = memo(({ onClick }) => (
     <button className="logo-link" onClick={onClick} tabIndex={0} aria-label="На главную">
         <div className="logo">
-            <img src="/pokeball-header.png" alt="Pokédex" className="pokeball-logo"/>
+            <picture>
+              <source srcSet="/pokeball-header.webp" type="image/webp" />
+              <img src="/pokeball-header.png" alt="Pokédex" className="pokeball-logo" loading="lazy"/>
+            </picture>
             <h1>Poképedia</h1>
         </div>
     </button>
 ));
 
+const prefetchFavorites = () => import('../../pages/favorites-page/FavoritesPage.jsx');
+const prefetchLegendary = () => import('../../pages/LegendaryPage.jsx');
+
 // Пункт "Избранные" для бургер-меню
 export const BurgerMenuContent = memo(({ onClick }) => (
     <div className="burger-menu-content" onClick={onClick}>
-        <Link to="/legendary" className="favorites-link burger-menu-link" title="Легендарные покемоны">
+        <Link
+            to="/legendary"
+            className="favorites-link burger-menu-link"
+            title="Легендарные покемоны"
+            onMouseEnter={prefetchLegendary}
+            onFocus={prefetchLegendary}
+            onTouchStart={prefetchLegendary}
+        >
             <span className="menu-icon menu-icon-lightning" aria-hidden="true">
                 <svg width="36" height="36" viewBox="0 0 24 24">
                   <path className="icon-stroke" d="M7 2v11h3v9l7-12h-4l4-8z" fill="none" stroke="transparent" strokeWidth="4" strokeLinejoin="round"/>
@@ -27,14 +40,21 @@ export const BurgerMenuContent = memo(({ onClick }) => (
             </span>
             Легендарные покемоны
         </Link>
-        <Link to="/favorites" className="favorites-link burger-menu-link" title="Избранные покемоны">
+        <Link
+            to="/favorites"
+            className="favorites-link burger-menu-link"
+            title="Избранные покемоны"
+            onMouseEnter={prefetchFavorites}
+            onFocus={prefetchFavorites}
+            onTouchStart={prefetchFavorites}
+        >
             <span className="menu-icon menu-icon-heart" aria-hidden="true">
                 <svg width="30" height="30" viewBox="0 0 24 24">
                   <path className="icon-stroke" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="transparent" strokeWidth="4" strokeLinejoin="round"/>
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#d53a37" stroke="none"/>
                 </svg>
             </span>
-            Любимые покемоны
+            Избранные покемоны
         </Link>
     </div>
 ));

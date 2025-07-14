@@ -33,10 +33,15 @@
   transform-origin: center center;
   will-change: transform, box-shadow;
   contain: layout paint;
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* Оптимизация для списка карточек */
 .pokemon-list-card {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   contain: content;
   content-visibility: auto;
   contain-intrinsic-size: 0 350px; /* Примерная высота карточки */
@@ -164,8 +169,8 @@
 }
 
 .pokemon-image {
-  width: var(--image-width);
-  height: var(--image-height);
+  width: 150px;
+  height: 150px;
   object-fit: contain;
   transition:
     transform var(--animation-duration) var(--ease-out-cubic),
@@ -268,45 +273,67 @@
 }
 
 /* Медиа-запросы */
-@media (max-width: 992px) {
+@media (max-width: 1199px) {
   .pokemon-types {
     justify-content: center;
   }
   .pokemon-image-container {
-    height: 160px;
+    height: 150px;
   }
-
   .pokemon-image {
-    max-height: 140px;
-    max-width: 140px;
+    width: 120px;
+    height: 120px;
   }
-}
-
-@media (max-width: 768px) {
-  .pokemon-name {
-    font-size: 16px;
-  }
-
-  .pokemon-id {
-    font-size: 12px;
-  }
-
   .pokemon-card-content {
     padding: 12px;
   }
 }
-
-@media (max-width: 576px) {
+@media (max-width: 899px) {
   .pokemon-image-container {
-    height: 140px;
+    height: 120px;
   }
-
   .pokemon-image {
-    max-height: 120px;
-    max-width: 120px;
+    width: 100px;
+    height: 100px;
+  }
+  .pokemon-card-content {
+    padding: 10px;
+  }
+  .pokemon-name {
+    font-size: 15px;
+  }
+  .pokemon-id {
+    font-size: 11px;
+  }
+}
+@media (max-width: 600px) {
+  .pokemon-image-container {
+    height: 120px;
+  }
+  .pokemon-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+@media (max-width: 400px) {
+  .pokemon-image-container {
+    height: 110px;
+  }
+  .pokemon-image {
+    width: 90px;
+    height: 90px;
   }
 }
 
 [data-theme='dark'] .pokemon-name {
   color: rgba(58, 58, 58, 0.88);
+}
+
+/* Адаптивность контейнера списка покемонов */
+@media (max-width: 1200px) {
+  .pokemon-list-container {
+    max-width: 100vw;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }

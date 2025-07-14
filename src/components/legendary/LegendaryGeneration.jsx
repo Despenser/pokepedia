@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { getGenerationNameRu } from '../../utils/localizationUtils';
 import PokemonCard from '../pokemon-card/PokemonCard';
 
 /**
  * Компонент для отображения поколения легендарных покемонов
  */
-const LegendaryGeneration = ({ generation, pokemons }) => {
+const LegendaryGeneration = memo(({ generation, pokemons }) => {
   if (!pokemons || pokemons.length === 0) {
     return null;
   }
@@ -22,6 +22,6 @@ const LegendaryGeneration = ({ generation, pokemons }) => {
       </div>
     </div>
   );
-};
+});
 
 export default LegendaryGeneration; 

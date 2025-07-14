@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useCallback } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 
 /**
@@ -8,13 +8,12 @@ import { useLocalStorage } from './useLocalStorage';
 export const useFavorites = () => {
   // Получаем список избранных из localStorage
   const [favorites, setFavorites] = useLocalStorage('pokemon-favorites', []);
-  // Состояние для оптимизации рендеринга при проверке на наличие в избранном
-  const [favoritesSet, setFavoritesSet] = useState(new Set());
+
+  // Мемоизированный Set для быстрой проверки
+  const favoritesSet = useMemo(() => new Set(favorites), [favorites]);
 
   // Обновляем Set при изменении массива избранных для быстрой проверки
   useEffect(() => {
-    setFavoritesSet(new Set(favorites));
-    // Инициируем событие для возможного обновления компонентов
     window.dispatchEvent(new CustomEvent('favorites-updated'));
   }, [favorites]);
 
@@ -23,50 +22,46 @@ export const useFavorites = () => {
    * @param {number} pokemonId - ID покемона
    * @returns {boolean} - true если покемон в избранном
    */
-  const isFavorite = (pokemonId) => {
-    return favoritesSet.has(pokemonId);
-  };
+  const isFavorite = useCallback((pokemonId) => favoritesSet.has(pokemonId), [favoritesSet]);
 
   /**
    * Добавляет покемона в избранное
    * @param {number} pokemonId - ID покемона
    */
-  const addToFavorites = (pokemonId) => {
-    if (!isFavorite(pokemonId)) {
-      const newFavorites = [...favorites, pokemonId];
-      setFavorites(newFavorites);
+  const addToFavorites = useCallback((pokemonId) => {
+    if (!favoritesSet.has(pokemonId)) {
+      setFavorites([...favorites, pokemonId]);
     }
-  };
+  }, [favorites, favoritesSet, setFavorites]);
 
   /**
    * Удаляет покемона из избранного
    * @param {number} pokemonId - ID покемона
    */
-  const removeFromFavorites = (pokemonId) => {
-    if (isFavorite(pokemonId)) {
-      const newFavorites = favorites.filter(id => id !== pokemonId);
-      setFavorites(newFavorites);
+  const removeFromFavorites = useCallback((pokemonId) => {
+    if (favoritesSet.has(pokemonId)) {
+      setFavorites(favorites.filter(id => id !== pokemonId));
     }
-  };
+  }, [favorites, favoritesSet, setFavorites]);
 
   /**
    * Переключает состояние избранного для покемона
    * @param {number} pokemonId - ID покемона
    */
-  const toggleFavorite = (pokemonId) => {
-    if (isFavorite(pokemonId)) {
-      removeFromFavorites(pokemonId);
+  const toggleFavorite = useCallback((pokemonId) => {
+    if (favoritesSet.has(pokemonId)) {
+      setFavorites(favorites.filter(id => id !== pokemonId));
     } else {
-      addToFavorites(pokemonId);
+      setFavorites([...favorites, pokemonId]);
     }
-  };
+  }, [favorites, favoritesSet, setFavorites]);
 
-  return {
+  return useMemo(() => ({
     favorites,
     isFavorite,
     addToFavorites,
     removeFromFavorites,
     toggleFavorite,
     favoritesCount: favorites.length
-  };
+  }), [favorites, isFavorite, addToFavorites, removeFromFavorites, toggleFavorite]);
 };

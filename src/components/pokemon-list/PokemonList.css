@@ -1,14 +1,65 @@
 /* Стили для списка покемонов */
 
 .pokemon-list-container {
+  max-width: 1400px;
   width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .pokemon-list-container {
+    padding: 0 8px;
+  }
+}
+@media (max-width: 400px) {
+  .pokemon-list-container {
+    padding: 0 4vw;
+  }
 }
 
 .pokemon-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
   margin-bottom: 30px;
+}
+@media (max-width: 400px) {
+  .pokemon-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.pokemon-card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+@media (max-width: 400px) {
+  .pokemon-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+}
+@media (max-width: 350px) {
+  .pokemon-list-container {
+    padding: 0 4vw;
+  }
+  .pokemon-grid {
+    gap: 6px;
+  }
+  .pokemon-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+  .pokemon-card-content {
+    padding: 4px !important;
+  }
 }
 
 .scroll-trigger {
@@ -36,33 +87,4 @@
 
 .empty-search-result p {
   font-size: 16px;
-}
-
-/* Медиа-запросы */
-@media (max-width: 1200px) {
-  .pokemon-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-}
-
-@media (max-width: 992px) {
-  .pokemon-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-}
-
-@media (max-width: 768px) {
-  .pokemon-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
-
-@media (max-width: 576px) {
-  .pokemon-grid {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 16px;
-  }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { getPokemonByNameOrId, getPokemonSpecies } from '../api/pokeApi';
 import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 import { LEGENDARY_NAMES, getSpeciesName } from '../utils/legendaryUtils';
@@ -56,5 +56,5 @@ export const useLegendaryPokemons = () => {
     loadLegendaryPokemons();
   }, []);
 
-  return { grouped, isLoading, error };
+  return useMemo(() => ({ grouped, isLoading, error }), [grouped, isLoading, error]);
 }; 

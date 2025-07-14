@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useFavorites } from './useFavorites';
 import { getPokemonByNameOrId } from '../api/pokeApi';
 import { safeAsync } from '../utils/errorHandlingUtils';
@@ -70,5 +70,5 @@ export const useFavoritePokemons = () => {
     loadFavoritePokemons();
   }, [favoriteIds]);
 
-  return { favoritePokemons, isLoading, error, favoriteIds };
+  return useMemo(() => ({ favoritePokemons, isLoading, error, favoriteIds }), [favoritePokemons, isLoading, error, favoriteIds]);
 }; 

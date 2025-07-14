@@ -1,8 +1,9 @@
 import { getColorByType } from '../../utils/colorUtils.js';
 import { getTypeNameRu } from '../../utils/localizationUtils.js';
 import './TypeBadge.css';
+import { memo } from 'react';
 
-export const TypeBadge = ({ type, onClick, isActive = false, large = false }) => {
+export const TypeBadge = memo(({ type, onClick, isActive = false, large = false }) => {
 
     const backgroundColor = getColorByType(type);
     const displayName = getTypeNameRu(type);
@@ -22,4 +23,4 @@ export const TypeBadge = ({ type, onClick, isActive = false, large = false }) =>
             { displayName }
         </div>
     );
-};
+});

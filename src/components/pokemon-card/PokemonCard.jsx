@@ -38,6 +38,12 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
         ));
     }, [types, id]);
 
+    // Prefetch детальной страницы и данных покемона
+    const handlePrefetch = () => {
+        // Prefetch чанка страницы
+        import('../../pages/pokemon-detail-page/PokemonDetailPage.jsx');
+    };
+
     // Проверка наличия данных
     if (!pokemon) return null;
 
@@ -59,8 +65,7 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
                         alt={displayName}
                         className="pokemon-image"
                         style={{ opacity: isLoaded ? 1 : 0 }}
-                        loading="eager"
-                        fetchPriority="high"
+                        loading="lazy"
                         onLoad={handleLoad}
                         onError={handleError}
                         width="150"
@@ -80,7 +85,14 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
     }
 
     return (
-        <Link to={`/pokemon/${id}`} className="pokemon-card-link" aria-label={`Покемон ${displayName}, ${formattedId}`}>
+        <Link
+            to={`/pokemon/${id}`}
+            className="pokemon-card-link"
+            aria-label={`Покемон ${displayName}, ${formattedId}`}
+            onMouseEnter={handlePrefetch}
+            onFocus={handlePrefetch}
+            onTouchStart={handlePrefetch}
+        >
             {cardContent}
         </Link>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { formatPokemonId, formatPokemonName } from '../../utils/formatUtils';
 import { getPokemonImage } from '../../utils/imageUtils';
@@ -9,7 +9,7 @@ import FavoritesButton from '../favorites/FavoritesButton';
 /**
  * Компонент для отображения заголовка покемона
  */
-const PokemonHeader = ({ pokemon }) => {
+const PokemonHeader = memo(({ pokemon }) => {
   const { id } = useParams();
   const pokemonId = pokemon?.id || id;
   const imageUrl = getPokemonImage(pokemon?.sprites, pokemon?.id);
@@ -42,8 +42,7 @@ const PokemonHeader = ({ pokemon }) => {
             src={imageUrl} 
             alt={pokemon?.nameRu || pokemon?.name} 
             className="pokemon-detail-image"
-            loading="eager"
-            fetchPriority="high"
+            loading="lazy"
           />
         </div>
         <div className="pokemon-detail-types pokemon-detail-types--image">
@@ -54,6 +53,6 @@ const PokemonHeader = ({ pokemon }) => {
       </div>
     </div>
   );
-};
+});
 
 export default PokemonHeader; 
