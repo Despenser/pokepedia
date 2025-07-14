@@ -1,0 +1,1 @@
+import{R as e}from"./index-CB5N3rpp.js";import{F as r}from"./Footer-xKqXVpvq.js";import{f as t}from"./App-DYKHi4eM.js";const m=()=>e.createElement("div",{className:"not-found-page"},e.createElement("main",{className:"main-content"},e.createElement(t,{error:new Error("Страница, которую вы ищете, не существует"),code:"404"})),e.createElement(r,null));export{m as default};
