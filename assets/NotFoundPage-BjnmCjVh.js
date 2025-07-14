@@ -1,0 +1,1 @@
+import{j as r}from"./index-Du0vXYoH.js";import{F as o}from"./Footer-DlYLaU0K.js";import{E as s}from"./App-CBnKlSPQ.js";const n=()=>r.jsxs("div",{className:"not-found-page",children:[r.jsx("main",{className:"main-content",children:r.jsx(s,{error:new Error("Страница, которую вы ищете, не существует"),code:"404"})}),r.jsx(o,{})]});export{n as default};
