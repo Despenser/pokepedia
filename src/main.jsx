@@ -1,3 +1,4 @@
+import React from 'react';
 import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Loader } from './components/loader/Loader.jsx';

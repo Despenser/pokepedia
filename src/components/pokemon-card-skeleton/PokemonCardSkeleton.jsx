@@ -1,4 +1,5 @@
 import './PokemonCardSkeleton.css';
+import React from 'react';
 import { memo } from 'react';
 
 const PokemonCardSkeleton = memo(() => {

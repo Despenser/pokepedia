@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React from 'react';
 import './GenerationBadge.css';
 import { getGenerationNameRu } from '../../utils/localizationUtils.js';
 import { getColorByGeneration } from '../../utils/colorUtils.js';
@@ -48,4 +48,4 @@ const GenerationBadge = ({ generation, onClick, isActive = false }) => {
 };
 
 // Мемоизация компонента для предотвращения ненужных перерисовок
-export default memo(GenerationBadge);
+export default GenerationBadge;

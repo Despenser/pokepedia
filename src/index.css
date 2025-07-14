@@ -3,10 +3,24 @@
 
 @font-face {
   font-family: 'PermianSansTypeface';
-  src: url('./assets/fonts/PermianSansTypeface.otf') format('opentype');
+  src: url('./assets/fonts/subset-PermianSansTypeface.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Оптимизация отображения шрифтов */
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PermianSansTypeface';
+  src: url('./assets/fonts/subset-PermianSansTypeface-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PermianSansTypeface';
+  src: url('./assets/fonts/subset-PermianSansTypeface-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
 }
 
 
@@ -179,6 +193,29 @@ ul {
 }
 
 .back-button:hover {
+  background-color: var(--primary-light);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(229, 57, 53, 0.4);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.reset-all-filters {
+  display: inline-flex;
+  width: auto;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+  min-height: 44px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
+  transition: all var(--animation-duration) ease;
+}
+.reset-all-filters:hover {
   background-color: var(--primary-light);
   color: #fff;
   box-shadow: 0 6px 16px rgba(229, 57, 53, 0.4);

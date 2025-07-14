@@ -1,3 +1,4 @@
+import React from 'react';
 import {Footer} from '../components/footer/Footer.jsx';
 import {ErrorMessage} from '../components/error-message/ErrorMessage.jsx';
 import './NotFoundPage.css';

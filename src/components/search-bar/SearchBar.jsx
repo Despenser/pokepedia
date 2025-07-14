@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import usePokemonStore from '../../store/pokemonStore.js';
@@ -22,7 +23,7 @@ export const SearchBar = () => {
           // navigate('/'); // убираем переход
         } else {
           searchPokemons(localSearchQuery.trim());
-          navigate('/');
+          // navigate('/'); // убираем переход
         }
       }
     }, 300); // Задержка в 300мс для предотвращения частых запросов
@@ -39,6 +40,8 @@ export const SearchBar = () => {
   return (
     <div className="search-bar">
       <input
+        id="search-input"
+        name="search"
         type="text"
         placeholder="Поиск по имени или номеру"
         value={localSearchQuery}

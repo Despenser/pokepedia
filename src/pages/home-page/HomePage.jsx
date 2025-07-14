@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useCallback, useMemo } from 'react';
 import { Footer } from '../../components/footer/Footer.jsx';
 import HomeFilters from '../../components/home/HomeFilters.jsx';

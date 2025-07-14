@@ -1,3 +1,4 @@
+import React from 'react';
 import { memo, useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SearchBar } from '../search-bar/SearchBar';
@@ -107,7 +108,7 @@ export const Header = () => {
             <div className="header-content">
                 <Logo onClick={handleLogoClick} />
                 <div className="header-searchbar-center searchbar-desktop">
-                    {!isDetailPage && <SearchBar/>}
+                    <SearchBar/>
                 </div>
                 <div className="header-right-block">
                     <button className="header-icon-btn search-animate" aria-label="Поиск" onClick={handleSearchIconClick} ref={searchIconRef}>

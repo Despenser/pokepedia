@@ -1,3 +1,4 @@
+import React from 'react';
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getGradientByTypes } from '../../utils/colorUtils.js';
@@ -60,17 +61,7 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
 
                 <div className="pokemon-image-container">
                     {!isLoaded && <div className="pokemon-image-skeleton" aria-hidden="true"></div>}
-                    <img
-                        src={imageUrl}
-                        alt={displayName}
-                        className="pokemon-image"
-                        style={{ opacity: isLoaded ? 1 : 0 }}
-                        loading="lazy"
-                        onLoad={handleLoad}
-                        onError={handleError}
-                        width="150"
-                        height="150"
-                    />
+                    <img src={imageUrl} alt={name} loading="lazy" width={150} height={150} className="pokemon-image" onLoad={handleLoad} onError={handleError} />
                 </div>
 
                 <div className="pokemon-types">

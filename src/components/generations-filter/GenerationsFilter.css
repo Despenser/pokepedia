@@ -4,6 +4,9 @@
   padding: 15px;
   margin-bottom: 20px;
   box-shadow: var(--box-shadow);
+  width: 100%;
+  min-width: 260px;
+  max-width: 100%;
 }
 
 .generations-filter-header {
@@ -20,7 +23,6 @@
   margin: -15px -15px 15px -15px;
   padding: 15px;
 }
-
 .generations-filter-header h3 {
   margin: 0;
   color: var(--text-color);
@@ -29,7 +31,6 @@
   font-weight: 600;
   line-height: normal;
 }
-
 .generations-filter-header .back-button {
   align-self: auto;
   margin-bottom: 0;
@@ -40,4 +41,29 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .generations-filter {
+    padding: 12px;
+  }
+  .generations-filter-header {
+    padding: 12px;
+    margin: -12px -12px 15px -12px;
+  }
+  .generations-filter-header h3 {
+    font-size: 16px;
+  }
+  .generations-badges {
+    gap: 8px;
+  }
+}
+@media (max-width: 576px) {
+  .generations-filter {
+    padding: 8px;
+  }
+  .generations-filter-header {
+    padding: 8px;
+    margin: -8px -8px 15px -8px;
+  }
 }

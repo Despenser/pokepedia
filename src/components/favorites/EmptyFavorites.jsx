@@ -7,7 +7,6 @@ const EmptyFavorites = () => {
   return (
     <div className="empty-favorites">
       <picture>
-        <source srcSet="/favorites.webp" type="image/webp" />
         <img src="/favorites.svg" alt="Нет избранных покемонов" className="empty-favorites-img" loading="lazy" />
       </picture>
       <h2>У вас пока нет избранных покемонов</h2>

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -13,11 +14,28 @@ import PokemonDetailCard from '../../components/pokemon-detail/PokemonDetailCard
 import EvolutionSection from '../../components/pokemon-detail/EvolutionSection.jsx';
 import { getUserFriendlyErrorMessage } from '../../utils/errorHandlingUtils.js';
 import './PokemonDetailPage.css';
+import usePokemonStore from '../../store/pokemonStore.js';
+import PokemonList from '../../components/pokemon-list/PokemonList.jsx';
+import WithGlobalSearch from '../../components/WithGlobalSearch.jsx';
 
 // Компонент для отображения деталей покемона
 const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading, error }) => {
   const { id } = useParams();
   const pokemonId = pokemon?.id || id;
+  const { searchQuery } = usePokemonStore();
+
+  if (searchQuery) {
+    return (
+      <div className="pokemon-detail-page">
+        <main className="detail-content">
+          <div className="container">
+            <PokemonList />
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   // Если данных нет и загрузка завершена, показываем ошибку
   if (!pokemon && !isLoading) {
@@ -33,17 +51,16 @@ const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading, error 
     <div className="pokemon-detail-page">
       <main className="detail-content">
         <div className="container">
-          <BackButton />
-          
-          <PokemonDetailCard pokemon={pokemon} species={species} />
-          
-          <EvolutionSection 
-            species={species} 
-            evolutionChain={evolutionChain} 
-            pokemonId={pokemonId} 
-          />
-          
-          <SimilarPokemons pokemonId={pokemonId} types={pokemon?.types} />
+          <WithGlobalSearch>
+            <BackButton />
+            <PokemonDetailCard pokemon={pokemon} species={species} />
+            <EvolutionSection 
+              species={species} 
+              evolutionChain={evolutionChain} 
+              pokemonId={pokemonId} 
+            />
+            <SimilarPokemons pokemonId={pokemonId} types={pokemon?.types} />
+          </WithGlobalSearch>
         </div>
       </main>
       <Footer />

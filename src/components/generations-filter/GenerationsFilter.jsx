@@ -1,3 +1,4 @@
+import React from 'react';
 import { memo, useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
 import { useFilterState } from '../../hooks/useFilterState';
@@ -30,7 +31,6 @@ const GenerationsFilter = memo(() => {
           </button>
         )}
       </div>
-
       <div className="generations-badges">
         {generations.map((generationInfo) => (
           <GenerationBadge

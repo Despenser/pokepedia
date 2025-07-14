@@ -1,3 +1,4 @@
+import React from 'react';
 import { getColorByType } from '../../utils/colorUtils.js';
 import { getStatNameRu } from '../../utils/localizationUtils.js';
 import './PokemonStats.css';

@@ -41,72 +41,29 @@ const usePokemonStore = create(
                 set({evolutionChain: evolutionData});
             },
 
+            // Вместо хранения всех покемонов:
+            pokemons: [],
+            offset: 0,
+            limit: 20,
+            hasMore: true,
+            loading: false,
+            error: null,
             fetchPokemons: async () => {
-                const {offset, pokemons, cache, selectedType, searchQuery, selectedGeneration} = get();
-
-                // Проверка размера кеша и очистка при необходимости
-                if (Object.keys(cache).length > 50) {
-                    get().clearCache();
-                }
-
-                // Пропускаем загрузку, если активны фильтры
-                if (searchQuery || selectedType || selectedGeneration) {
-                    return;
-                }
-
-                set({loading: true, error: null});
+                const { offset, limit, pokemons } = get();
+                set({ loading: true });
                 try {
-                    // Проверяем кеш
-                    const cacheKey = `pokemons-${offset}`;
-                    if (cache[cacheKey]) {
-                        set({
-                            pokemons: [...pokemons, ...cache[cacheKey]],
-                            offset: offset + 20,
-                            loading: false
-                        });
-                        return;
-                    }
-
-                    const data = await getPokemonList(20, offset);
-                    const newPokemons = await Promise.all(
-                        data.results.map(async (pokemon) => {
-                            try {
-                                const detailedPokemon = await getPokemonByNameOrId(pokemon.name);
-                                return {
-                                    id: detailedPokemon.id,
-                                    name: detailedPokemon.name,
-                                    nameRu: pokemonNamesRu[detailedPokemon.name] || detailedPokemon.name,
-                                    types: detailedPokemon.types,
-                                    sprites: detailedPokemon.sprites,
-                                    stats: detailedPokemon.stats,
-                                    abilities: detailedPokemon.abilities,
-                                    height: detailedPokemon.height,
-                                    weight: detailedPokemon.weight,
-                                };
-                            } catch (err) {
-                                logError(`Ошибка при загрузке данных покемона ${pokemon.name}:`, err);
-                                return null;
-                            }
-                        })
-                    );
-
-                    const filteredPokemons = newPokemons.filter(Boolean);
-
-                    // Обновляем кеш
+                    const newPokemons = await fetchPokemonsFromApi(offset, limit); // реализовать функцию
                     set({
-                        pokemons: [...pokemons, ...filteredPokemons],
-                        offset: offset + 20,
+                        pokemons: [...pokemons, ...newPokemons],
+                        offset: offset + limit,
+                        hasMore: newPokemons.length === limit,
                         loading: false,
-                        hasMore: data.next !== null,
-                        cache: {
-                            ...cache,
-                            [cacheKey]: filteredPokemons
-                        }
                     });
                 } catch (error) {
-                    set({error: error instanceof Error ? error : new Error(error?.message || error), loading: false});
+                    set({ error, loading: false });
                 }
             },
+            resetPokemons: () => set({ pokemons: [], offset: 0, hasMore: true, error: null }),
 
             // Вспомогательная функция для работы с кешем
             withCache: async (cacheKey, fetchData, setStateOnHit, setStateOnFetch) => {
@@ -719,5 +676,18 @@ const usePokemonStore = create(
             }),
         }
     ));
+
+// Реализация функции для загрузки и преобразования списка покемонов
+async function fetchPokemonsFromApi(offset, limit) {
+    // Получаем список покемонов (метаданные)
+    const data = await getPokemonList(limit, offset);
+    // Загружаем подробные данные для каждого покемона
+    const processPokemonData = usePokemonStore.getState().processPokemonData;
+    const pokemons = await Promise.all(
+        data.results.map(p => processPokemonData(p.name))
+    );
+    // Фильтруем null (ошибки загрузки отдельных покемонов)
+    return pokemons.filter(Boolean);
+}
 
 export default usePokemonStore;
