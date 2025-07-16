@@ -21,7 +21,7 @@ const TypesFilter = memo(() => {
   return (
     <div className="types-filter">
       <div className="types-filter-header">
-        <h3>Фильтр по типам</h3>
+        <h2>Фильтр по типам</h2>
         {selectedType && (
           <button 
             className="back-button"

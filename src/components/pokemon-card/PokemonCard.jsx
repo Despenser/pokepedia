@@ -90,7 +90,6 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
         <Link
             to={`/pokemon/${id}`}
             className="pokemon-card-link"
-            aria-label={`Покемон ${displayName}, ${formattedId}`}
             onMouseEnter={handlePrefetch}
             onFocus={handlePrefetch}
             onTouchStart={handlePrefetch}

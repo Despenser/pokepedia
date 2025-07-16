@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -8,7 +8,7 @@ export const Footer = () => {
   return (
     <footer className="footer">
       <Helmet>
-        <link rel="canonical" href="/" />
+        <link rel="canonical" href="https://pokepedia.ru/" />
       </Helmet>
       <div className="footer-content">
         <div className="footer-left">

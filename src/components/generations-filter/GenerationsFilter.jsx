@@ -21,7 +21,7 @@ const GenerationsFilter = memo(() => {
   return (
     <div className="generations-filter">
       <div className="generations-filter-header">
-        <h3>Фильтр по поколениям</h3>
+        <h2>Фильтр по поколениям</h2>
         {selectedGeneration && (
           <button 
             className="back-button"

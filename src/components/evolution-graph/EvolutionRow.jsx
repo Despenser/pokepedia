@@ -15,7 +15,7 @@ const EvolutionRow = ({ nodes, currentPokemonId }) => {
         
         return (
           <React.Fragment key={id}>
-            <Link to={`/pokemon/${id}`} className="mini-pokemon-link">
+            <Link to={`/pokemon/${id}`} className="mini-pokemon-link" aria-label={`Покемон ${node.species.name}`}>
               <EvoMiniCard
                 id={id}
                 name={node.species.name}

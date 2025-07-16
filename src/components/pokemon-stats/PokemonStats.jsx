@@ -21,7 +21,7 @@ const PokemonStats = ({ stats, types }) => {
 
   return (
     <div className="pokemon-stats">
-      <h3>Характеристики</h3>
+      <h2>Статистика покемона</h2>
 
       <div className="stats-container">
         {stats.map((stat) => {

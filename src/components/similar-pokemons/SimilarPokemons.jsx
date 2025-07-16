@@ -44,7 +44,7 @@ const SimilarPokemons = ({ pokemonId, types, excludeNames = [] }) => {
   return (
     <div className="similar-pokemons">
       <div className="similar-pokemons-header">
-        <h3>Похожие покемоны</h3>
+        <h2>Похожие покемоны</h2>
       </div>
 
       <div className="carousel-wrapper">

@@ -46,7 +46,7 @@ const EvolutionBranch = React.forwardRef(({ node, currentPokemonId }, ref) => {
         }}
       >
         <div className="evo-branch-parent" ref={parentRef}>
-          <Link to={`/pokemon/${id}`} className="mini-pokemon-link">
+          <Link to={`/pokemon/${id}`} className="mini-pokemon-link" aria-label={`Покемон ${node.species.name}`}>
             <EvoMiniCard
               id={id}
               name={node.species.name}
@@ -74,6 +74,7 @@ const EvolutionBranch = React.forwardRef(({ node, currentPokemonId }, ref) => {
                 className="mini-pokemon-link" 
                 key={idx} 
                 ref={childRefs[idx]}
+                aria-label={`Покемон ${child.species.name}`}
               >
                 <EvoMiniCard
                   id={getIdFromSpecies(child.species)}

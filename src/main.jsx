@@ -5,6 +5,7 @@ import { Loader } from './components/loader/Loader.jsx';
 import './index.css';
 import './styles/theme.css';
 import './styles/animations.css';
+import { HelmetProvider } from 'react-helmet-async';
 
 
 const App = lazy(() => import('./components/app/App.jsx')
@@ -15,8 +16,10 @@ const root = createRoot(rootElement);
 
 root.render(
     <StrictMode>
-        <Suspense fallback={ <Loader/> }>
-            <App/>
-        </Suspense>
+        <HelmetProvider>
+            <Suspense fallback={ <Loader/> }>
+                <App/>
+            </Suspense>
+        </HelmetProvider>
     </StrictMode>
 );

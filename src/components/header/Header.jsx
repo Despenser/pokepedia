@@ -6,10 +6,10 @@ import { ThemeSwitcher } from '../theme-switcher/ThemeSwitcher';
 import usePokemonStore from '../../store/pokemonStore.js';
 import './Header.css';
 import { useTheme } from '../../hooks/useTheme';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 export const Logo = memo(({ onClick }) => (
-    <button className="logo-link" onClick={onClick} tabIndex={0} aria-label="На главную">
+    <button className="logo-link" onClick={onClick} tabIndex={0}>
         <div className="logo">
             <picture>
               <source srcSet="/pokeball/pokeball-header.webp" type="image/webp" />
@@ -107,7 +107,7 @@ export const Header = () => {
     return (
         <header className="header">
             <Helmet>
-                <link rel="canonical" href="/" />
+                <link rel="canonical" href="https://pokepedia.ru/" />
             </Helmet>
             <div className="header-content">
                 <Logo onClick={handleLogoClick} />

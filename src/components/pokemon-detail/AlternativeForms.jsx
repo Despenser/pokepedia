@@ -51,7 +51,7 @@ const AlternativeForms = ({ species, pokemon }) => {
       <h2 className="evolution-section-title">Альтернативные формы</h2>
       <div className="alternative-forms-row">
         {forms.map(form => (
-          <Link to={`/pokemon/${form.id}`} key={form.id} className="mini-pokemon-link">
+          <Link to={`/pokemon/${form.id}`} key={form.id} className="mini-pokemon-link" aria-label={`Покемон ${form.name}`}>
             <EvoMiniCard
               id={form.id}
               name={form.name}
