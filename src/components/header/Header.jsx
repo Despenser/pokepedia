@@ -13,7 +13,7 @@ export const Logo = memo(({ onClick }) => (
         <div className="logo">
             <picture>
               <source srcSet="/pokeball/pokeball-header.webp" type="image/webp" />
-              <img src="/pokeball/pokeball-header.png" alt="Pokédex" className="pokeball-logo" loading="lazy"/>
+              <img src="/pokeball/pokeball-header.png" alt="Pokédex" className="pokeball-logo" fetchpriority="high"/>
             </picture>
             <h1>Poképedia</h1>
         </div>

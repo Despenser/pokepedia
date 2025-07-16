@@ -107,6 +107,7 @@ ul {
 }
 
 .section-title {
+  min-height: 36px; /* Зарезервировано место под заголовок */
   margin-bottom: 24px;
   font-size: 28px;
   font-weight: 700;

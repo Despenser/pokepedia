@@ -7,7 +7,7 @@ import pokemonNamesRu from '../../assets/translate/pokemon-names-ru.json';
  * Мини-карточка покемона для эволюционного дерева
  */
 const EvoMiniCard = memo(React.forwardRef(({ id, name, sprites, types, isCurrent }, ref) => {
-  const { src: imageUrl } = getLocalPokemonImage(id);
+  const imageUrl = `/official-artwork/${id}-72.webp`;
   const displayName = pokemonNamesRu[name] || name;
   const background = getGradientByTypes(types);
   
@@ -31,8 +31,8 @@ const EvoMiniCard = memo(React.forwardRef(({ id, name, sprites, types, isCurrent
       style={{ background }}
     >
       <img src={imageUrl} alt={displayName} className="evo-mini-img" loading="lazy" width={imgSize} height={imgSize} onError={e => { e.target.src = '/official-artwork/unknown.webp'; }} 
-        srcSet={`${imageUrl} 48w, ${imageUrl} 56w, ${imageUrl} 72w`}
-        sizes="(max-width: 776px) 48px, (max-width: 1180px) 56px, 72px"
+        srcSet={`/official-artwork/${id}-56.webp 56w, /official-artwork/${id}-72.webp 72w, /official-artwork/${id}-90.webp 90w, /official-artwork/${id}-120.webp 120w, /official-artwork/${id}-150.webp 150w`}
+        sizes="(max-width: 776px) 56px, (max-width: 1180px) 72px, (max-width: 1400px) 90px, (max-width: 1800px) 120px, 150px"
       />
       <div className="evo-mini-name multi-line">{displayName}</div>
     </div>

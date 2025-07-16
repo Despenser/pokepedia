@@ -19,7 +19,8 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
     const { id, name, types, sprites } = pokemon || {};
 
     // Получаем локальный путь к изображению
-    const { src: imageUrl } = useMemo(() => getLocalPokemonImage(id), [id]);
+    // const { src: imageUrl } = useMemo(() => getLocalPokemonImage(id), [id]);
+    const imageUrl = `/official-artwork/${id}-150.webp`;
 
     // Мемоизируем вычисляемые значения для оптимизации
     const background = useMemo(() => getGradientByTypes(types), [types]);
@@ -34,19 +35,7 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
     // Используем хук для управления загрузкой изображения (без fallback)
     const { isLoaded, handleLoad } = useImageLoad();
 
-    // Получаем адаптивные размеры изображения для предотвращения layout shift
-    const getImageSize = () => {
-      if (window.innerWidth <= 400) return 90;
-      if (window.innerWidth <= 600) return 100;
-      if (window.innerWidth <= 899) return 120;
-      return 150;
-    };
-    const [imgSize, setImgSize] = React.useState(getImageSize());
-    React.useEffect(() => {
-      const handleResize = () => setImgSize(getImageSize());
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
+
 
     // Мемоизируем типы покемона для предотвращения ненужных перерисовок
     const typesBadges = useMemo(() => {
@@ -81,13 +70,11 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
                         src={imageUrl} 
                         alt={name} 
                         loading="lazy" 
-                        width={imgSize} 
-                        height={imgSize} 
                         className="pokemon-image" 
                         onLoad={handleLoad} 
                         onError={e => { e.target.src = '/official-artwork/unknown.webp'; }}
-                        srcSet={`${imageUrl} 90w, ${imageUrl} 100w, ${imageUrl} 120w, ${imageUrl} 150w`}
-                        sizes="(max-width: 400px) 90px, (max-width: 600px) 100px, (max-width: 899px) 120px, 150px"
+                        srcSet={`/official-artwork/${id}-90.webp 90w, /official-artwork/${id}-120.webp 120w, /official-artwork/${id}-150.webp 150w, /official-artwork/${id}-200.webp 200w, /official-artwork/${id}-240.webp 240w, /official-artwork/${id}-300.webp 300w`}
+                        sizes="(max-width: 600px) 100px, (max-width: 900px) 120px, 200px"
                     />
                 </div>
 

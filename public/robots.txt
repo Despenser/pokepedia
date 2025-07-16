@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: 
+Allow: /
+Sitemap: https://pokepedia.ru/sitemap.xml
+Host: https://pokepedia.ru/

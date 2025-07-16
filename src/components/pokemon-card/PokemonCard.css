@@ -169,9 +169,13 @@
 }
 
 .pokemon-image {
-  width: 150px;
-  height: 150px;
+  width: 80%;
+  max-width: 200px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
+  display: block;
+  margin: 0 auto;
   transition:
     transform var(--animation-duration) var(--ease-out-cubic),
     filter var(--animation-duration) var(--ease-out-cubic),
@@ -185,6 +189,8 @@
   opacity: 0; /* Начинаем с прозрачного состояния и показываем после загрузки */
   content-visibility: var(--content-visibility-mode); /* Оптимизация рендеринга */
 }
+
+
 
 /* Создаем подсветку под изображением */
 .pokemon-image-container::after {
@@ -205,7 +211,7 @@
 /* Анимации при наведении в стиле эволюции */
 .pokemon-card-link:hover .pokemon-image {
   transform: translateY(var(--image-hover-translate)) scale(var(--image-hover-scale));
-  filter: var(--image-hover-shadow);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
   animation: gentleFloat 3s infinite ease-in-out;
 }
 
@@ -265,12 +271,15 @@
 
 /* Упрощенный скелетон загрузки */
 .pokemon-image-skeleton {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  width: auto;
+  /* max-width: 150px; */
+  height: auto;
+  aspect-ratio: 1 / 1;
   background-color: var(--badge-background);
   opacity: 0.7;
   margin: auto;
+  object-fit: contain;
+  z-index: 2;
 }
 
 /* Медиа-запросы */
@@ -281,22 +290,27 @@
   .pokemon-image-container {
     height: 150px;
   }
-  .pokemon-image {
-    width: 120px;
-    height: 120px;
-  }
+  /* .pokemon-image,
+  .pokemon-image-skeleton {
+    max-width: 120px;
+    max-height: 120px;
+  } */
   .pokemon-card-content {
     padding: 12px;
+  }
+  .pokemon-image-skeleton {
+    max-width: 120px;
   }
 }
 @media (max-width: 899px) {
   .pokemon-image-container {
     height: 120px;
   }
-  .pokemon-image {
-    width: 100px;
-    height: 100px;
-  }
+  /* .pokemon-image,
+  .pokemon-image-skeleton {
+    max-width: 100px;
+    max-height: 100px;
+  } */
   .pokemon-card-content {
     padding: 10px;
   }
@@ -306,14 +320,20 @@
   .pokemon-id {
     font-size: 11px;
   }
+  .pokemon-image-skeleton {
+    max-width: 100px;
+  }
 }
 @media (max-width: 600px) {
   .pokemon-image-container {
     height: 120px;
   }
   .pokemon-image {
-    width: 100px;
-    height: 100px;
+    max-width: 100px;
+  }
+  .pokemon-image-skeleton {
+    max-width: 100px;
+    max-height: 100px;
   }
 }
 @media (max-width: 400px) {
@@ -321,8 +341,10 @@
     height: 110px;
   }
   .pokemon-image {
-    width: 90px;
-    height: 90px;
+    max-width: 90px;
+  }
+  .pokemon-image-skeleton {
+    max-width: 90px;
   }
 }
 

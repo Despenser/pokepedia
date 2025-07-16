@@ -12,7 +12,7 @@ import FavoritesButton from '../favorites/FavoritesButton';
 const PokemonHeader = memo(({ pokemon }) => {
   const { id } = useParams();
   const pokemonId = pokemon?.id || id;
-  const { src: imageUrl } = getLocalPokemonImage(pokemonId);
+  const imageUrl = `/official-artwork/${pokemonId}-240.webp`;
 
   // Получаем адаптивные размеры изображения для предотвращения layout shift
   const getImageSize = () => {
@@ -64,7 +64,7 @@ const PokemonHeader = memo(({ pokemon }) => {
             width={imgSize}
             height={imgSize}
             onError={e => { e.target.src = '/official-artwork/unknown.webp'; }}
-            srcSet={`${imageUrl} 200w, ${imageUrl} 240w, ${imageUrl} 300w`}
+            srcSet={`/official-artwork/${pokemonId}-200.webp 200w, /official-artwork/${pokemonId}-240.webp 240w, /official-artwork/${pokemonId}-300.webp 300w, /official-artwork/${pokemonId}.webp 600w`}
             sizes="(max-width: 576px) 200px, (max-width: 768px) 240px, 300px"
           />
         </div>
