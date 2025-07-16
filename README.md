@@ -3,21 +3,15 @@
 </p>
 
 <h1 align="center">
-  Poképedia <img src="https://img.shields.io/badge/-Pokedex-red?style=flat-square&logo=pokemon&logoColor=white" height="28"/>
+  Poképedia
 </h1>
 
 <p align="center">
   <b>⚡ Poképedia</b><br/>
-  <img src="https://img.shields.io/github/stars/your-username/pokepedia?style=flat-square"/>
-  <img src="https://img.shields.io/github/forks/your-username/pokepedia?style=flat-square"/>
-  <img src="https://img.shields.io/github/license/your-username/pokepedia?style=flat-square"/>
-  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"/>
-  <img src="https://img.shields.io/badge/Lighthouse-Performance%2095%2B-brightgreen?style=flat-square&logo=lighthouse"/>
-  <img src="https://img.shields.io/badge/Accessibility-AA-blueviolet?style=flat-square&logo=accessibility"/>
-</p>
-
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/your-username/pokepedia-demo.gif" alt="Poképedia Demo" width="700"/>
+  <img src="https://img.shields.io/github/stars/despenser/pokepedia?style=flat-square"/>
+  <img src="https://img.shields.io/github/forks/despenser/pokepedia?style=flat-square"/>
+  <img src="https://img.shields.io/github/license/despenser/pokepedia?style=flat-square"/>
+  <img src="https://img.shields.io/badge/PR-welcome-brightgreen.svg?style=flat-square"/>
 </p>
 
 ---
@@ -34,9 +28,13 @@
 ## 🛠️ Стек технологий
 
 ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=FFD62E)
+
 ![Zustand](https://img.shields.io/badge/Zustand-000?style=flat-square&logo=react&logoColor=white)
+
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat-square)
+
 ![PokeAPI](https://img.shields.io/badge/PokeAPI-2A75BB?style=flat-square)
 
 ---
@@ -59,7 +57,7 @@
 
 ## 🔥 Демо
 
-[![Демо Poképedia](https://img.shields.io/badge/DEMO-online-orange?style=for-the-badge&logo=vercel)](https://your-demo-link.com)
+[![Демо Poképedia](https://img.shields.io/badge/DEMO-online-green?style=for-the-badge&logo=vercel)](https://pokepedia.ru)
 
 ---
 
@@ -111,7 +109,7 @@ $ npm run build
 
 ---
 
-## ♿ Accessibility (A11y)
+## ♿ Accessibility
 
 - Контрастность текста и фонов
 - Фокус-стили для интерактивных элементов
@@ -131,12 +129,6 @@ PR, баг-репорты и идеи приветствуются! Открой
 
 [MIT](LICENSE)
 
----
-
-## 👤 Контакты
-
-- Telegram: [@avgolubyatnikov](https://t.me/yourusername)
-- Email: agolubyatnikov94@gmail.com
 
 ---
 
