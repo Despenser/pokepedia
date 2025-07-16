@@ -1,13 +1,11 @@
 <p align="center">
   <img src="public/pokeball/pokeball-header.webp" alt="Poképedia Pokeball" width="120" style="animation:spin 2s linear infinite;"/>
 </p>
-
 <h1 align="center">
   Poképedia
 </h1>
 
 <p align="center">
-  <b>⚡ Poképedia</b><br/>
   <img src="https://img.shields.io/github/stars/despenser/pokepedia?style=flat-square"/>
   <img src="https://img.shields.io/github/forks/despenser/pokepedia?style=flat-square"/>
   <img src="https://img.shields.io/github/license/despenser/pokepedia?style=flat-square"/>
@@ -18,7 +16,7 @@
 
 ## 🚀 О проекте
 
-**Poképedia** — это интерактивный Pokédex с мгновенным поиском, фильтрами, подробной страницей покемона, древом эволюции, анимациями и адаптивным дизайном. 
+**Poképedia** — это интерактивный сайт с мгновенным поиском, фильтрами, подробной страницей покемона, древом эволюции, анимациями и адаптивным дизайном. 
 Также отдельными страницами выведены легендарные покемоны и избранные, которых вы можете добавить самостоятельно.
 
 Все данные берутся из [PokeAPI](https://pokeapi.co/).
