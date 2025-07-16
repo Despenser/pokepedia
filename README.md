@@ -26,13 +26,9 @@
 ## 🛠️ Стек технологий
 
 ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
-
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=FFD62E)
-
 ![Zustand](https://img.shields.io/badge/Zustand-000?style=flat-square&logo=react&logoColor=white)
-
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat-square)
-
 ![PokeAPI](https://img.shields.io/badge/PokeAPI-2A75BB?style=flat-square)
 
 ---
