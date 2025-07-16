@@ -30,7 +30,10 @@ const EvoMiniCard = memo(React.forwardRef(({ id, name, sprites, types, isCurrent
       ref={ref}
       style={{ background }}
     >
-      <img src={imageUrl} alt={displayName} className="evo-mini-img" loading="lazy" width={imgSize} height={imgSize} onError={e => { e.target.src = '/official-artwork/unknown.webp'; }} />
+      <img src={imageUrl} alt={displayName} className="evo-mini-img" loading="lazy" width={imgSize} height={imgSize} onError={e => { e.target.src = '/official-artwork/unknown.webp'; }} 
+        srcSet={`${imageUrl} 48w, ${imageUrl} 56w, ${imageUrl} 72w`}
+        sizes="(max-width: 776px) 48px, (max-width: 1180px) 56px, 72px"
+      />
       <div className="evo-mini-name multi-line">{displayName}</div>
     </div>
   );

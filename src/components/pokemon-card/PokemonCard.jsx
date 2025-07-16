@@ -77,7 +77,18 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
 
                 <div className="pokemon-image-container">
                     {!isLoaded && <div className="pokemon-image-skeleton" aria-hidden="true"></div>}
-                    <img src={imageUrl} alt={name} loading="lazy" width={imgSize} height={imgSize} className="pokemon-image" onLoad={handleLoad} onError={e => { e.target.src = '/official-artwork/unknown.webp'; }} />
+                    <img 
+                        src={imageUrl} 
+                        alt={name} 
+                        loading="lazy" 
+                        width={imgSize} 
+                        height={imgSize} 
+                        className="pokemon-image" 
+                        onLoad={handleLoad} 
+                        onError={e => { e.target.src = '/official-artwork/unknown.webp'; }}
+                        srcSet={`${imageUrl} 90w, ${imageUrl} 100w, ${imageUrl} 120w, ${imageUrl} 150w`}
+                        sizes="(max-width: 400px) 90px, (max-width: 600px) 100px, (max-width: 899px) 120px, 150px"
+                    />
                 </div>
 
                 <div className="pokemon-types">

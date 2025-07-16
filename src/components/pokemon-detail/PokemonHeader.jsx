@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { formatPokemonId, formatPokemonName } from '../../utils/formatUtils';
 import { getLocalPokemonImage } from '../../utils/imageUtils';
 import { getColorByType, getContrastTextColor } from '../../utils/colorUtils';
-
 import { TypeBadge } from '../type-badge/TypeBadge';
 import FavoritesButton from '../favorites/FavoritesButton';
 
@@ -65,6 +64,8 @@ const PokemonHeader = memo(({ pokemon }) => {
             width={imgSize}
             height={imgSize}
             onError={e => { e.target.src = '/official-artwork/unknown.webp'; }}
+            srcSet={`${imageUrl} 200w, ${imageUrl} 240w, ${imageUrl} 300w`}
+            sizes="(max-width: 576px) 200px, (max-width: 768px) 240px, 300px"
           />
         </div>
         <div className="pokemon-detail-types pokemon-detail-types--image">
