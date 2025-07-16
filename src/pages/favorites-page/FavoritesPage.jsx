@@ -13,7 +13,7 @@ const FavoritesPage = () => {
 
   return (
     <div className="favorites-page">
-      <main className="main-content">
+      <main className="page-main">
         <div className="container">
           <WithGlobalSearch>
             <h1 className="favorites-title">Избранные покемоны</h1>

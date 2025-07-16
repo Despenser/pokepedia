@@ -32,7 +32,7 @@ const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading, error 
   if (searchQuery) {
     return (
       <div className="pokemon-detail-page">
-        <main className="detail-content">
+        <main className="page-main">
           <div className="container">
             <PokemonList />
           </div>
@@ -54,7 +54,7 @@ const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading, error 
 
   return (
     <div className="pokemon-detail-page">
-      <main className="detail-content">
+      <main className="page-main">
         <div className="container">
           <WithGlobalSearch>
             <BackButton />

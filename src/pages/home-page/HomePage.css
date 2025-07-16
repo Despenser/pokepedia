@@ -6,15 +6,22 @@
   flex-direction: column;
 }
 
+.home-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 140px;
+}
+
 /* Медиа-запросы */
 @media (max-width: 768px) {
-  .main-content {
+  .home-main {
     padding: 20px 0;
   }
 }
 
 @media (max-width: 576px) {
-  .main-content {
+  .home-main {
     padding: 15px 0;
   }
 }

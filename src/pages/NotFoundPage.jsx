@@ -6,7 +6,7 @@ import './NotFoundPage.css';
 const NotFoundPage = () => {
     return (
         <div className="not-found-page">
-            <main className="main-content">
+            <main className="page-main">
                 <ErrorMessage
                     error={new Error('Страница, которую вы ищете, не существует')}
                     code="404"

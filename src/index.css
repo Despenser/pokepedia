@@ -102,11 +102,8 @@ ul {
   padding: 0 20px;
 }
 
-.main-content {
-  flex: 1;
-  padding: 30px 0;
-  margin-top: var(--header-height);
-  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+.page-main {
+  margin-top: 125px;
 }
 
 .section-title {

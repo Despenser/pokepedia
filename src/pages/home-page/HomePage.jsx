@@ -46,7 +46,7 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <main className="main-content">
+      <main className="home-main">
         <div className="container">
           <HomeFilters 
             selectedType={selectedType}
