@@ -1,0 +1,1 @@
+import{R as o}from"./index-Df_6KZdj.js";import{u as t}from"./App-CF2eCG8w.js";import{P as a}from"./PokemonList-Kbv9YHqt.js";const c=({children:r})=>{const{searchQuery:e}=t();return e?o.createElement(a,null):r};export{c as W};
