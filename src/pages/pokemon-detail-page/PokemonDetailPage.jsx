@@ -2,7 +2,6 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-
 import { usePokemonData } from '../../hooks/usePokemonData.js';
 import { Header } from '../../components/header/Header.jsx';
 import { Footer } from '../../components/footer/Footer.jsx';

@@ -50,5 +50,3 @@ export const getFallbackImage = (pokemonId) => {
   const id = validatePokemonId(pokemonId);
   return id ? `${BASE_SPRITE_URL}/${id}.png` : '';
 };
-
-

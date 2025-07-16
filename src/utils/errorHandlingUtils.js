@@ -112,3 +112,4 @@ export const getErrorInfo = (error, fallbackType = 'DEFAULT') => {
 export const getUserFriendlyErrorMessage = (error, fallbackType = 'DEFAULT') => {
     return getErrorInfo(error, fallbackType).message;
 };
+
