@@ -54,24 +54,22 @@ const PokemonList = () => {
   }
 
   return (
-    <div className="pokemon-list-container">
-      <div className="pokemon-grid">
-        {pokemons.map((pokemon) => (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} className="pokemon-list-card" />
-        ))}
-        {loading && Array(6).fill(0).map((_, index) => (
-          <PokemonCardSkeleton key={`skeleton-${index}`} />
-        ))}
-        {hasMore && !searchQuery && !selectedType && !selectedGeneration && (
-          <div ref={ref} className="scroll-trigger"></div>
-        )}
-        {pokemons.length === 0 && !loading && searchQuery && (
-          <div className="empty-search-result">
-            <h3>Покемоны не найдены</h3>
-            <p>Попробуйте изменить поисковый запрос</p>
-          </div>
-        )}
-      </div>
+    <div className="pokemon-grid">
+      {pokemons.map((pokemon) => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} className="pokemon-list-card" />
+      ))}
+      {loading && Array(6).fill(0).map((_, index) => (
+        <PokemonCardSkeleton key={`skeleton-${index}`} />
+      ))}
+      {hasMore && !searchQuery && !selectedType && !selectedGeneration && (
+        <div ref={ref} className="scroll-trigger"></div>
+      )}
+      {pokemons.length === 0 && !loading && searchQuery && (
+        <div className="empty-search-result">
+          <h3>Покемоны не найдены</h3>
+          <p>Попробуйте изменить поисковый запрос</p>
+        </div>
+      )}
     </div>
   );
 };

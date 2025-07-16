@@ -1,86 +1,145 @@
-# React + Vite
-# Покедекс - веб-приложение с информацией о покемонах
+<p align="center">
+  <img src="public/pokeball/pokeball-header.webp" alt="Poképedia Pokeball" width="120" style="animation:spin 2s linear infinite;"/>
+</p>
 
-## Описание
+<h1 align="center">
+  Poképedia <img src="https://img.shields.io/badge/-Pokedex-red?style=flat-square&logo=pokemon&logoColor=white" height="28"/>
+</h1>
 
-Это веб-приложение, разработанное с использованием React, предоставляющее информацию о покемонах из API PokeAPI. Приложение позволяет просматривать список покемонов, фильтровать их по типам, искать по имени или номеру, а также просматривать подробную информацию о каждом покемоне, включая цепочку эволюции.
+<p align="center">
+  <b>⚡ Poképedia</b><br/>
+  <img src="https://img.shields.io/github/stars/your-username/pokepedia?style=flat-square"/>
+  <img src="https://img.shields.io/github/forks/your-username/pokepedia?style=flat-square"/>
+  <img src="https://img.shields.io/github/license/your-username/pokepedia?style=flat-square"/>
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"/>
+  <img src="https://img.shields.io/badge/Lighthouse-Performance%2095%2B-brightgreen?style=flat-square&logo=lighthouse"/>
+  <img src="https://img.shields.io/badge/Accessibility-AA-blueviolet?style=flat-square&logo=accessibility"/>
+</p>
 
-## Технологии
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/your-username/pokepedia-demo.gif" alt="Poképedia Demo" width="700"/>
+</p>
 
-- React
-- Zustand (для управления состоянием)
-- Axios (для HTTP запросов)
-- React Router (для маршрутизации)
-- PokeAPI (внешний API с данными о покемонах)
+---
 
-## Основные функции
+## 🚀 О проекте
 
-### Главная страница
-- Шапка сайта с поисковой строкой
-- Фильтрация покемонов по типам
-- Бесконечная прокрутка для подгрузки покемонов
-- Карточки покемонов с градиентным фоном в зависимости от типа
-- Анимации при взаимодействии с элементами интерфейса
+**Poképedia** — это интерактивный Pokédex с мгновенным поиском, фильтрами, подробной страницей покемона, древом эволюции, анимациями и адаптивным дизайном. 
+Также отдельными страницами выведены легендарные покемоны и избранные, которых вы можете добавить самостоятельно.
 
-### Страница детализации покемона
-- Подробная информация о покемоне (характеристики, типы, способности)
-- Древо эволюции покемона
-- Список похожих покемонов
+Все данные берутся из [PokeAPI](https://pokeapi.co/).
 
-## Установка и запуск
+---
 
-1. Клонировать репозиторий
+## 🛠️ Стек технологий
+
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=FFD62E)
+![Zustand](https://img.shields.io/badge/Zustand-000?style=flat-square&logo=react&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat-square)
+![PokeAPI](https://img.shields.io/badge/PokeAPI-2A75BB?style=flat-square)
+
+---
+
+## ✨ Основные фичи
+
+- 🔎 **Поиск и фильтрация** по имени, типу, поколению
+- 🏷️ **Бейджи поколений и типов** с анимацией
+- ⭐ **Избранные покемоны** (хранятся в localStorage)
+- 📱 **Адаптивный дизайн** (mobile first)
+- ⚡ **Мгновенная подгрузка** (infinite scroll)
+- 🦾 **Кеширование данных** (Zustand + localStorage)
+- 🦄 **Анимации**: плавные переходы, skeleton loading, hover-эффекты
+- 🧬 **Древо эволюции** и похожие покемоны
+- 🛡️ **Обработка ошибок** и fallback-страницы
+- 🌗 **Светлая/тёмная тема**
+- ♿ **Доступность** (aria, контраст, фокус)
+
+---
+
+## 🔥 Демо
+
+[![Демо Poképedia](https://img.shields.io/badge/DEMO-online-orange?style=for-the-badge&logo=vercel)](https://your-demo-link.com)
+
+---
+
+## ⚡ Быстрый старт
+
+```bash
+# 1. Клонируйте репозиторий
+$ git clone https://github.com/despenser/pokepedia.git
+$ cd pokepedia
+
+# 2. Установите зависимости
+$ npm install
+
+# 3. Запустите в режиме разработки
+$ npm run dev
+
+# 4. Сборка для продакшена
+$ npm run build
 ```
-git clone https://github.com/your-username/pokedex.git
-cd pokedex
+
+---
+
+## 🏗️ Структура проекта
+
+```
+├── public/                # Статические файлы, изображения
+├── src/
+│   ├── api/               # Работа с PokeAPI
+│   ├── assets/            # Шрифты, иконки, переводы
+│   ├── components/        # UI-компоненты
+│   ├── hooks/             # Кастомные хуки
+│   ├── pages/             # Страницы
+│   ├── store/             # Zustand store
+│   ├── styles/            # CSS, темы, анимации
+│   └── utils/             # Вспомогательные функции
+└── vite.config.js         # Конфиг Vite
 ```
 
-2. Установить зависимости
-```
-npm install
-```
+---
 
-3. Запустить в режиме разработки
-```
-npm run dev
-```
+## 🛡️ Безопасность и производительность
 
-4. Собрать проект для продакшена
-```
-npm run build
-```
+- **Заголовки безопасности**: рекомендуется настроить [CSP](https://developer.mozilla.org/ru/docs/Web/HTTP/CSP), [HSTS](https://developer.mozilla.org/ru/docs/Web/HTTP/Headers/Strict-Transport-Security), [X-Frame-Options], [X-Content-Type-Options], [Referrer-Policy].
+- **Сжатие**: включено gzip/brotli (`vite-plugin-compression`).
+- **Минификация и tree-shaking**: автоматом через Vite.
+- **Удаление неиспользуемого CSS**: `vite-plugin-purgecss`.
+- **Оптимизация изображений**: webp, srcSet, lazy loading, preload LCP.
+- **Кеширование**: Zustand + localStorage, ограничение размера кеша.
 
-## Особенности реализации
+---
 
-- Кеширование данных для уменьшения количества запросов к API
-- Адаптивный дизайн для мобильных устройств
-- Скелетоны при загрузке для улучшения UX
-- Обработка ошибок и соответствующие страницы
-- Анимации и переходы для улучшения пользовательского опыта
+## ♿ Accessibility (A11y)
 
-## Структура проекта
+- Контрастность текста и фонов
+- Фокус-стили для интерактивных элементов
+- aria-label, alt для изображений
+- Семантическая разметка (main, nav, section)
+- Навигация с клавиатуры
 
-- `/src/api` - Модули для работы с API
-- `/src/components` - React компоненты
-- `/src/pages` - Страницы приложения
-- `/src/store` - Хранилище состояния (Zustand)
-- `/src/styles` - CSS стили
-- `/src/utils` - Вспомогательные функции
+---
 
-## Авторы
+## 🧑‍💻 Contributing
 
-- Ваше Имя - Разработчик
+PR, баг-репорты и идеи приветствуются! Откройте issue или отправьте pull request.
 
-## Лицензия
+---
 
-MIT
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📄 Лицензия
 
-Currently, two official plugins are available:
+[MIT](LICENSE)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 👤 Контакты
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Telegram: [@avgolubyatnikov](https://t.me/yourusername)
+- Email: agolubyatnikov94@gmail.com
+
+---
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20with-%E2%9D%A4-red?style=for-the-badge"/>
+</p>

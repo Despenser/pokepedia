@@ -11,7 +11,7 @@ const LegendaryGeneration = memo(({ generation, pokemons }) => {
   }
 
   return (
-    <div style={{ marginBottom: 40 }}>
+    <section className="legendary-generation">
       <h2 className="section-title generation" style={{ marginTop: 32 }}>
         {getGenerationNameRu(generation)}
       </h2>
@@ -20,7 +20,7 @@ const LegendaryGeneration = memo(({ generation, pokemons }) => {
           <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </div>
-    </div>
+    </section>
   );
 });
 

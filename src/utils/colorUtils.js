@@ -58,13 +58,13 @@ export const getColorByType = (typeName) => typeColors[typeName] || DEFAULT_COLO
  * Карта цветов для различных поколений покемонов
  */
 const generationColors = {
-  'generation-i': typeColors.fighting,   // Generation I — Боевой
-  'generation-ii': typeColors.fire,      // Generation II — Огонь
+  'generation-i': typeColors.normal,   // Generation I — Боевой
+  'generation-ii': typeColors.fighting,     // Generation II — Огонь
   'generation-iii': typeColors.water,    // Generation III — Вода
   'generation-iv': typeColors.electric,  // Generation IV — Электричество
   'generation-v': typeColors.grass,      // Generation V — Трава
   'generation-vi': typeColors.ice,       // Generation VI — Лёд
-  'generation-vii': typeColors.psychic,  // Generation VII — Психический
+  'generation-vii': typeColors.poison,  // Generation VII — Психический
   'generation-viii': typeColors.steel,   // Generation VIII — Сталь
   'generation-ix': typeColors.fairy,     // Generation IX — Фея
 };

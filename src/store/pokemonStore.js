@@ -14,6 +14,18 @@ import {
 } from '../api/pokeApi';
 
 // Определяем тип для состояния хранилища
+const MAX_CACHE_SIZE = 100;
+
+function limitCacheSize(cache) {
+  const keys = Object.keys(cache);
+  if (keys.length <= MAX_CACHE_SIZE) return cache;
+  // FIFO: удаляем самые старые ключи
+  const newCache = { ...cache };
+  const toDelete = keys.slice(0, keys.length - MAX_CACHE_SIZE);
+  toDelete.forEach(key => { delete newCache[key]; });
+  return newCache;
+}
+
 const usePokemonStore = create(
     persist((set, get) => ({
             // Состояние
@@ -74,7 +86,8 @@ const usePokemonStore = create(
                     const data = await fetchData();
 
                     // Обновляем кеш и состояние
-                    const updatedCache = {...cache, [cacheKey]: data};
+                    let updatedCache = {...cache, [cacheKey]: data};
+                    updatedCache = limitCacheSize(updatedCache);
                     setStateOnFetch(data, updatedCache);
 
                     return data;
@@ -662,6 +675,7 @@ const usePokemonStore = create(
                 generations: state.generations,
                 selectedType: state.selectedType,
                 selectedGeneration: state.selectedGeneration,
+                cache: state.cache, // теперь сохраняем кеш
                 // Не сохраняем кеш и подробные данные о покемонах!
                 // Не сохраняем временные данные
                 loading: false,
