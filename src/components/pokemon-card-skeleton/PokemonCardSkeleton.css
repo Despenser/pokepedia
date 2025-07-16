@@ -8,7 +8,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  animation: pulse 1.5s infinite ease-in-out;
+  /* animation: pulse 1.5s infinite ease-in-out; */
 }
 
 .pokemon-card-skeleton-content {
