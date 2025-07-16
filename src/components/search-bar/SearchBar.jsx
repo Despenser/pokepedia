@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import usePokemonStore from '../../store/pokemonStore.js';
 import './SearchBar.css';
@@ -20,13 +19,11 @@ export const SearchBar = () => {
       if (localSearchQuery.trim() !== searchQuery) {
         if (!localSearchQuery.trim()) {
           resetSearch();
-          // navigate('/'); // убираем переход
         } else {
           searchPokemons(localSearchQuery.trim());
-          // navigate('/'); // убираем переход
         }
       }
-    }, 300); // Задержка в 300мс для предотвращения частых запросов
+    }, 300);
 
     return () => clearTimeout(handler);
   }, [localSearchQuery, searchQuery, searchPokemons, resetSearch, navigate]);
@@ -34,7 +31,6 @@ export const SearchBar = () => {
   const handleReset = () => {
     setLocalSearchQuery('');
     resetSearch();
-    // navigate('/'); // убираем переход
   };
 
   return (

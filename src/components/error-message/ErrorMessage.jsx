@@ -28,7 +28,7 @@ export const ErrorMessage = ({ error, code, hasBackButton = true }) => {
             <div className="error-content">
                 <picture>
                   <source srcSet={imageUrl.replace('.png', '.webp')} type="image/webp" />
-                  <img src={imageUrl} alt="Ошибка" className="error-image" loading="lazy"/>
+                  <img src={imageUrl} alt="Ошибка" className="error-image" loading="lazy" width={300} height={200}/>
                 </picture>
                 <h2>{errorInfo.title}</h2>
                 <p>{errorInfo.message}</p>

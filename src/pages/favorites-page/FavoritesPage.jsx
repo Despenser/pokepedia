@@ -3,7 +3,7 @@ import { Footer } from '../../components/footer/Footer.jsx';
 import FavoritesContent from '../../components/favorites/FavoritesContent.jsx';
 import { useFavoritePokemons } from '../../hooks/useFavoritePokemons.js';
 import './FavoritesPage.css';
-import WithGlobalSearch from '../../components/WithGlobalSearch.jsx';
+import WithGlobalSearch from '../../components/search-bar/WithGlobalSearch.jsx';
 
 /**
  * Страница со списком избранных покемонов

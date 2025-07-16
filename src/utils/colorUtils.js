@@ -48,36 +48,6 @@ export const getGradientByTypes = (types) => {
 };
 
 /**
- * Возвращает градиент на основе типов покемона с прозрачностью
- * @param {Array} types - Массив типов покемона
- * @param {number} opacity - Прозрачность (0-1)
- * @returns {string} CSS градиент с прозрачностью
- */
-export const getGradientByTypesWithOpacity = (types, opacity = 0.1) => {
-  if (!types?.length) return `linear-gradient(135deg, rgba(245, 245, 245, ${opacity}) 0%, rgba(224, 224, 224, ${opacity}) 100%)`;
-
-  if (types.length === 1) {
-    const color = typeColors[types[0].type.name] || DEFAULT_COLOR;
-    const rgb = hexToRgb(color);
-    if (rgb) {
-      return `linear-gradient(135deg, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity}) 0%, rgba(255, 255, 255, ${opacity}) 100%)`;
-    }
-    return `linear-gradient(135deg, ${color} 0%, white 100%)`;
-  }
-
-  const color1 = typeColors[types[0].type.name] || DEFAULT_COLOR;
-  const color2 = typeColors[types[1].type.name] || DEFAULT_COLOR;
-  const rgb1 = hexToRgb(color1);
-  const rgb2 = hexToRgb(color2);
-
-  if (rgb1 && rgb2) {
-    return `linear-gradient(135deg, rgba(${rgb1.r}, ${rgb1.g}, ${rgb1.b}, ${opacity}) 0%, rgba(${rgb2.r}, ${rgb2.g}, ${rgb2.b}, ${opacity}) 100%)`;
-  }
-
-  return `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`;
-};
-
-/**
  * Возвращает цвет для определенного типа покемона
  * @param {string} typeName - Название типа покемона
  * @returns {string} Цвет в формате HEX
@@ -85,23 +55,8 @@ export const getGradientByTypesWithOpacity = (types, opacity = 0.1) => {
 export const getColorByType = (typeName) => typeColors[typeName] || DEFAULT_COLOR;
 
 /**
- * Преобразует HEX цвет в RGB объект
- * @param {string} hex - Цвет в формате HEX
- * @returns {Object|null} RGB объект или null при неверном формате
+ * Карта цветов для различных поколений покемонов
  */
-const hexToRgb = (hex) => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
-};
-
-
-
 const generationColors = {
   'generation-i': '#e8e8b9',
   'generation-ii': '#e35b31',

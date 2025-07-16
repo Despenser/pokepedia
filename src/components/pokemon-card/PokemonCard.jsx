@@ -3,7 +3,7 @@ import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getGradientByTypes } from '../../utils/colorUtils.js';
 import { formatPokemonId, formatPokemonName } from '../../utils/formatUtils.js';
-import { getPokemonImage, getFallbackImage } from '../../utils/imageUtils.js';
+import { getLocalPokemonImage } from '../../utils/imageUtils.js';
 import {useImageLoad} from '../../hooks/useImageLoad.js';
 import {TypeBadge} from '../type-badge/TypeBadge.jsx';
 import './PokemonCard.css';
@@ -18,19 +18,30 @@ import './PokemonCard.css';
 const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
     const { id, name, types, sprites } = pokemon || {};
 
-    // Получаем URL изображения и запасного изображения
-    const imageUrl = useMemo(() => getPokemonImage(sprites, id), [sprites, id]);
-    const fallbackUrl = useMemo(() => getFallbackImage(id), [id]);
+    // Получаем локальный путь к изображению
+    const { src: imageUrl } = useMemo(() => getLocalPokemonImage(id), [id]);
 
     // Мемоизируем вычисляемые значения для оптимизации
     const background = useMemo(() => getGradientByTypes(types), [types]);
     const displayName = useMemo(() => formatPokemonName(name, pokemon?.nameRu), [name, pokemon?.nameRu]);
     const formattedId = useMemo(() => formatPokemonId(id), [id]);
 
-    // Используем хук для управления загрузкой изображения
-    const { isLoaded, handleLoad, handleError } = useImageLoad({
-        fallbackSrc: fallbackUrl
-    });
+    // Используем хук для управления загрузкой изображения (без fallback)
+    const { isLoaded, handleLoad } = useImageLoad();
+
+    // Получаем адаптивные размеры изображения для предотвращения layout shift
+    const getImageSize = () => {
+      if (window.innerWidth <= 400) return 90;
+      if (window.innerWidth <= 600) return 100;
+      if (window.innerWidth <= 899) return 120;
+      return 150;
+    };
+    const [imgSize, setImgSize] = React.useState(getImageSize());
+    React.useEffect(() => {
+      const handleResize = () => setImgSize(getImageSize());
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Мемоизируем типы покемона для предотвращения ненужных перерисовок
     const typesBadges = useMemo(() => {
@@ -61,7 +72,7 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
 
                 <div className="pokemon-image-container">
                     {!isLoaded && <div className="pokemon-image-skeleton" aria-hidden="true"></div>}
-                    <img src={imageUrl} alt={name} loading="lazy" width={150} height={150} className="pokemon-image" onLoad={handleLoad} onError={handleError} />
+                    <img src={imageUrl} alt={name} loading="lazy" width={imgSize} height={imgSize} className="pokemon-image" onLoad={handleLoad} onError={e => { e.target.src = '/official-artwork/unknown.webp'; }} />
                 </div>
 
                 <div className="pokemon-types">

@@ -7,9 +7,10 @@ import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
  * @param {number} pokemonId - ID текущего покемона
  * @param {Array} types - Типы покемона
  * @param {Object} cache - Кеш из store
+ * @param {Array<string>} [excludeNames] - Список имен для исключения из похожих
  * @returns {Object} Объект с состоянием загрузки и данными
  */
-export const useSimilarPokemons = (pokemonId, types, cache) => {
+export const useSimilarPokemons = (pokemonId, types, cache, excludeNames = []) => {
   const [similarPokemons, setSimilarPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +29,7 @@ export const useSimilarPokemons = (pokemonId, types, cache) => {
 
         // Проверяем кеш
         if (cache[cacheKey]) {
-          const filteredCache = cache[cacheKey].filter(p => p.id !== Number(pokemonId));
+          const filteredCache = cache[cacheKey].filter(p => p.id !== Number(pokemonId) && !excludeNames.includes(p.name));
           setSimilarPokemons(filteredCache.slice(0, 8));
           setLoading(false);
           return;
@@ -56,7 +57,7 @@ export const useSimilarPokemons = (pokemonId, types, cache) => {
 
         // Фильтруем и ограничиваем количество
         const filtered = detailedPokemons
-          .filter(p => p !== null && p.id !== Number(pokemonId))
+          .filter(p => p !== null && p.id !== Number(pokemonId) && !excludeNames.includes(p.name))
           .slice(0, 8)
           .map(p => ({ ...p, nameRu: pokemonNamesRu[p.name] || p.name }));
 
@@ -70,7 +71,7 @@ export const useSimilarPokemons = (pokemonId, types, cache) => {
     };
 
     fetchSimilarPokemons();
-  }, [pokemonId, types, cache]);
+  }, [pokemonId, types, cache, excludeNames]);
 
   return useMemo(() => ({ similarPokemons, loading }), [similarPokemons, loading]);
 }; 

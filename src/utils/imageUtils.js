@@ -6,6 +6,9 @@
 const BASE_SPRITE_URL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
 const BASE_ARTWORK_URL = `${BASE_SPRITE_URL}/other/official-artwork`;
 
+// Путь к локальным изображениям
+const LOCAL_ARTWORK_WEBP = '/official-artwork';
+
 /**
  * Валидация ID покемона
  * @param {number|string} pokemonId - ID покемона
@@ -18,41 +21,24 @@ const validatePokemonId = (pokemonId) => {
 };
 
 /**
- * Получение URL официального (большого) изображения покемона
- * @param {number} pokemonId - ID покемона
- * @returns {string} URL изображения высокого качества
+ * Получение локального пути к webp-изображению покемона
+ * @param {number|string} pokemonId - ID покемона
+ * @returns {string} Путь к webp-изображению
  */
-export const getOfficialPokemonImage = (pokemonId) => {
+export const getLocalPokemonWebp = (pokemonId) => {
   const id = validatePokemonId(pokemonId);
-  return id ? `${BASE_ARTWORK_URL}/${id}.png` : '';
+  return id ? `${LOCAL_ARTWORK_WEBP}/${id}.webp` : '';
 };
 
 /**
- * Получение высококачественного изображения покемона с учетом различных источников
- * @param {Object} sprites - Объект со спрайтами из API
- * @param {number} pokemonId - ID покемона
- * @returns {string} URL изображения высокого качества
+ * Получение изображения покемона (webp локально)
+ * @param {number|string} pokemonId - ID покемона
+ * @returns {object} src для <img>
  */
-export const getPokemonImage = (sprites, pokemonId) => {
-  if (!sprites) return '';
-
-  const id = validatePokemonId(pokemonId);
-  if (!id) return '';
-
-  // Приоритет источников изображений
-  const officialArtwork = sprites.other?.['official-artwork']?.front_default;
-  const dreamWorld = sprites.other?.['dream-world']?.front_default;
-  const home = sprites.other?.home?.front_default;
-  const defaultSprite = sprites.front_default;
-
-  // Возвращаем первый доступный источник по приоритету
-  return (
-    officialArtwork || 
-    dreamWorld || 
-    home || 
-    defaultSprite || 
-    getOfficialPokemonImage(id)
-  );
+export const getLocalPokemonImage = (pokemonId) => {
+  return {
+    src: getLocalPokemonWebp(pokemonId)
+  };
 };
 
 /**

@@ -23,7 +23,6 @@
   font-display: swap;
 }
 
-
 /* Основные стили приложения */
 :root {
   font-family: 'PermianSansTypeface', sans-serif;
@@ -52,6 +51,7 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   min-height: 100vh;
+  font-size: 14px; /* Минимальный размер шрифта для всего приложения */
 }
 
 #root {
@@ -181,8 +181,8 @@ ul {
   background-color: var(--primary-color);
   color: white;
   padding: 0px 20px 0px 20px;
-  border-radius: 12px; /* чуть больше скругление */
-  min-height: 44px; /* для лучшего вертикального центрирования */
+  border-radius: 12px;
+  min-height: 44px;
   line-height: 1;
   margin-bottom: 20px;
   font-size: 14px;
@@ -205,7 +205,7 @@ ul {
   min-width: 0;
   align-items: center;
   justify-content: center;
-  padding: 0px 20px;
+  padding: 0 20px;
   min-height: 44px;
   border-radius: 12px;
   font-size: 14px;
@@ -220,39 +220,6 @@ ul {
   color: #fff;
   box-shadow: 0 6px 16px rgba(229, 57, 53, 0.4);
   transform: translateY(-2px) scale(1.03);
-}
-
-/* Анимации */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 
 /* Медиа-запросы */

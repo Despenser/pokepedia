@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { formatPokemonId, formatPokemonName } from '../../utils/formatUtils';
-import { getPokemonImage } from '../../utils/imageUtils';
+import { getLocalPokemonImage } from '../../utils/imageUtils';
 
 import { TypeBadge } from '../type-badge/TypeBadge';
 import FavoritesButton from '../favorites/FavoritesButton';
@@ -12,7 +12,20 @@ import FavoritesButton from '../favorites/FavoritesButton';
 const PokemonHeader = memo(({ pokemon }) => {
   const { id } = useParams();
   const pokemonId = pokemon?.id || id;
-  const imageUrl = getPokemonImage(pokemon?.sprites, pokemon?.id);
+  const { src: imageUrl } = getLocalPokemonImage(pokemonId);
+
+  // Получаем адаптивные размеры изображения для предотвращения layout shift
+  const getImageSize = () => {
+    if (window.innerWidth <= 576) return 200;
+    if (window.innerWidth <= 768) return 240;
+    return 300;
+  };
+  const [imgSize, setImgSize] = React.useState(getImageSize());
+  React.useEffect(() => {
+    const handleResize = () => setImgSize(getImageSize());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="pokemon-detail-header">
@@ -43,6 +56,9 @@ const PokemonHeader = memo(({ pokemon }) => {
             alt={pokemon?.nameRu || pokemon?.name} 
             className="pokemon-detail-image"
             loading="lazy"
+            width={imgSize}
+            height={imgSize}
+            onError={e => { e.target.src = '/official-artwork/unknown.webp'; }}
           />
         </div>
         <div className="pokemon-detail-types pokemon-detail-types--image">

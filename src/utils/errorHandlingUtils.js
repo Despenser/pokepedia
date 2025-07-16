@@ -1,4 +1,4 @@
-import {ERROR_MESSAGES} from "./errors.js";
+import { ERROR_MESSAGES } from "./errors.js";
 
 /**
  * Утилиты для обработки и логирования ошибок

@@ -12,17 +12,23 @@ import SimilarPokemons from '../../components/similar-pokemons/SimilarPokemons.j
 import BackButton from '../../components/pokemon-detail/BackButton.jsx';
 import PokemonDetailCard from '../../components/pokemon-detail/PokemonDetailCard.jsx';
 import EvolutionSection from '../../components/pokemon-detail/EvolutionSection.jsx';
+import AlternativeForms from '../../components/pokemon-detail/AlternativeForms.jsx';
 import { getUserFriendlyErrorMessage } from '../../utils/errorHandlingUtils.js';
 import './PokemonDetailPage.css';
 import usePokemonStore from '../../store/pokemonStore.js';
 import PokemonList from '../../components/pokemon-list/PokemonList.jsx';
-import WithGlobalSearch from '../../components/WithGlobalSearch.jsx';
+import WithGlobalSearch from '../../components/search-bar/WithGlobalSearch.jsx';
 
 // Компонент для отображения деталей покемона
 const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading, error }) => {
   const { id } = useParams();
   const pokemonId = pokemon?.id || id;
   const { searchQuery } = usePokemonStore();
+
+  // Получаем имена альтернативных форм для исключения из похожих
+  const alternativeFormNames = (species?.varieties || [])
+    .filter(v => !v.is_default && v.pokemon.name !== pokemon?.name)
+    .map(v => v.pokemon.name);
 
   if (searchQuery) {
     return (
@@ -59,7 +65,8 @@ const PokemonDetailInfo = ({ pokemon, species, evolutionChain, isLoading, error 
               evolutionChain={evolutionChain} 
               pokemonId={pokemonId} 
             />
-            <SimilarPokemons pokemonId={pokemonId} types={pokemon?.types} />
+            <AlternativeForms species={species} pokemon={pokemon} />
+            <SimilarPokemons pokemonId={pokemonId} types={pokemon?.types} excludeNames={alternativeFormNames} />
           </WithGlobalSearch>
         </div>
       </main>

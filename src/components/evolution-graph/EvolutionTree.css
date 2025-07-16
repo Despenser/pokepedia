@@ -1000,3 +1000,27 @@
     max-width: 80px !important;
   }
 } 
+
+.evo-mini-name.multi-line {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  text-align: center;
+  max-height: 2.6em;
+  line-height: 1.3;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  transition: none !important;
+}
+
+.evo-mini-card:hover .evo-mini-name,
+.evo-mini-card:hover .evo-mini-name.multi-line {
+  color: #e3350d;
+  font-weight: 700;
+  font-size: inherit !important;
+  transition: none !important;
+} 

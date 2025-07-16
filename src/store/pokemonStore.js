@@ -1,5 +1,7 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
+import {getUserFriendlyErrorMessage, logError} from '../utils/errorHandlingUtils.js';
+import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 import {
     getPokemonList,
     getPokemonByNameOrId,
@@ -10,8 +12,6 @@ import {
     getGenerations,
     getGenerationDetails
 } from '../api/pokeApi';
-import {getUserFriendlyErrorMessage, logError} from '../utils/errorHandlingUtils.js';
-import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 
 // Определяем тип для состояния хранилища
 const usePokemonStore = create(
@@ -32,25 +32,18 @@ const usePokemonStore = create(
             selectedGeneration: null,
             searchQuery: '',
             offset: 0,
+            limit: 20,
             hasMore: true,
             cache: {},
-            lastRequestId: 0, // Для отслеживания актуальности запросов
+            lastRequestId: 0,
 
-            // Действия
             updateEvolutionChain: (evolutionData) => {
                 set({evolutionChain: evolutionData});
             },
 
-            // Вместо хранения всех покемонов:
-            pokemons: [],
-            offset: 0,
-            limit: 20,
-            hasMore: true,
-            loading: false,
-            error: null,
             fetchPokemons: async () => {
-                const { offset, limit, pokemons } = get();
-                set({ loading: true });
+                const {offset, limit, pokemons} = get();
+                set({loading: true});
                 try {
                     const newPokemons = await fetchPokemonsFromApi(offset, limit); // реализовать функцию
                     set({
@@ -60,10 +53,10 @@ const usePokemonStore = create(
                         loading: false,
                     });
                 } catch (error) {
-                    set({ error, loading: false });
+                    set({error, loading: false});
                 }
             },
-            resetPokemons: () => set({ pokemons: [], offset: 0, hasMore: true, error: null }),
+            //TODO resetPokemons: () => set({pokemons: [], offset: 0, hasMore: true, error: null}),
 
             // Вспомогательная функция для работы с кешем
             withCache: async (cacheKey, fetchData, setStateOnHit, setStateOnFetch) => {
@@ -238,10 +231,10 @@ const usePokemonStore = create(
                 // Если запрос не изменился, не делаем новый поиск
                 if (query === get().searchQuery) return;
 
-                set({ loading: true, error: null, pokemons: [], searchQuery: query });
+                set({loading: true, error: null, pokemons: [], searchQuery: query});
 
                 if (!query.trim()) {
-                    set({ searchQuery: '', loading: false, offset: 0 });
+                    set({searchQuery: '', loading: false, offset: 0});
                     get().fetchPokemons();
                     return;
                 }

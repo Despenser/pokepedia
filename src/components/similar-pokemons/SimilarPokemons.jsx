@@ -10,14 +10,14 @@ import './SimilarPokemons.css';
 /**
  * Компонент для отображения похожих покемонов в карусели
  */
-const SimilarPokemons = ({ pokemonId, types }) => {
+const SimilarPokemons = ({ pokemonId, types, excludeNames = [] }) => {
   const { cache } = usePokemonStore();
   
   // Получаем количество видимых карточек в зависимости от размера экрана
   const visibleCards = useResponsiveVisibleItems();
   
   // Загружаем похожих покемонов
-  const { similarPokemons, loading } = useSimilarPokemons(pokemonId, types, cache);
+  const { similarPokemons, loading } = useSimilarPokemons(pokemonId, types, cache, excludeNames);
   
   // Управление каруселью
   const {

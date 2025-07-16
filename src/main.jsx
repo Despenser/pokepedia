@@ -5,7 +5,6 @@ import { Loader } from './components/loader/Loader.jsx';
 import './index.css';
 import './styles/theme.css';
 import './styles/animations.css';
-import './styles/loading.css';
 
 
 const App = lazy(() => import('./components/app/App.jsx')

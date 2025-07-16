@@ -5,7 +5,7 @@ import { useLegendaryPokemons } from '../hooks/useLegendaryPokemons.js';
 import usePokemonStore from '../store/pokemonStore.js';
 import PokemonList from '../components/pokemon-list/PokemonList.jsx';
 import './LegendaryPage.css';
-import WithGlobalSearch from '../components/WithGlobalSearch.jsx';
+import WithGlobalSearch from '../components/search-bar/WithGlobalSearch.jsx';
 
 const LegendaryPage = () => {
   const { grouped, isLoading, error } = useLegendaryPokemons();

@@ -1,11 +1,15 @@
 import React from 'react';
 import './Footer.css';
+import { Helmet } from 'react-helmet';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="footer">
+      <Helmet>
+        <link rel="canonical" href="/" />
+      </Helmet>
       <div className="footer-content">
         <div className="footer-left">
           <a href="/" className="footer-logo" title="На главную">

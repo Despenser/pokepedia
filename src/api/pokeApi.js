@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {logError} from '../utils/errorHandlingUtils';
+import { logError } from '../utils/errorHandlingUtils';
 
 /**
  * Создаем инстанс axios с базовыми настройками

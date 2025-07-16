@@ -4,10 +4,12 @@ import viteCompression from 'vite-plugin-compression';
 
 
 export default defineConfig({
-  plugins: [viteCompression()],
+  plugins: [
+      react,
+      viteCompression()
+  ],
   build: {
     sourcemap: false,
     minify: 'esbuild',
   },
 });
-

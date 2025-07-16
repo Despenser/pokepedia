@@ -1,14 +1,13 @@
-/**
- * Утилиты для локализации текстов в приложении
- */
-
-// Импортируем переводы из JSON файлов
 import typeNamesRu from '../assets/translate/pokemon-types-ru.json';
 import statNamesRu from '../assets/translate/pokemon-stats-ru.json';
 import generationNamesRu from '../assets/translate/pokemon-generations-ru.json';
 
+/**
+ * Утилиты для локализации текстов в приложении
+ */
+
 // Экспортируем переводы для обратной совместимости
-export { typeNamesRu, generationNamesRu };
+export {typeNamesRu, generationNamesRu};
 
 /**
  * Получение перевода типа покемона на русский язык
@@ -16,7 +15,7 @@ export { typeNamesRu, generationNamesRu };
  * @returns {string} Перевод типа на русский язык или исходный тип
  */
 export const getTypeNameRu = (type) => {
-  return typeNamesRu[type] || type;
+    return typeNamesRu[type] || type;
 };
 
 /**
@@ -25,7 +24,7 @@ export const getTypeNameRu = (type) => {
  * @returns {string} Перевод характеристики на русский язык или исходная характеристика
  */
 export const getStatNameRu = (stat) => {
-  return statNamesRu[stat] || stat;
+    return statNamesRu[stat] || stat;
 };
 
 /**
@@ -34,19 +33,19 @@ export const getStatNameRu = (stat) => {
  * @returns {string} - Локализованное название поколения
  */
 export const getGenerationNameRu = (generation) => {
-  return generationNamesRu[generation] || generation;
+    return generationNamesRu[generation] || generation;
 };
 
 // Кеш для переводов (в памяти на сессию)
 const translationCache = new Map();
 
 /**
- * Замена POKéMON на покемон в тексте
+ * Замена "POKéMON" на "покемон" в тексте
  * @param {string} text - Исходный текст
- * @returns {string} Текст с заменой POKéMON на покемон
+ * @returns {string} Текст с заменой "POKéMON" на "покемон"
  */
 const replacePokemon = (text) => {
-  return text.replace(/POKéMON/gi, 'покемон');
+    return text.replace(/POKéMON/gi, 'покемон');
 };
 
 /**
@@ -57,28 +56,30 @@ const replacePokemon = (text) => {
  * @returns {Promise<string>} Переведённый текст
  */
 export const translateText = async (text, to = 'ru', from = 'en') => {
-  if (!text) return '';
-  const cacheKey = `${from}:${to}:${text}`;
-  if (translationCache.has(cacheKey)) {
-    return translationCache.get(cacheKey);
-  }
-  try {
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
-    const res = await fetch(url);
-    
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+    if (!text) return '';
+    const cacheKey = `${from}:${to}:${text}`;
+    if (translationCache.has(cacheKey)) {
+        return translationCache.get(cacheKey);
     }
-    
-    const data = await res.json();
-    const translated = data[0]?.map(item => item[0]).join('') || '';
-    const finalText = replacePokemon(translated);
-    translationCache.set(cacheKey, finalText);
-    return finalText;
-  } catch (error) {
-    console.error('Ошибка при переводе текста (Google Translate):', error);
-    // Fallback: возвращаем оригинальный текст без изменений
-    translationCache.set(cacheKey, text);
-    return text;
-  }
+    try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
+        const res = await fetch(url);
+
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        const translated = data[0]?.map(item => item[0]).join('') || '';
+        const finalText = replacePokemon(translated);
+
+        translationCache.set(cacheKey, finalText);
+
+        return finalText;
+
+    } catch (error) {
+        console.error('Ошибка при переводе текста (Google Translate):', error);
+        translationCache.set(cacheKey, text);
+        return text;
+    }
 };
