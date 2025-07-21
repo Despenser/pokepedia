@@ -100,6 +100,23 @@ export const useTheme = () => {
     };
   }, []);
 
+  // Синхронизация темы с localStorage (best practice)
+  useEffect(() => {
+    // При монтировании проверяем актуальное значение из localStorage
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme && savedTheme !== theme) {
+      setTheme(savedTheme);
+    }
+    // Слушаем изменения localStorage в других вкладках
+    const handleStorage = (event) => {
+      if (event.key === THEME_KEY && event.newValue && event.newValue !== theme) {
+        setTheme(event.newValue);
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, [theme]);
+
   return {
     theme,
     isLightTheme: theme === LIGHT_THEME,
