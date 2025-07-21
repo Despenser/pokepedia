@@ -116,6 +116,8 @@
   text-overflow: ellipsis;
   max-width: 70%;
   transition: color var(--animation-duration) ease;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 @media (max-width: 900px) {
   .pokemon-name {
@@ -133,6 +135,8 @@
   color: #222;
   font-weight: 600;
   transition: color var(--animation-duration) ease;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .pokemon-image-container {
