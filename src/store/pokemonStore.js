@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 import {getUserFriendlyErrorMessage, logError} from '../utils/errorHandlingUtils.js';
-import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
+import { getPokemonNameRu } from '../utils/localizationUtils';
 import {
     getPokemonList,
     getPokemonByNameOrId,
@@ -105,7 +105,7 @@ const usePokemonStore = create(
                 const fetchPokemonData = async () => {
                     const pokemonDetails = await getPokemonByNameOrId(nameOrId);
                     // Добавляем русское имя к данным покемона
-                    pokemonDetails.nameRu = pokemonNamesRu[pokemonDetails.name] || pokemonDetails.name;
+                    pokemonDetails.nameRu = await getPokemonNameRu(pokemonDetails.name) || pokemonDetails.name;
 
                     const species = await getPokemonSpecies(nameOrId);
                     const evolutionData = await getEvolutionChain(species.evolution_chain.url);
@@ -182,7 +182,7 @@ const usePokemonStore = create(
                     return {
                         id: detailedPokemon.id,
                         name: detailedPokemon.name,
-                        nameRu: pokemonNamesRu[detailedPokemon.name] || detailedPokemon.name,
+                        nameRu: await getPokemonNameRu(detailedPokemon.name) || detailedPokemon.name,
                         types: detailedPokemon.types,
                         sprites: detailedPokemon.sprites,
                         stats: detailedPokemon.stats,
@@ -282,7 +282,7 @@ const usePokemonStore = create(
                             return {
                                 id: detailedPokemon.id,
                                 name: detailedPokemon.name,
-                                nameRu: pokemonNamesRu[detailedPokemon.name] || detailedPokemon.name,
+                                nameRu: await getPokemonNameRu(detailedPokemon.name) || detailedPokemon.name,
                                 types: detailedPokemon.types,
                                 sprites: detailedPokemon.sprites,
                                 stats: detailedPokemon.stats,
@@ -504,7 +504,7 @@ const usePokemonStore = create(
                                     return {
                                         id: detailedPokemon.id,
                                         name: detailedPokemon.name,
-                                        nameRu: pokemonNamesRu[detailedPokemon.name] || detailedPokemon.name,
+                                        nameRu: await getPokemonNameRu(detailedPokemon.name) || detailedPokemon.name,
                                         types: detailedPokemon.types,
                                         sprites: detailedPokemon.sprites,
                                         stats: detailedPokemon.stats,
@@ -584,7 +584,7 @@ const usePokemonStore = create(
                                 return {
                                     id: detailedPokemon.id,
                                     name: detailedPokemon.name,
-                                    nameRu: pokemonNamesRu[detailedPokemon.name] || detailedPokemon.name,
+                                    nameRu: await getPokemonNameRu(detailedPokemon.name) || detailedPokemon.name,
                                     types: detailedPokemon.types,
                                     sprites: detailedPokemon.sprites,
                                     stats: detailedPokemon.stats,
