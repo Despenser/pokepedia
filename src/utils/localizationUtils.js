@@ -83,3 +83,12 @@ export const translateText = async (text, to = 'ru', from = 'en') => {
         return text;
     }
 };
+
+// Ленивая загрузка русских имен покемонов
+let cachedNamesRu = null;
+export async function getPokemonNameRu(name) {
+  if (!cachedNamesRu) {
+    cachedNamesRu = (await import('../assets/translate/pokemon-names-ru.json')).default;
+  }
+  return cachedNamesRu[name] || undefined;
+}
