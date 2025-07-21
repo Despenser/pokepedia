@@ -1,28 +1,21 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { getColorByType, getContrastTextColor } from '../../utils/colorUtils.js';
 import { getTypeNameRu } from '../../utils/localizationUtils.js';
-import './TypeBadge.css';
-import { memo } from 'react';
+import Badge from '../shared/Badge.jsx';
 
 export const TypeBadge = memo(({ type, onClick, isActive = false, large = false }) => {
-
     const backgroundColor = getColorByType(type);
     const textColor = getContrastTextColor(backgroundColor);
     const displayName = getTypeNameRu(type);
-
-    const badgeClasses = [
-        'type-badge',
-        large ? 'large' : '',
-        isActive ? 'active' : '',
-        onClick ? 'clickable' : ''
-    ].filter(Boolean).join(' ');
-
     return (
-        <div className={ badgeClasses }
-            style={{ backgroundColor, color: textColor }}
-            onClick={ onClick ? () => onClick(type) : undefined }
-        >
-            { displayName }
-        </div>
+        <Badge
+            label={displayName}
+            color={backgroundColor}
+            textColor={textColor}
+            active={isActive}
+            clickable={!!onClick}
+            onClick={onClick ? () => onClick(type) : undefined}
+            size={large ? 'large' : 'default'}
+        />
     );
 });

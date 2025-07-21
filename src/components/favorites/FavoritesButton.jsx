@@ -1,49 +1,33 @@
 import React, { memo } from 'react';
 import { useFavorites } from '../../hooks/useFavorites';
-import './FavoritesButton.css';
+import Button from '../shared/Button.jsx';
 
 /**
- * Компонент кнопки добавления/удаления покемона из избранного
- * @param {Object} props - Свойства компонента
- * @param {number} props.pokemonId - ID покемона
- * @param {string} props.pokemonName - Имя покемона для доступности
+ * Кнопка добавления/удаления покемона из избранного
  */
 const FavoritesButton = memo(({ pokemonId, pokemonName }) => {
-  // Используем хук для работы с избранными покемонами
   const { isFavorite, toggleFavorite } = useFavorites();
-
-  // Проверяем, находится ли покемон в избранном
   const isCurrentPokemonFavorite = isFavorite(pokemonId);
 
-  // Обработчик добавления/удаления из избранного
   const handleToggleFavorite = (e) => {
-    // Предотвращаем всплытие события для карточки
     e.stopPropagation();
     e.preventDefault();
     toggleFavorite(pokemonId);
   };
 
   return (
-    <button 
+    <Button
+      variant="icon"
+      className={isCurrentPokemonFavorite ? 'is-favorite' : ''}
+      aria-label={isCurrentPokemonFavorite ? `Убрать ${pokemonName} из избранного` : `Добавить ${pokemonName} в избранное`}
       onClick={handleToggleFavorite}
-      className={`favorites-button ${isCurrentPokemonFavorite ? 'is-favorite' : ''}`}
-      aria-label={isCurrentPokemonFavorite ? `Удалить ${pokemonName} из избранного` : `Добавить ${pokemonName} в избранное`}
-      title={isCurrentPokemonFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
     >
-      <svg 
-        viewBox="0 0 24 24" 
-        fill={isCurrentPokemonFavorite ? 'currentColor' : 'none'} 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-      >
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      {/* SVG-иконка сердца, красивая, как раньше */}
+      <svg viewBox="0 0 24 24" width="22" height="22" fill={isCurrentPokemonFavorite ? '#ff5a5f' : 'none'} stroke="#ff5a5f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
       </svg>
-    </button>
+    </Button>
   );
 });
-
-FavoritesButton.displayName = 'FavoritesButton';
 
 export default FavoritesButton;

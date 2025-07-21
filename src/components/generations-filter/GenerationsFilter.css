@@ -32,10 +32,6 @@
   font-weight: 600;
   line-height: normal;
 }
-.generations-filter-header .back-button {
-  align-self: auto;
-  margin-bottom: 0;
-}
 
 .generations-badges {
   display: flex;

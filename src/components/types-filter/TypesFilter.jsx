@@ -3,6 +3,7 @@ import { memo, useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
 import { useFilterState } from '../../hooks/useFilterState';
 import {TypeBadge} from '../type-badge/TypeBadge.jsx';
+import Button from '../shared/Button.jsx';
 import './TypesFilter.css';
 
 const TypesFilter = memo(() => {
@@ -23,12 +24,12 @@ const TypesFilter = memo(() => {
       <div className="types-filter-header">
         <h2>Фильтр по типам</h2>
         {selectedType && (
-          <button 
-            className="back-button"
+          <Button
+            variant="primary"
             onClick={handleFilterReset}
           >
             Сбросить тип
-          </button>
+          </Button>
         )}
       </div>
       <div className="types-badges">

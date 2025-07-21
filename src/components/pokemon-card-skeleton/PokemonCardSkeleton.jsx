@@ -11,7 +11,7 @@ const PokemonCardSkeleton = memo(() => {
           <div className="pokemon-id-skeleton"></div>
         </div>
 
-        <div className="pokemon-image-skeleton"></div>
+        <div className="pokemon-image-skeleton-block"></div>
 
         <div className="pokemon-types-skeleton">
           <div className="type-badge-skeleton"></div>

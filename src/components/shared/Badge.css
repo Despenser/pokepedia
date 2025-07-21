@@ -1,0 +1,43 @@
+.shared-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  border: 2.5px solid transparent;
+  margin: 2px;
+  user-select: none;
+  cursor: default;
+}
+.shared-badge--large {
+  padding: 12px 20px;
+  font-size: 15px;
+  border-radius: 16px;
+}
+.shared-badge--small {
+  padding: 5px 10px;
+  font-size: 11px;
+  border-radius: 10px;
+}
+.shared-badge--clickable {
+  cursor: pointer;
+}
+.shared-badge--clickable:hover {
+  background: var(--primary-light, #ef5350);
+  color: #fff;
+  box-shadow: 0 4px 12px var(--shadow-color, rgba(0,0,0,0.13));
+  transform: translateY(-2px) scale(1.03);
+}
+.shared-badge--active {
+  border-color: var(--primary-color, #d53a37);
+  box-shadow: 0 4px 12px var(--shadow-color, rgba(0,0,0,0.13));
+  transform: translateY(-2px) scale(1.04);
+}
+.shared-badge:focus-visible {
+  outline: 2px solid var(--primary-color, #d53a37);
+  outline-offset: 2px;
+} 

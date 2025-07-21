@@ -3,7 +3,7 @@ import usePokemonStore from '../../store/pokemonStore.js';
 import { useSimilarPokemons } from '../../hooks/useSimilarPokemons';
 import { useResponsiveVisibleItems } from '../../hooks/useResponsiveVisibleItems';
 import { useCarousel } from '../../hooks/useCarousel';
-import CarouselArrow from './CarouselArrow';
+import Arrow from '../shared/Arrow.jsx';
 import CarouselTrack from './CarouselTrack';
 import './SimilarPokemons.css';
 
@@ -49,10 +49,11 @@ const SimilarPokemons = ({ pokemonId, types, excludeNames = [] }) => {
 
       <div className="carousel-wrapper">
         {showNavigation && (
-          <CarouselArrow
-            direction="prev"
+          <Arrow
+            direction="left"
             onClick={goToPrev}
             disabled={currentIndex === 0}
+            aria-label="Предыдущие покемоны"
           />
         )}
 
@@ -72,10 +73,11 @@ const SimilarPokemons = ({ pokemonId, types, excludeNames = [] }) => {
         </div>
 
         {showNavigation && (
-          <CarouselArrow
-            direction="next"
+          <Arrow
+            direction="right"
             onClick={goToNext}
             disabled={currentIndex === maxIndex}
+            aria-label="Следующие покемоны"
           />
         )}
       </div>

@@ -750,9 +750,7 @@
   pointer-events: auto;
 }
 
-.main-content {
-  margin-top: 35px;
-}
+/* Удалено: .main-content, используйте глобальный стиль из index.css */
 
 .container > *:first-child {
   margin-top: 0 !important;

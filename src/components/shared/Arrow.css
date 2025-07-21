@@ -1,0 +1,45 @@
+.shared-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px var(--shadow-color, rgba(0,0,0,0.10));
+  color: var(--arrow-color, var(--primary-color));
+  width: 40px;
+  height: 40px;
+  min-width: 32px;
+  min-height: 32px;
+  outline: none;
+  user-select: none;
+}
+.shared-arrow svg {
+  display: block;
+  width: 60%;
+  height: 60%;
+  stroke: var(--arrow-color, var(--primary-color));
+  transition: stroke 0.2s;
+}
+.shared-arrow:active {
+  transform: scale(0.95);
+}
+.shared-arrow:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+.shared-arrow:hover:not(:disabled) {
+  background: var(--primary-light, #ef5350);
+  color: #fff;
+  box-shadow: 0 4px 16px var(--shadow-color, rgba(0,0,0,0.18));
+}
+.shared-arrow--disabled,
+.shared-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: none;
+  box-shadow: none;
+} 

@@ -172,52 +172,13 @@ ul {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 0px 20px 0px 20px;
-  border-radius: 12px;
-  min-height: 44px;
-  line-height: 1;
-  margin-bottom: 20px;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all var(--animation-duration) ease;
-  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
-}
-
-.back-button:hover {
-  background-color: var(--primary-light);
-  color: #fff;
-  box-shadow: 0 6px 16px rgba(229, 57, 53, 0.4);
-  transform: translateY(-2px) scale(1.03);
-}
-
-.reset-all-filters {
-  display: inline-flex;
-  width: auto;
-  min-width: 0;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-  min-height: 44px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  background-color: var(--primary-color);
-  color: white;
-  box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);
-  transition: all var(--animation-duration) ease;
-}
-.reset-all-filters:hover {
-  background-color: var(--primary-light);
-  color: #fff;
-  box-shadow: 0 6px 16px rgba(229, 57, 53, 0.4);
-  transform: translateY(-2px) scale(1.03);
+.main-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  margin-top: 35px;
 }
 
 /* Медиа-запросы */

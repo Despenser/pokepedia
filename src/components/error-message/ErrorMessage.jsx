@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getErrorInfo } from '../../utils/errorHandlingUtils';
 import './ErrorMessage.css';
+import Button from '../shared/Button.jsx';
 
 /**
  * Универсальный компонент для отображения ошибок
@@ -34,7 +35,14 @@ export const ErrorMessage = ({ error, code, hasBackButton = true }) => {
                 <p>{errorInfo.message}</p>
                 <div className="error-actions">
                     {showBackButton && (
-                        <Link to="/" className="back-button">Вернуться на главную</Link>
+                        <Button
+                          as={Link}
+                          to="/"
+                          variant="primary"
+                          className="back-button"
+                        >
+                          Вернуться на главную
+                        </Button>
                     )}
                 </div>
             </div>

@@ -3,6 +3,7 @@ import { memo, useEffect } from 'react';
 import usePokemonStore from '../../store/pokemonStore.js';
 import { useFilterState } from '../../hooks/useFilterState';
 import GenerationBadge from '../generation-badge/GenerationBadge.jsx';
+import Button from '../shared/Button.jsx';
 import './GenerationsFilter.css';
 
 const GenerationsFilter = memo(() => {
@@ -23,12 +24,12 @@ const GenerationsFilter = memo(() => {
       <div className="generations-filter-header">
         <h2>Фильтр по поколениям</h2>
         {selectedGeneration && (
-          <button 
-            className="back-button"
+          <Button
+            variant="primary"
             onClick={handleFilterReset}
           >
             Сбросить поколение
-          </button>
+          </Button>
         )}
       </div>
       <div className="generations-badges">

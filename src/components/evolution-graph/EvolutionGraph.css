@@ -54,7 +54,7 @@
   margin-top: 1px;
   font-size: 8px;
 }
-.evolution-graph-card.mini .type-badge {
+.evolution-graph-card.mini .shared-badge {
   font-size: 7px;
   padding: 0 3px;
   min-width: 14px;
@@ -118,7 +118,7 @@
   .evolution-graph-card.mini .pokemon-types {
     font-size: 7px;
   }
-  .evolution-graph-card.mini .type-badge {
+  .evolution-graph-card.mini .shared-badge {
     font-size: 6px;
     min-width: 11px;
     height: 10px;
@@ -144,7 +144,7 @@
     font-size: 5px;
     margin-top: 0;
   }
-  .evolution-graph-card.mini .type-badge {
+  .evolution-graph-card.mini .shared-badge {
     font-size: 4px;
     min-width: 8px;
     height: 7px;
@@ -172,7 +172,7 @@
   .evolution-graph-card.mini .pokemon-types {
     font-size: 3.5px;
   }
-  .evolution-graph-card.mini .type-badge {
+  .evolution-graph-card.mini .shared-badge {
     font-size: 3px;
     min-width: 5px;
     height: 5px;
@@ -201,7 +201,7 @@
   .evolution-graph-card.mini .pokemon-types {
     font-size: 2.5px;
   }
-  .evolution-graph-card.mini .type-badge {
+  .evolution-graph-card.mini .shared-badge {
     font-size: 2px;
     min-width: 3px;
     height: 3px;
