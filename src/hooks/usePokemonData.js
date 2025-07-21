@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { getPokemonByNameOrId, getPokemonSpecies, getEvolutionChain } from '../api/pokeApi';
 import { safeAsync, logError } from '../utils/errorHandlingUtils';
 import usePokemonStore from '../store/pokemonStore';
-import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
+import { getPokemonNameRu } from '../utils/localizationUtils';
 
 // Новый облегчённый экспорт по умолчанию для карточек
 const cache = new Map();
@@ -74,9 +74,10 @@ export const usePokemonData = (pokemonId) => {
       setIsLoading(false);
       return;
     }
+    const nameRu = await getPokemonNameRu(pokemonData.name);
     setPokemon({
       ...pokemonData,
-      nameRu: pokemonNamesRu[pokemonData.name] || undefined
+      nameRu
     });
     // Загружаем данные о виде покемона
     const [speciesError, speciesData] = await safeAsync(
