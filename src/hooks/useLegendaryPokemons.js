@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { getPokemonByNameOrId, getPokemonSpecies } from '../api/pokeApi';
-import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
+import { getPokemonNameRu } from '../utils/localizationUtils';
 import { LEGENDARY_NAMES, getSpeciesName } from '../utils/legendaryUtils';
 
 /**
@@ -26,9 +26,10 @@ export const useLegendaryPokemons = () => {
               getPokemonSpecies(getSpeciesName(name))
             ]);
             
+            const nameRu = await getPokemonNameRu(pokemon.name);
             return {
               ...pokemon,
-              nameRu: pokemonNamesRu[pokemon.name],
+              nameRu,
               generation: species?.generation?.name || 'unknown',
             };
           } catch {
