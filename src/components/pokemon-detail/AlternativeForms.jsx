@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import EvoMiniCard from '../evolution-graph/EvoMiniCard.jsx';
+import MiniPokemonCard from '../shared/MiniPokemonCard.jsx';
+import UniversalPokemonCard from '../shared/UniversalPokemonCard.jsx';
 import { Link } from 'react-router-dom';
 import { getPokemonByNameOrId } from '../../api/pokeApi';
 import './AlternativeForms.css';
@@ -52,12 +53,10 @@ const AlternativeForms = ({ species, pokemon }) => {
       <div className="alternative-forms-row">
         {forms.map(form => (
           <Link to={`/pokemon/${form.id}`} key={form.id} className="mini-pokemon-link" aria-label={`Покемон ${form.name}`}>
-            <EvoMiniCard
-              id={form.id}
-              name={form.name}
-              sprites={form.sprites || {}}
-              types={form.types || []}
-              isCurrent={false}
+            <UniversalPokemonCard
+              idOrName={form.id}
+              variant="alternative"
+              className="mini-pokemon-card-altform"
             />
           </Link>
         ))}

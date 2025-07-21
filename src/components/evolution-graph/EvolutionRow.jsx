@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getIdFromSpecies } from '../../utils/evolutionUtils';
-import EvoMiniCard from './EvoMiniCard';
+import UniversalPokemonCard from '../shared/UniversalPokemonCard.jsx';
 
 /**
  * Компонент для отображения линейной цепочки эволюции
@@ -15,13 +15,12 @@ const EvolutionRow = ({ nodes, currentPokemonId }) => {
         
         return (
           <React.Fragment key={id}>
-            <Link to={`/pokemon/${id}`} className="mini-pokemon-link" aria-label={`Покемон ${node.species.name}`}>
-              <EvoMiniCard
-                id={id}
-                name={node.species.name}
-                sprites={node.sprites || {}}
-                types={node.types || []}
+            <Link to={`/pokemon/${id}`} className="mini-pokemon-link" aria-label={`Покемон ${node.species.name}`} style={{background: 'none', boxShadow: 'none', borderRadius: 0}}>
+              <UniversalPokemonCard
+                idOrName={id}
+                variant="evolution"
                 isCurrent={isCurrent}
+                className="mini-pokemon-card-evo"
               />
             </Link>
             {idx < nodes.length - 1 && (

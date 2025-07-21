@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getIdFromSpecies } from '../../utils/evolutionUtils';
 import { useArrowCalculation } from '../../hooks/useArrowCalculation';
-import EvoMiniCard from './EvoMiniCard';
 import EvolutionArrows from './EvolutionArrows';
+import UniversalPokemonCard from '../shared/UniversalPokemonCard.jsx';
 
 /**
  * Компонент для отображения ветвистой эволюции
@@ -20,11 +20,9 @@ const EvolutionBranch = React.forwardRef(({ node, currentPokemonId }, ref) => {
     return (
       <div className="evo-branch-vert" ref={ref}>
         <Link to={`/pokemon/${id}`} className="mini-pokemon-link">
-          <EvoMiniCard
-            id={id}
-            name={node.species.name}
-            sprites={node.sprites || {}}
-            types={node.types || []}
+          <UniversalPokemonCard
+            idOrName={id}
+            variant="evolution"
             isCurrent={isCurrent}
           />
         </Link>
@@ -47,11 +45,9 @@ const EvolutionBranch = React.forwardRef(({ node, currentPokemonId }, ref) => {
       >
         <div className="evo-branch-parent" ref={parentRef}>
           <Link to={`/pokemon/${id}`} className="mini-pokemon-link" aria-label={`Покемон ${node.species.name}`}>
-            <EvoMiniCard
-              id={id}
-              name={node.species.name}
-              sprites={node.sprites || {}}
-              types={node.types || []}
+            <UniversalPokemonCard
+              idOrName={id}
+              variant="evolution"
               isCurrent={isCurrent}
             />
           </Link>
@@ -76,11 +72,9 @@ const EvolutionBranch = React.forwardRef(({ node, currentPokemonId }, ref) => {
                 ref={childRefs[idx]}
                 aria-label={`Покемон ${child.species.name}`}
               >
-                <EvoMiniCard
-                  id={getIdFromSpecies(child.species)}
-                  name={child.species.name}
-                  sprites={child.sprites || {}}
-                  types={child.types || []}
+                <UniversalPokemonCard
+                  idOrName={getIdFromSpecies(child.species)}
+                  variant="evolution"
                   isCurrent={Number(currentPokemonId) === getIdFromSpecies(child.species)}
                 />
               </Link>

@@ -105,6 +105,23 @@ export function getContrastTextColor(bgColor) {
 }
 
 /**
+ * Возвращает контрастный цвет текста для типа покемона или массива типов
+ * @param {string|Array} typeOrTypes - строка с именем типа или массив типов покемона (как в API)
+ * @returns {string} Цвет текста
+ */
+export function getContrastTextColorByType(typeOrTypes) {
+  let typeName = null;
+  if (Array.isArray(typeOrTypes)) {
+    typeName = typeOrTypes[0]?.type?.name;
+  } else if (typeof typeOrTypes === 'string') {
+    typeName = typeOrTypes;
+  }
+  if (!typeName) return '#222';
+  const baseColor = getColorByType(typeName);
+  return getContrastTextColor(baseColor);
+}
+
+/**
  * Вычисляет контраст между двумя цветами по WCAG
  * @param {[number, number, number]} rgb1
  * @param {[number, number, number]} rgb2
@@ -123,6 +140,67 @@ function getContrastRatio(rgb1, rgb2) {
   const l1 = luminance(rgb1);
   const l2 = luminance(rgb2);
   return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+}
+
+/**
+ * Смешивает два цвета (hex) по коэффициенту t (0...1)
+ * @param {string} color1 - hex
+ * @param {string} color2 - hex
+ * @param {number} t - 0...1
+ * @returns {string} hex
+ */
+function mixColors(color1, color2, t) {
+  // Удаляем #
+  color1 = color1.replace('#', '');
+  color2 = color2.replace('#', '');
+  // Парсим в RGB
+  const r1 = parseInt(color1.substring(0, 2), 16);
+  const g1 = parseInt(color1.substring(2, 4), 16);
+  const b1 = parseInt(color1.substring(4, 6), 16);
+  const r2 = parseInt(color2.substring(0, 2), 16);
+  const g2 = parseInt(color2.substring(2, 4), 16);
+  const b2 = parseInt(color2.substring(4, 6), 16);
+  // Интерполяция
+  const r = Math.round(r1 + (r2 - r1) * t);
+  const g = Math.round(g1 + (g2 - g1) * t);
+  const b = Math.round(b1 + (b2 - b1) * t);
+  // Возвращаем hex
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+}
+
+/**
+ * Возвращает цвет фона в нужной точке градиента по типам и направлению
+ * @param {Array} types - массив типов покемона
+ * @param {'start'|'end'|number} position - позиция: 'start' (0%), 'end' (100%), либо число 0...1
+ * @param {'horizontal'|'vertical'} direction - направление градиента
+ * @returns {string} цвет фона (hex)
+ */
+export function getTypeGradientColor(types, position = 'start', direction = 'horizontal') {
+  if (!types || !types.length) return '#A8A878';
+  const color1 = getColorByType(types[0]?.type?.name);
+  const color2 = types[1] ? getColorByType(types[1]?.type?.name) : '#fff'; // если один тип — белый
+  // Для двух типов: start — первый, end — второй
+  if (position === 'start' || position === 0) return color1;
+  if (position === 'end' || position === 1) return color2;
+  // Для промежуточных значений (например, 0.5 — середина)
+  const t = typeof position === 'number' ? Math.max(0, Math.min(1, position)) : 0;
+  return mixColors(color1, color2, t);
+}
+
+/**
+ * Возвращает цвет текста для заданной позиции на градиенте типов
+ * @param {Array} types
+ * @param {'start'|'end'|number} position
+ * @param {'horizontal'|'vertical'} direction
+ * @returns {string} цвет текста
+ */
+export function getContrastTextColorOnTypeGradient(types, position = 'start', direction = 'horizontal') {
+  // Если тип один и позиция 'end', то фон белый — текст всегда чёрный
+  if ((!types?.[1]) && (position === 'end' || position === 1)) {
+    return '#222';
+  }
+  const bgColor = getTypeGradientColor(types, position, direction);
+  return getContrastTextColor(bgColor);
 }
 
 export { typeColors };

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { formatPokemonId, formatPokemonName } from '../../utils/formatUtils';
 import { getLocalPokemonImage } from '../../utils/imageUtils';
-import { getColorByType, getContrastTextColor } from '../../utils/colorUtils';
+import { getColorByType, getContrastTextColor, getContrastTextColorOnTypeGradient } from '../../utils/colorUtils';
 import { TypeBadge } from '../type-badge/TypeBadge';
 import FavoritesButton from '../favorites/FavoritesButton';
 
@@ -28,9 +28,7 @@ const PokemonHeader = memo(({ pokemon }) => {
   }, []);
 
   // Вычисляем основной цвет первого типа для подбора цвета текста
-  const mainType = pokemon?.types?.[0]?.type?.name;
-  const mainBgColor = mainType ? getColorByType(mainType) : undefined;
-  const textColor = mainBgColor ? getContrastTextColor(mainBgColor) : undefined;
+  const textColor = getContrastTextColorOnTypeGradient(pokemon?.types, 'start', 'horizontal');
 
   return (
     <div className="pokemon-detail-header">

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import PokemonCard from '../pokemon-card/PokemonCard.jsx';
+import UniversalPokemonCard from '../shared/UniversalPokemonCard.jsx';
 import './EvolutionGraph.css';
 import { formatPokemonName } from '../../utils/formatUtils';
 
@@ -135,13 +136,14 @@ const EvolutionGraph = ({ evolutionChain, currentPokemonId }) => {
             const id = getIdFromSpecies(node.species);
             const isCurrent = Number(currentPokemonId) === id;
             return (
-              <div
+              <UniversalPokemonCard
                 key={id}
-                className={`evolution-graph-card-wrapper mini${isCurrent ? ' current' : ''}`}
+                idOrName={id}
+                variant="evolution"
+                isCurrent={isCurrent}
                 style={{ position: 'absolute', left: x, top: y, width: NODE_WIDTH, height: NODE_HEIGHT, zIndex: isCurrent ? 2 : 1 }}
-              >
-                <PokemonCard pokemon={getPokemonForCard(node)} className="evolution-graph-card mini" asDiv={true} />
-              </div>
+                className="mini-pokemon-card-evo"
+              />
             );
           })}
         </div>

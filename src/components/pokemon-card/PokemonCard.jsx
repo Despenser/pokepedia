@@ -1,7 +1,7 @@
 import React from 'react';
 import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { getGradientByTypes, getColorByType, getContrastTextColor } from '../../utils/colorUtils.js';
+import { getGradientByTypes, getColorByType, getContrastTextColor, getContrastTextColorOnTypeGradient } from '../../utils/colorUtils.js';
 import { formatPokemonId, formatPokemonName } from '../../utils/formatUtils.js';
 import { getLocalPokemonImage } from '../../utils/imageUtils.js';
 import {useImageLoad} from '../../hooks/useImageLoad.js';
@@ -26,11 +26,8 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
     const background = useMemo(() => getGradientByTypes(types), [types]);
     const displayName = useMemo(() => formatPokemonName(name, pokemon?.nameRu), [name, pokemon?.nameRu]);
     const formattedId = useMemo(() => formatPokemonId(id), [id]);
-
-    // Вычисляем основной цвет первого типа для подбора цвета текста
-    const mainType = types?.[0]?.type?.name;
-    const mainBgColor = mainType ? getColorByType(mainType) : undefined;
-    const textColor = mainBgColor ? getContrastTextColor(mainBgColor) : undefined;
+    const nameTextColor = useMemo(() => getContrastTextColorOnTypeGradient(types, 'start', 'horizontal'), [types]);
+    const idTextColor = useMemo(() => getContrastTextColorOnTypeGradient(types, 'end', 'horizontal'), [types]);
 
     // Используем хук для управления загрузкой изображения (без fallback)
     const { isLoaded, handleLoad } = useImageLoad();
@@ -60,8 +57,8 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
         >
             <div className="pokemon-card-content">
                 <div className="pokemon-card-header">
-                    <h2 className="pokemon-name" style={{ color: textColor }}>{displayName}</h2>
-                    <span className="pokemon-id" style={{ color: textColor }}>{formattedId}</span>
+                    <h2 className="pokemon-name" style={{ color: nameTextColor }}>{displayName}</h2>
+                    <span className="pokemon-id" style={{ color: idTextColor }}>{formattedId}</span>
                 </div>
 
                 <div className="pokemon-image-container">

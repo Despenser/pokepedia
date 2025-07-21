@@ -94,67 +94,6 @@
   text-decoration: none;
   margin: 0 4px;
 }
-.mini-pokemon-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  border: 2px solid transparent;
-  min-width: 100px;
-  max-width: 120px;
-  min-height: 120px;
-  max-height: 140px;
-  padding: 12px 8px 8px 8px;
-  margin: 0 auto;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 2;
-  background: #fff;
-  cursor: pointer;
-}
-
-.mini-pokemon-card:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  border-color: #e3350d;
-}
-
-.mini-pokemon-card:hover .mini-pokemon-img {
-  transform: scale(1.1);
-}
-
-.mini-pokemon-card:hover .mini-pokemon-name {
-  color: #e3350d;
-  font-weight: 700;
-}
-.mini-pokemon-card.current {
-  border: 2.5px solid #e3350d;
-  box-shadow: 0 4px 16px rgba(227,53,13,0.10);
-  background: var(--card-background);
-}
-.mini-pokemon-img {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-  margin-bottom: 8px;
-  display: block;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.mini-pokemon-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-color);
-  text-align: center;
-  text-transform: capitalize;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100px;
-  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-weight 0.3s ease;
-}
 .evo-branch-vert {
   position: relative;
   width: 100%;
@@ -263,70 +202,7 @@
   min-width: 100px;
   max-width: 120px;
 }
-.evo-mini-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 70px;
-  max-width: 100px;
-  min-height: 100px;
-  max-height: 120px;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 2px solid transparent;
-  padding: 6px 4px 12px 4px;
-  margin: 0 auto;
-  background: #fff;
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-}
-
-.evo-mini-card:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  border-color: #e3350d;
-}
-
-.evo-mini-card:hover .evo-mini-img {
-  transform: scale(1.1);
-}
-
-.evo-mini-card:hover .evo-mini-name {
-  color: #e3350d;
-  font-weight: 700;
-}
-
-.evo-mini-img {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
-  margin-bottom: 4px;
-  display: block;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.evo-mini-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-color);
-  text-align: center;
-  text-transform: capitalize;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 90px;
-  max-height: 32px;
-  line-height: 1.2;
-  padding-bottom: 2px;
-  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), font-weight 0.3s ease;
-}
-.evo-mini-card, .evo-mini-card.current {
-  background: var(--card-background) !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07) !important;
-}
+/* Удалены все стили .evo-mini-card, .evo-mini-img, .evo-mini-name и их модификаторы. Используйте только .mini-pokemon-card */
 
 /* Настройка стрелок для разных экранов */
 .evo-arrow-path {
@@ -401,21 +277,6 @@
     font-size: 12px;
     max-width: 80px;
   }
-  .evo-mini-card {
-    min-width: 60px;
-    max-width: 80px;
-    min-height: 80px;
-    max-height: 100px;
-    padding: 4px 2px 10px 2px;
-  }
-  .evo-mini-img {
-    width: 56px;
-    height: 56px;
-  }
-  .evo-mini-name {
-    font-size: 11px;
-    max-width: 70px;
-  }
   /* На адаптивных экранах стрелки проходят под карточками */
   .evo-branch-arrows-svg {
     z-index: 0;
@@ -469,24 +330,16 @@
     font-size: 11px;
     max-width: 70px;
   }
-  .evo-mini-card {
-    min-width: 50px;
-    max-width: 70px;
-    min-height: 70px;
-    max-height: 90px;
-    padding: 3px 1px 8px 1px;
-  }
-  .evo-mini-img {
-    width: 48px;
-    height: 48px;
-  }
-  .evo-mini-name {
-    font-size: 10px;
-    max-width: 60px;
-  }
   /* На адаптивных экранах стрелки проходят под карточками */
   .evo-branch-arrows-svg {
     z-index: 0;
+  }
+  .evo-branch-arrows-svg {
+    z-index: 0 !important;
+  }
+  .mini-pokemon-card {
+    z-index: 1;
+    position: relative;
   }
 }
 
@@ -553,7 +406,8 @@
 }
 
 @media (max-width: 600px) {
-  /* Для сложной эволюции - уменьшаем размеры */
+  /* Удалены переопределения размеров для .evo-branch-vert .mini-pokemon-card, .mini-pokemon-img, .mini-pokemon-name */
+  /*
   .evo-branch-vert .mini-pokemon-card {
     min-width: 60px;
     max-width: 80px;
@@ -569,6 +423,7 @@
     font-size: 10px;
     max-width: 60px;
   }
+  */
   .evo-row, .evo-arrow-group, .evo-arrow-group-vert {
     gap: 12px;
   }
@@ -610,6 +465,13 @@
   /* На адаптивных экранах стрелки проходят под карточками */
   .evo-branch-arrows-svg {
     z-index: 0;
+  }
+  .evo-branch-arrows-svg {
+    z-index: 0 !important;
+  }
+  .mini-pokemon-card {
+    z-index: 1;
+    position: relative;
   }
 }
 
@@ -693,313 +555,7 @@
   }
 } 
 
-.evo-mini-card.current {
-  border: 2.5px solid #e3350d !important;
-  box-shadow: 0 4px 24px rgba(227,53,13,0.15) !important;
-  background: var(--card-background) !important;
-  z-index: 4;
-}
-
-.evo-mini-card.current:hover {
-  transform: none;
-  box-shadow: 0 4px 24px rgba(227,53,13,0.18) !important;
-  border-color: #e3350d !important;
-  background: var(--card-background) !important;
-}
-
-.evo-mini-card.current .evo-mini-name {
-  color: #e3350d !important;
-  font-weight: 800 !important;
-} 
-
-/* Для простой (линейной) эволюции - сохраняем большие размеры на брейкпоинтах */
-@media (max-width: 900px) {
-  .evo-row .evo-mini-card {
-    min-width: 100px !important;
-    max-width: 120px !important;
-    min-height: 120px !important;
-    max-height: 140px !important;
-    padding: 12px 8px 8px 8px !important;
-  }
-  .evo-row .evo-mini-img {
-    width: 72px !important;
-    height: 72px !important;
-  }
-  .evo-row .evo-mini-name {
-    font-size: 16px !important;
-    max-width: 110px !important;
-    overflow: visible !important;
-    text-overflow: clip !important;
-    white-space: normal !important;
-  }
-}
-
-@media (max-width: 776px) {
-  .evo-row .evo-mini-card {
-    min-width: 95px !important;
-    max-width: 115px !important;
-    min-height: 115px !important;
-    max-height: 135px !important;
-    padding: 10px 7px 7px 7px !important;
-  }
-  .evo-row .evo-mini-img {
-    width: 68px !important;
-    height: 68px !important;
-  }
-  .evo-row .evo-mini-name {
-    font-size: 15px !important;
-    max-width: 95px !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .evo-row .evo-mini-card {
-    min-width: 90px !important;
-    max-width: 110px !important;
-    min-height: 110px !important;
-    max-height: 130px !important;
-    padding: 8px 6px 6px 6px !important;
-  }
-  .evo-row .evo-mini-img {
-    width: 64px !important;
-    height: 64px !important;
-  }
-  .evo-row .evo-mini-name {
-    font-size: 14px !important;
-    max-width: 90px !important;
-  }
-}
-
-/* Для диапазона 900px - 1200px */
-@media (min-width: 901px) and (max-width: 1199px) {
-  .evo-row .evo-mini-card {
-    min-width: 100px !important;
-    max-width: 120px !important;
-    min-height: 120px !important;
-    max-height: 140px !important;
-    padding: 12px 8px 8px 8px !important;
-  }
-  .evo-row .evo-mini-img {
-    width: 72px !important;
-    height: 72px !important;
-  }
-  .evo-row .evo-mini-name {
-    font-size: 16px !important;
-    max-width: 110px !important;
-    overflow: visible !important;
-    text-overflow: clip !important;
-    white-space: normal !important;
-  }
-} 
-
-/* --- Гарантированный минимальный размер для карточек в ветвях эволюции --- */
-.evo-branch-children-row .evo-mini-card {
-  min-width: 70px !important;
-  max-width: 90px !important;
-  min-height: 90px !important;
-  max-height: 110px !important;
-  padding: 6px 4px 12px 4px !important;
-}
-.evo-branch-children-row .evo-mini-img {
-  width: 56px !important;
-  height: 56px !important;
-}
-.evo-branch-children-row .evo-mini-name {
-  font-size: 12px !important;
-  max-width: 80px !important;
-}
-
-/* --- В медиазапросах не уменьшаем карточки в ветвях эволюции ниже этого порога --- */
-@media (max-width: 900px) {
-  .evo-branch-children-row .evo-mini-card {
-    min-width: 70px !important;
-    max-width: 90px !important;
-    min-height: 90px !important;
-    max-height: 110px !important;
-    padding: 6px 4px 12px 4px !important;
-  }
-  .evo-branch-children-row .evo-mini-img {
-    width: 56px !important;
-    height: 56px !important;
-  }
-  .evo-branch-children-row .evo-mini-name {
-    font-size: 12px !important;
-    max-width: 80px !important;
-  }
-}
-@media (max-width: 776px) {
-  .evo-branch-children-row .evo-mini-card {
-    min-width: 68px !important;
-    max-width: 88px !important;
-    min-height: 88px !important;
-    max-height: 108px !important;
-    padding: 5px 3px 10px 3px !important;
-  }
-  .evo-branch-children-row .evo-mini-img {
-    width: 52px !important;
-    height: 52px !important;
-  }
-  .evo-branch-children-row .evo-mini-name {
-    font-size: 11px !important;
-    max-width: 75px !important;
-  }
-}
-@media (max-width: 600px) {
-  .evo-branch-children-row .evo-mini-card {
-    min-width: 65px !important;
-    max-width: 85px !important;
-    min-height: 85px !important;
-    max-height: 105px !important;
-    padding: 4px 2px 8px 2px !important;
-  }
-  .evo-branch-children-row .evo-mini-img {
-    width: 48px !important;
-    height: 48px !important;
-  }
-  .evo-branch-children-row .evo-mini-name {
-    font-size: 10px !important;
-    max-width: 65px !important;
-  }
-} 
-
-/* --- Гарантированный увеличенный минимальный размер для карточек в ветвях эволюции --- */
-.evo-branch-children-row .evo-mini-card {
-  min-width: 90px !important;
-  max-width: 120px !important;
-  min-height: 120px !important;
-  max-height: 150px !important;
-  padding: 10px 8px 16px 8px !important;
-}
-.evo-branch-children-row .evo-mini-img {
-  width: 72px !important;
-  height: 72px !important;
-}
-.evo-branch-children-row .evo-mini-name {
-  font-size: 15px !important;
-  max-width: 110px !important;
-}
-
-/* --- В медиазапросах не уменьшаем карточки в ветвях эволюции ниже этого порога --- */
-@media (max-width: 900px) {
-  .evo-branch-children-row .evo-mini-card {
-    min-width: 90px !important;
-    max-width: 120px !important;
-    min-height: 120px !important;
-    max-height: 150px !important;
-    padding: 10px 8px 16px 8px !important;
-  }
-  .evo-branch-children-row .evo-mini-img {
-    width: 72px !important;
-    height: 72px !important;
-  }
-  .evo-branch-children-row .evo-mini-name {
-    font-size: 15px !important;
-    max-width: 110px !important;
-  }
-}
-@media (max-width: 776px) {
-  .evo-branch-children-row .evo-mini-card {
-    min-width: 85px !important;
-    max-width: 110px !important;
-    min-height: 110px !important;
-    max-height: 135px !important;
-    padding: 8px 6px 12px 6px !important;
-  }
-  .evo-branch-children-row .evo-mini-img {
-    width: 64px !important;
-    height: 64px !important;
-  }
-  .evo-branch-children-row .evo-mini-name {
-    font-size: 13px !important;
-    max-width: 95px !important;
-  }
-}
-@media (max-width: 600px) {
-  .evo-branch-children-row .evo-mini-card {
-    min-width: 80px !important;
-    max-width: 100px !important;
-    min-height: 100px !important;
-    max-height: 120px !important;
-    padding: 6px 4px 10px 4px !important;
-  }
-  .evo-branch-children-row .evo-mini-img {
-    width: 56px !important;
-    height: 56px !important;
-  }
-  .evo-branch-children-row .evo-mini-name {
-    font-size: 12px !important;
-    max-width: 80px !important;
-  }
-} 
-
-/* --- Родительская карточка в ветвях эволюции такого же размера, как и потомки --- */
-.evo-branch-parent .evo-mini-card {
-  min-width: 90px !important;
-  max-width: 120px !important;
-  min-height: 120px !important;
-  max-height: 150px !important;
-  padding: 10px 8px 16px 8px !important;
-}
-.evo-branch-parent .evo-mini-img {
-  width: 72px !important;
-  height: 72px !important;
-}
-.evo-branch-parent .evo-mini-name {
-  font-size: 15px !important;
-  max-width: 110px !important;
-}
-
-@media (max-width: 900px) {
-  .evo-branch-parent .evo-mini-card {
-    min-width: 90px !important;
-    max-width: 120px !important;
-    min-height: 120px !important;
-    max-height: 150px !important;
-    padding: 10px 8px 16px 8px !important;
-  }
-  .evo-branch-parent .evo-mini-img {
-    width: 72px !important;
-    height: 72px !important;
-  }
-  .evo-branch-parent .evo-mini-name {
-    font-size: 15px !important;
-    max-width: 110px !important;
-  }
-}
-@media (max-width: 776px) {
-  .evo-branch-parent .evo-mini-card {
-    min-width: 85px !important;
-    max-width: 110px !important;
-    min-height: 110px !important;
-    max-height: 135px !important;
-    padding: 8px 6px 12px 6px !important;
-  }
-  .evo-branch-parent .evo-mini-img {
-    width: 64px !important;
-    height: 64px !important;
-  }
-  .evo-branch-parent .evo-mini-name {
-    font-size: 13px !important;
-    max-width: 95px !important;
-  }
-}
-@media (max-width: 600px) {
-  .evo-branch-parent .evo-mini-card {
-    min-width: 80px !important;
-    max-width: 100px !important;
-    min-height: 100px !important;
-    max-height: 120px !important;
-    padding: 6px 4px 10px 4px !important;
-  }
-  .evo-branch-parent .evo-mini-img {
-    width: 56px !important;
-    height: 56px !important;
-  }
-  .evo-branch-parent .evo-mini-name {
-    font-size: 12px !important;
-    max-width: 80px !important;
-  }
-} 
+/* Удалены все правила .mini-pokemon-card, .mini-pokemon-card:hover, .mini-pokemon-card.current, .mini-pokemon-img, .mini-pokemon-name и их медиа-адаптации. Теперь мини-карточки полностью управляются MiniPokemonCard.css и inline-стилем. */
 
 .evo-mini-name.multi-line {
   white-space: normal !important;
