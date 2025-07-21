@@ -17,6 +17,7 @@ const Button = ({
   disabled = false,
   className = '',
   children,
+  as: Component,
   ...rest
 }) => {
   const classes = [
@@ -26,6 +27,19 @@ const Button = ({
     disabled ? 'shared-button--disabled' : '',
     className
   ].filter(Boolean).join(' ');
+
+  if (Component) {
+    return (
+      <Component
+        className={classes}
+        disabled={disabled}
+        {...rest}
+      >
+        {children}
+      </Component>
+    );
+  }
+
   return (
     <button
       className={classes}

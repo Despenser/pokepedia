@@ -51,15 +51,9 @@
   color: var(--text-color);
   text-align: center;
   margin-top: 4px;
-  /* max-width: 95%; */
-  /* max-height: 2.8em; */
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
   padding: 4px 8px 8px 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: block;
+  box-sizing: border-box;
 }
 
 /* Webkit line-clamp для современных браузеров */
@@ -185,4 +179,23 @@
     text-overflow: ellipsis;
     display: block;
   }
+} 
+
+/* --- Удаляю или переопределяю ограничения для альтернативных форм --- */
+.mini-pokemon-card--alternative .mini-pokemon-name,
+.mini-pokemon-card-altform .mini-pokemon-name {
+  white-space: normal !important;
+  -webkit-line-clamp: unset !important;
+  line-clamp: unset !important;
+  display: -webkit-box !important;
+}
+
+/* Для эволюционных карточек ограничение в 2 строки */
+.mini-pokemon-card--evolution .mini-pokemon-name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 } 

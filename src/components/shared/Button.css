@@ -76,3 +76,11 @@
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 } 
+
+.shared-button--primary:hover,
+.shared-button--primary:focus,
+.shared-button--primary:active {
+  background-color: var(--primary-light);
+  color: #fff;
+  text-decoration: none;
+} 

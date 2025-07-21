@@ -305,7 +305,7 @@ const usePokemonStore = create(
                     } else {
                         set({
                             pokemons: [],
-                            error: 'Покемоны не найдены',
+                            error: null,
                             loading: false,
                             hasMore: false
                         });

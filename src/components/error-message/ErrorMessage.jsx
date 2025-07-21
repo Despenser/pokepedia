@@ -10,7 +10,7 @@ import Button from '../shared/Button.jsx';
  * @param {string} code - Код ошибки (404, 500 и т.д.) для выбора картинки
  * @param {boolean} hasBackButton - Показывать ли кнопку возврата на главную (по умолчанию true)
  */
-export const ErrorMessage = ({ error, code, hasBackButton = true }) => {
+export const ErrorMessage = ({ error, code, hasBackButton = true, title, message }) => {
     const location = useLocation();
     const errorInfo = getErrorInfo(error, code);
     const errorCode = code || (error && error.status ? error.status.toString() : null);
@@ -31,8 +31,8 @@ export const ErrorMessage = ({ error, code, hasBackButton = true }) => {
                   <source srcSet={imageUrl.replace('.png', '.webp')} type="image/webp" />
                   <img src={imageUrl} alt="Ошибка" className="error-image" loading="lazy" width={300} height={200}/>
                 </picture>
-                <h2>{errorInfo.title}</h2>
-                <p>{errorInfo.message}</p>
+                <h2>{title || errorInfo.title}</h2>
+                <p>{message || errorInfo.message}</p>
                 <div className="error-actions">
                     {showBackButton && (
                         <Button

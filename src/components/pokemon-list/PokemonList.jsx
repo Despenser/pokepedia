@@ -65,10 +65,11 @@ const PokemonList = () => {
         <div ref={ref} className="scroll-trigger"></div>
       )}
       {pokemons.length === 0 && !loading && searchQuery && (
-        <div className="empty-search-result">
-          <h3>Покемоны не найдены</h3>
-          <p>Попробуйте изменить поисковый запрос</p>
-        </div>
+        <ErrorMessage 
+          hasBackButton={false}
+          title="Покемон не найден"
+          message="По вашему запросу не найден ни один покемон. Попробуйте изменить поисковый запрос."
+        />
       )}
     </div>
   );
