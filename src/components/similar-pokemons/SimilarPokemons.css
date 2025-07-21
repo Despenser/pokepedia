@@ -34,6 +34,24 @@
   border-radius: 2px;
 }
 
+.similar-pokemons-header h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+  color: var(--text-color);
+  font-weight: 700;
+}
+.similar-pokemons-header h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 50px;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
 
 
 /* Обертка карусели */

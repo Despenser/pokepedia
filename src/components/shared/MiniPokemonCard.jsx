@@ -27,7 +27,7 @@ const MiniPokemonCard = memo(forwardRef(({
   const background = getGradientByTypes(types);
   // Определяем позицию и направление градиента для имени
   let textColor;
-  if (variant === 'evolution') {
+  if (variant === 'evolution' || variant === 'alternative') {
     textColor = getContrastTextColorOnTypeGradient(types, 'end', 'vertical');
   } else {
     textColor = getContrastTextColorOnTypeGradient(types, 'start', 'horizontal');
@@ -61,8 +61,6 @@ const MiniPokemonCard = memo(forwardRef(({
         alt={displayName}
         className="mini-pokemon-img"
         loading="lazy"
-        width={imgSize}
-        height={imgSize}
         onError={e => { e.target.src = '/official-artwork/unknown.webp'; }}
         srcSet={`/official-artwork/${id}-72.webp 72w, /official-artwork/${id}-90.webp 90w, /official-artwork/${id}-120.webp 120w, /official-artwork/${id}-150.webp 150w, /official-artwork/${id}-200.webp 200w`}
         sizes="(max-width: 600px) 110px, (max-width: 900px) 130px, 160px"

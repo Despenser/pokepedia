@@ -29,11 +29,7 @@
   gap: 32px;
   flex-wrap: wrap;
 }
-@media (max-width: 700px) {
-  .alternative-forms-row {
-    gap: 16px;
-  }
-}
+
 .mini-pokemon-card-altform {
   min-width: 150px;
   max-width: 150px;
@@ -45,9 +41,16 @@
   max-width: 110px;
   max-height: 110px;
 }
+
 .mini-pokemon-card-altform .mini-pokemon-name {
-  font-size: 13px;
-  padding: 4px 6px 8px 6px;
+  font-size: 14px !important;
+  padding: 0 8px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 @media (min-width: 1200px) {
   .mini-pokemon-card-altform {
@@ -62,7 +65,15 @@
     max-height: 104px;
   }
   .mini-pokemon-card-altform .mini-pokemon-name {
-    font-size: 20px;
+    font-size: 14px !important;
+    display: block !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 }
 @media (max-width: 600px) {
@@ -77,7 +88,10 @@
     max-height: 110px;
   }
   .mini-pokemon-card-altform .mini-pokemon-name {
-    font-size: 13px;
-    padding: 4px 6px 8px 6px;
+    font-size: 14px !important;
+    padding: 0 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
   }
 } 
