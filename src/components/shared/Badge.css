@@ -32,12 +32,18 @@
   box-shadow: 0 4px 12px var(--shadow-color, rgba(0,0,0,0.13));
   transform: translateY(-2px) scale(1.03);
 }
-.shared-badge--active {
-  border-color: var(--primary-color, #d53a37);
-  box-shadow: 0 4px 12px var(--shadow-color, rgba(0,0,0,0.13));
-  transform: translateY(-2px) scale(1.04);
-}
+
 .shared-badge:focus-visible {
   outline: 2px solid var(--primary-color, #d53a37);
   outline-offset: 2px;
+}
+.shared-badge--bordered {
+  border: 1.5px solid rgba(0, 0, 0, 0.13);
+  box-sizing: border-box;
+}
+
+.shared-badge--active.shared-badge--bordered {
+  border-color: var(--primary-color, #d53a37);
+  box-shadow: 0 4px 12px var(--shadow-color, rgba(0,0,0,0.13));
+  transform: translateY(-2px) scale(1.04);
 } 

@@ -15,9 +15,9 @@ export const ErrorMessage = ({ error, code, hasBackButton = true }) => {
     const errorInfo = getErrorInfo(error, code);
     const errorCode = code || (error && error.status ? error.status.toString() : null);
     const errorImages = {
-        '404': '/error-404.png',
-        '500': '/error-500.png',
-        'default': '/error-500.png'
+        '404': '/error-404/error-404.png',
+        '500': '/error-500/error-500.png',
+        'default': '/error-500/error-500.png'
     };
     const imageUrl = errorImages[errorCode] || errorImages.default;
 

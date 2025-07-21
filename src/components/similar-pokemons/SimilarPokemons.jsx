@@ -15,6 +15,7 @@ const SimilarPokemons = ({ pokemonId, types, excludeNames = [] }) => {
   
   // Получаем количество видимых карточек в зависимости от размера экрана
   const visibleCards = useResponsiveVisibleItems();
+  const itemWidth = `${100 / visibleCards}%`;
   
   // Загружаем похожих покемонов
   const { similarPokemons, loading } = useSimilarPokemons(pokemonId, types, cache, excludeNames);
@@ -69,6 +70,7 @@ const SimilarPokemons = ({ pokemonId, types, excludeNames = [] }) => {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            itemWidth={itemWidth}
           />
         </div>
 

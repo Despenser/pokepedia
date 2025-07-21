@@ -346,7 +346,7 @@
 /* Один ряд для больших экранов */
 @media (min-width: 776px) {
   .evo-branch-children-row {
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
   }

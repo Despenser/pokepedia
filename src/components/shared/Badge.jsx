@@ -12,12 +12,13 @@ import './Badge.css';
  * @param {('default'|'large'|'small')} [size] - размер бейджа
  * @param {string} [className] - дополнительные классы
  */
-const Badge = ({ label, color, textColor, active = false, clickable = false, onClick, size = 'default', className = '', ...rest }) => {
+const Badge = ({ label, color, textColor, active = false, clickable = false, onClick, size = 'default', className = '', bordered = false, ...rest }) => {
   const badgeClasses = [
     'shared-badge',
     size !== 'default' ? `shared-badge--${size}` : '',
     active ? 'shared-badge--active' : '',
     clickable ? 'shared-badge--clickable' : '',
+    bordered ? 'shared-badge--bordered' : '',
     className
   ].filter(Boolean).join(' ');
   return (

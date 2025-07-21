@@ -141,7 +141,7 @@ const EvolutionGraph = ({ evolutionChain, currentPokemonId }) => {
                 idOrName={id}
                 variant="evolution"
                 isCurrent={isCurrent}
-                style={{ position: 'absolute', left: x, top: y, width: NODE_WIDTH, height: NODE_HEIGHT, zIndex: isCurrent ? 2 : 1 }}
+                style={{ position: 'absolute', left: x, top: y, zIndex: isCurrent ? 2 : 1 }}
                 className="mini-pokemon-card-evo"
               />
             );

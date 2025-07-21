@@ -12,22 +12,23 @@ import {
     getGenerations,
     getGenerationDetails
 } from '../api/pokeApi';
+import { safeLocalStorage } from './safeLocalStorage';
 
-// Определяем тип для состояния хранилища
-const MAX_CACHE_SIZE = 100;
-
-function limitCacheSize(cache) {
+// Универсальная функция ограничения размера кеша (FIFO)
+const MAX_CACHE_SIZE = 30;
+function manageCacheSize(cache, maxEntries = MAX_CACHE_SIZE) {
   const keys = Object.keys(cache);
-  if (keys.length <= MAX_CACHE_SIZE) return cache;
+  if (keys.length <= maxEntries) return cache;
   // FIFO: удаляем самые старые ключи
   const newCache = { ...cache };
-  const toDelete = keys.slice(0, keys.length - MAX_CACHE_SIZE);
+  const toDelete = keys.slice(0, keys.length - maxEntries);
   toDelete.forEach(key => { delete newCache[key]; });
   return newCache;
 }
 
 const usePokemonStore = create(
-    persist((set, get) => ({
+    persist(
+        (set, get) => ({
             // Состояние
             pokemons: [],
             generations: [],
@@ -87,7 +88,7 @@ const usePokemonStore = create(
 
                     // Обновляем кеш и состояние
                     let updatedCache = {...cache, [cacheKey]: data};
-                    updatedCache = limitCacheSize(updatedCache);
+                    updatedCache = manageCacheSize(updatedCache);
                     setStateOnFetch(data, updatedCache);
 
                     return data;
@@ -164,7 +165,8 @@ const usePokemonStore = create(
                     );
 
                     // Обновляем кеш
-                    const updatedCache = {...cache};
+                    let updatedCache = {...cache};
+                    updatedCache = manageCacheSize(updatedCache);
                     updatedCache[cacheKey] = filteredTypes;
 
                     set({pokemonTypes: filteredTypes, loading: false, cache: updatedCache});
@@ -225,15 +227,14 @@ const usePokemonStore = create(
                     // Проверяем были ли найдены покемоны
                     const errorMessage = filteredPokemons.length === 0 ? 'Покемоны не найдены' : null;
 
+                    let updatedCache = {...cache, [cacheKey]: filteredPokemons};
+                    updatedCache = manageCacheSize(updatedCache);
                     set({
                         pokemons: filteredPokemons,
                         loading: false,
                         hasMore: false,
                         error: errorMessage,
-                        cache: {
-                            ...cache,
-                            [cacheKey]: filteredPokemons
-                        }
+                        cache: updatedCache
                     });
                 } catch (error) {
                     set({error: getUserFriendlyErrorMessage(error, 'POKEMON_LOAD'), loading: false});
@@ -421,7 +422,8 @@ const usePokemonStore = create(
                     });
 
                     // Обновляем кеш
-                    const updatedCache = {...cache};
+                    let updatedCache = {...cache};
+                    updatedCache = manageCacheSize(updatedCache);
                     updatedCache[cacheKey] = sortedGenerations;
 
                     set({generations: sortedGenerations, loading: false, cache: updatedCache});
@@ -523,7 +525,8 @@ const usePokemonStore = create(
                     const filteredPokemons = detailedPokemons.filter(p => p !== null);
 
                     // Обновляем кеш
-                    const updatedCache = {...cache};
+                    let updatedCache = {...cache};
+                    updatedCache = manageCacheSize(updatedCache);
                     updatedCache[cacheKey] = filteredPokemons;
 
                     // Проверяем, не были ли фильтры сброшены во время загрузки
@@ -600,7 +603,8 @@ const usePokemonStore = create(
                     const filteredPokemons = detailedPokemons.filter(p => p !== null);
 
                     // Обновляем кеш
-                    const updatedCache = {...cache};
+                    let updatedCache = {...cache};
+                    updatedCache = manageCacheSize(updatedCache);
                     updatedCache[cacheKey] = filteredPokemons;
 
                     set({
@@ -642,40 +646,18 @@ const usePokemonStore = create(
 
             // Метод для очистки кеша при низком уровне памяти
             clearCache: () => {
-                const {selectedType, selectedGeneration} = get();
-
-                // Сохраняем только актуальные кеши для текущих фильтров
-                const essentialCacheKeys = [];
-                if (selectedType) essentialCacheKeys.push(`type-${selectedType}`);
-                if (selectedGeneration) essentialCacheKeys.push(`generation-${selectedGeneration}`);
-                if (selectedType && selectedGeneration) essentialCacheKeys.push(`combined-${selectedType}-${selectedGeneration}`);
-
-                // Создаем новый кеш только с необходимыми данными
-                const currentCache = get().cache;
-                const newCache = {};
-
-                essentialCacheKeys.forEach(key => {
-                    if (currentCache[key]) {
-                        newCache[key] = currentCache[key];
-                    }
-                });
-
-                // Сохраняем также кеш типов и поколений, так как они небольшие
-                if (currentCache['pokemon-types']) newCache['pokemon-types'] = currentCache['pokemon-types'];
-                if (currentCache['generations']) newCache['generations'] = currentCache['generations'];
-
-                set({cache: newCache});
+                set({ cache: {} });
             }
         }), {
             name: 'pokemon-storage', // уникальное имя для localStorage
-            // Указываем, какие поля НЕ нужно сохранять в localStorage
+            storage: safeLocalStorage,
             partialize: (state) => ({
                 // Сохраняем только нужные данные
                 pokemonTypes: state.pokemonTypes,
                 generations: state.generations,
                 selectedType: state.selectedType,
                 selectedGeneration: state.selectedGeneration,
-                cache: state.cache, // теперь сохраняем кеш
+                cache: manageCacheSize(state.cache, MAX_CACHE_SIZE),
                 // Не сохраняем кеш и подробные данные о покемонах!
                 // Не сохраняем временные данные
                 loading: false,

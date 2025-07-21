@@ -15,7 +15,8 @@ const CarouselTrack = ({
   onMouseLeave, 
   onTouchStart, 
   onTouchMove, 
-  onTouchEnd 
+  onTouchEnd, 
+  itemWidth 
 }) => {
   const carouselRef = useRef(null);
 
@@ -33,25 +34,22 @@ const CarouselTrack = ({
       onTouchEnd={onTouchEnd}
     >
       {loading ? (
-        // Скелетоны во время загрузки
         Array.from({ length: 8 }, (_, index) => (
-          <div className="carousel-item" key={`skeleton-${index}`}>
+          <div className="carousel-item" key={`skeleton-${index}`} style={{ flex: `0 0 ${itemWidth}` }}>
             <PokemonCardSkeleton />
           </div>
         ))
       ) : similarPokemons.length > 0 ? (
-        // Похожие покемоны
         similarPokemons.map((pokemon, index) => (
           <div 
             className="carousel-item" 
             key={pokemon.id}
-            style={{ animationDelay: `${index * 0.1}s` }}
+            style={{ flex: `0 0 ${itemWidth}`, animationDelay: `${index * 0.1}s` }}
           >
-            <PokemonCard pokemon={pokemon} />
+            <PokemonCard pokemon={pokemon} className="pokemon-card--carousel" />
           </div>
         ))
       ) : (
-        // Сообщение об отсутствии похожих покемонов
         <div className="no-similar-pokemons">
           <div className="no-pokemons-content">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">

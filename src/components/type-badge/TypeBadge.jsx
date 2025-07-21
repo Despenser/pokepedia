@@ -16,6 +16,7 @@ export const TypeBadge = memo(({ type, onClick, isActive = false, large = false 
             clickable={!!onClick}
             onClick={onClick ? () => onClick(type) : undefined}
             size={large ? 'large' : 'default'}
+            bordered={true}
         />
     );
 });

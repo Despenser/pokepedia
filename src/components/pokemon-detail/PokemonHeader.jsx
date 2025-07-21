@@ -47,7 +47,7 @@ const PokemonHeader = memo(({ pokemon }) => {
         </div>
         <div className="pokemon-detail-types pokemon-detail-types--info">
           {pokemon?.types?.map((typeInfo, index) => (
-            <TypeBadge key={index} type={typeInfo.type.name} large />
+            <TypeBadge key={index} type={typeInfo.type.name} large className="type-badge-bordered" />
           ))}
         </div>
       </div>
@@ -68,7 +68,7 @@ const PokemonHeader = memo(({ pokemon }) => {
         </div>
         <div className="pokemon-detail-types pokemon-detail-types--image">
           {pokemon?.types?.map((typeInfo, index) => (
-            <TypeBadge key={index} type={typeInfo.type.name} large />
+            <TypeBadge key={index} type={typeInfo.type.name} large className="type-badge-bordered" />
           ))}
         </div>
       </div>

@@ -16,6 +16,7 @@ const GenerationBadge = ({ generation, onClick, isActive = false }) => {
       clickable={!!onClick}
       onClick={onClick ? () => onClick(generation) : undefined}
       size="default"
+      bordered={true}
     />
   );
 };

@@ -54,18 +54,18 @@ const MiniPokemonCard = memo(forwardRef(({
     <div
       className={`mini-pokemon-card mini-pokemon-card--${variant}${isCurrent ? ' current' : ''}${className ? ' ' + className : ''}`.trim()}
       ref={ref}
-      style={{ background, maxWidth: sizes.card, minWidth: sizes.card, maxHeight: sizes.card + 30, minHeight: sizes.card + 30 }}
+      style={{ background, maxWidth: sizes.card, minWidth: sizes.card + 25 }}
     >
       <img
-        src={`/official-artwork/${id}-72.webp`}
+        src={`/official-artwork/${id}-150.webp`}
         alt={displayName}
         className="mini-pokemon-img"
         loading="lazy"
         width={imgSize}
         height={imgSize}
         onError={e => { e.target.src = '/official-artwork/unknown.webp'; }}
-        srcSet={`/official-artwork/${id}-56.webp 56w, /official-artwork/${id}-72.webp 72w, /official-artwork/${id}-90.webp 90w, /official-artwork/${id}-120.webp 120w, /official-artwork/${id}-150.webp 150w`}
-        sizes="(max-width: 600px) 56px, (max-width: 900px) 72px, 100px"
+        srcSet={`/official-artwork/${id}-72.webp 72w, /official-artwork/${id}-90.webp 90w, /official-artwork/${id}-120.webp 120w, /official-artwork/${id}-150.webp 150w, /official-artwork/${id}-200.webp 200w`}
+        sizes="(max-width: 600px) 110px, (max-width: 900px) 130px, 160px"
       />
       <div className="mini-pokemon-name multi-line" style={{ color: textColor }}>{displayName}</div>
     </div>
