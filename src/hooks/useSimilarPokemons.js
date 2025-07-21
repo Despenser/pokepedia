@@ -30,14 +30,15 @@ export const useSimilarPokemons = (pokemonId, types, cache, excludeNames = []) =
         // Проверяем кеш
         if (cache[cacheKey]) {
           const filteredCache = cache[cacheKey].filter(p => p.id !== Number(pokemonId) && !excludeNames.includes(p.name));
-          setSimilarPokemons(filteredCache.slice(0, 8));
+          // Ленивая загрузка русских имен для кеша
+          const withNames = await Promise.all(filteredCache.slice(0, 8).map(async (p) => ({ ...p, nameRu: await getPokemonNameRu(p.name) || p.name })));
+          setSimilarPokemons(withNames);
           setLoading(false);
           return;
         }
 
         // Получаем покемонов того же типа
         const typeData = await getPokemonsByType(mainType);
-        
         // Перемешиваем и берем первые 20 для разнообразия
         const shuffled = [...typeData]
           .sort(() => 0.5 - Math.random())
@@ -58,10 +59,11 @@ export const useSimilarPokemons = (pokemonId, types, cache, excludeNames = []) =
         // Фильтруем и ограничиваем количество
         const filtered = detailedPokemons
           .filter(p => p !== null && p.id !== Number(pokemonId) && !excludeNames.includes(p.name))
-          .slice(0, 8)
-          .map(p => ({ ...p, nameRu: p.name })); // Initial mapping for nameRu
+          .slice(0, 8);
 
-        setSimilarPokemons(filtered);
+        // Ленивая загрузка русских имен
+        const withNames = await Promise.all(filtered.map(async (p) => ({ ...p, nameRu: await getPokemonNameRu(p.name) || p.name })));
+        setSimilarPokemons(withNames);
       } catch (error) {
         console.error('Ошибка при получении похожих покемонов:', error);
         setSimilarPokemons([]);
@@ -72,14 +74,6 @@ export const useSimilarPokemons = (pokemonId, types, cache, excludeNames = []) =
 
     fetchSimilarPokemons();
   }, [pokemonId, types, cache, excludeNames]);
-
-  const [similarWithNames, setSimilarWithNames] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const arr = await Promise.all(similarPokemons.map(async (p) => ({ ...p, nameRu: await getPokemonNameRu(p.name) })));
-      setSimilarWithNames(arr);
-    })();
-  }, [similarPokemons]);
 
   return useMemo(() => ({ similarPokemons, loading }), [similarPokemons, loading]);
 }; 
