@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { getPokemonsByType, getPokemonByNameOrId } from '../api/pokeApi';
-import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
+import { getPokemonNameRu } from '../utils/localizationUtils';
 
 /**
  * Хук для загрузки похожих покемонов
@@ -59,7 +59,7 @@ export const useSimilarPokemons = (pokemonId, types, cache, excludeNames = []) =
         const filtered = detailedPokemons
           .filter(p => p !== null && p.id !== Number(pokemonId) && !excludeNames.includes(p.name))
           .slice(0, 8)
-          .map(p => ({ ...p, nameRu: pokemonNamesRu[p.name] || p.name }));
+          .map(p => ({ ...p, nameRu: p.name })); // Initial mapping for nameRu
 
         setSimilarPokemons(filtered);
       } catch (error) {
@@ -72,6 +72,14 @@ export const useSimilarPokemons = (pokemonId, types, cache, excludeNames = []) =
 
     fetchSimilarPokemons();
   }, [pokemonId, types, cache, excludeNames]);
+
+  const [similarWithNames, setSimilarWithNames] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const arr = await Promise.all(similarPokemons.map(async (p) => ({ ...p, nameRu: await getPokemonNameRu(p.name) })));
+      setSimilarWithNames(arr);
+    })();
+  }, [similarPokemons]);
 
   return useMemo(() => ({ similarPokemons, loading }), [similarPokemons, loading]);
 }; 
