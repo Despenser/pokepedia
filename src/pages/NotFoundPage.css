@@ -4,4 +4,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-} 
+}
+
+/* Удаляю .page-main, теперь он в index.css */ 

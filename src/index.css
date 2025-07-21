@@ -103,7 +103,11 @@ ul {
 }
 
 .page-main {
-  margin-top: 125px;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 140px;
+  min-height: 0;
 }
 
 .section-title {

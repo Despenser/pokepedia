@@ -8,4 +8,7 @@
 }
 .section-title.generation::after {
   display: none;
+}
+.main-content {
+  margin-top: 140px;
 } 

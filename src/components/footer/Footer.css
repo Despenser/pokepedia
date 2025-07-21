@@ -35,7 +35,11 @@
 .footer-row-top {
   margin-top: 6px;
   margin-bottom: 2px;
-  gap: 2px;
+
+  flex-direction: row !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  justify-content: center;
 }
 
 .footer-row-bottom {
@@ -173,15 +177,8 @@ body {
   color: var(--github-icon-color);
 }
 
-@media (max-width: 900px) {
-  .footer-content {
-    padding: 0 10px;
-  }
-  .footer-row-top, .footer-row-bottom {
-    flex-direction: column;
-    gap: 4px;
-  }
-}
+/* Для прижатия футера ко дну: основной контент (например, .app или .main-content) должен иметь flex: 1 0 auto; */
+
 @media (max-width: 600px) {
   .footer-content {
     padding: 0 4px;
