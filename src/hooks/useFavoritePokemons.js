@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useFavorites } from './useFavorites';
 import { getPokemonByNameOrId } from '../api/pokeApi';
 import { safeAsync } from '../utils/errorHandlingUtils';
-import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
+import { getPokemonNameRu } from '../utils/localizationUtils';
 
 /**
  * Хук для загрузки данных избранных покемонов
@@ -48,7 +48,7 @@ export const useFavoritePokemons = () => {
           // Добавляем русское имя
           loadedPokemons.push({
             ...pokemon,
-            nameRu: pokemonNamesRu[pokemon.name] || undefined
+            nameRu: undefined // будет добавлено ниже асинхронно
           });
         }
       });
@@ -65,6 +65,11 @@ export const useFavoritePokemons = () => {
       loadedPokemons.sort((a, b) => a.id - b.id);
       setFavoritePokemons(loadedPokemons);
       setIsLoading(false);
+
+      // Ленивая загрузка русских имен для всех покемонов
+      await Promise.all(loadedPokemons.map(async (poke) => {
+        poke.nameRu = await getPokemonNameRu(poke.name);
+      }));
     };
 
     loadFavoritePokemons();
