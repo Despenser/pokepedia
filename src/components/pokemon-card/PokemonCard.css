@@ -22,7 +22,6 @@
 .pokemon-card {
   background: var(--card-background);
   border-radius: var(--card-border-radius);
-  box-shadow: var(--box-shadow);
   overflow: hidden;
   height: 100%;
   display: flex;
@@ -153,15 +152,13 @@
   overflow: hidden;
   border-radius: var(--border-radius);
   transition: transform var(--card-transition-duration) var(--ease-smooth);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.03);
   transform-style: preserve-3d;
   perspective: 1000px;
   padding-bottom: 8px; /* чтобы не обрезалось при scale */
+  background: none;
+  box-shadow: none;
 }
 
-[data-theme='dark'] .pokemon-image-container {
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.03);
-}
 
 /* Эффект перспективы */
 .pokemon-card-link {
@@ -205,25 +202,10 @@
   image-rendering: auto;
   opacity: 0;
   content-visibility: var(--content-visibility-mode);
+  background: none;
 }
 
 
-
-/* Создаем подсветку под изображением */
-.pokemon-image-container::after {
-  content: '';
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  width: 80px;
-  height: 15px;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 70%);
-  transform: translateX(-50%) scale(0.8);
-  border-radius: 50%;
-  transition: all var(--image-transition-duration) var(--ease-smooth);
-  opacity: 0.6;
-  z-index: 1;
-}
 
 /* Анимации при наведении в стиле эволюции */
 .pokemon-card-link:hover .pokemon-image {
@@ -236,19 +218,6 @@
 @keyframes gentleFloat {
   0%, 100% { transform: translateY(-4px) scale(1.03); }
   50% { transform: translateY(-8px) scale(1.03); }
-}
-
-/* Анимация тени при наведении */
-.pokemon-card-link:hover .pokemon-image-container::after {
-  transform: translateX(-50%) scale(1.2);
-  opacity: 0.8;
-  animation: shadowPulse 3s infinite ease-in-out;
-}
-
-/* Используем тот же keyframes что и в EvolutionChain для единообразия */
-@keyframes shadowPulse {
-  0%, 100% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
-  50% { transform: translateX(-50%) scale(0.9); opacity: 0.6; }
 }
 
 .pokemon-types {
@@ -298,9 +267,10 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  opacity: 0.7;
+  opacity: 0;
   border-radius: var(--border-radius);
   z-index: 2;
+  background: none;
 }
 
 /* Медиа-запросы */
