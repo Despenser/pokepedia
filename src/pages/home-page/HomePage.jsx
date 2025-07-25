@@ -1,14 +1,25 @@
-import React from 'react';
-import { useEffect, useCallback, useMemo } from 'react';
+import React, { Suspense, lazy, useEffect, useCallback, useMemo, useState } from 'react';
 import { Footer } from '../../components/footer/Footer.jsx';
-import HomeFilters from '../../components/home/HomeFilters.jsx';
-import HomeContent from '../../components/home/HomeContent.jsx';
 import usePokemonStore from '../../store/pokemonStore.js';
-import { getTypeNameRu } from '../../utils/localizationUtils.js';
+import { getTypeNameRuAsync } from '../../utils/localizationUtils.js';
 import './HomePage.css';
+
+const HomeFilters = lazy(() => import('../../components/home/HomeFilters.jsx'));
+const HomeContent = lazy(() => import('../../components/home/HomeContent.jsx'));
 
 const HomePage = () => {
   const { loading, offset, pokemons, searchQuery, selectedType, selectedGeneration, resetSearch } = usePokemonStore();
+
+  const [typeNameRu, setTypeNameRu] = useState(selectedType);
+  useEffect(() => {
+    let mounted = true;
+    if (selectedType) {
+      getTypeNameRuAsync(selectedType).then(res => { if (mounted) setTypeNameRu(res); });
+    } else {
+      setTypeNameRu(undefined);
+    }
+    return () => { mounted = false; };
+  }, [selectedType]);
 
   // Функция для сброса всех фильтров с мемоизацией
   const handleResetFilters = useCallback(() => {
@@ -20,12 +31,12 @@ const HomePage = () => {
   const sectionTitle = useMemo(() => {
     if (searchQuery) return 'Результаты поиска';
     if (selectedType && selectedGeneration) {
-      return `Покемоны типа ${getTypeNameRu(selectedType)} из поколения ${selectedGeneration.replace('generation-', '').toUpperCase()}`;
+      return `Покемоны типа ${typeNameRu} из поколения ${selectedGeneration.replace('generation-', '').toUpperCase()}`;
     }
-    if (selectedType) return `Покемоны типа ${getTypeNameRu(selectedType)}`;
+    if (selectedType) return `Покемоны типа ${typeNameRu}`;
     if (selectedGeneration) return `Покемоны поколения ${selectedGeneration.replace('generation-', '').toUpperCase()}`;
     return 'Все покемоны';
-  }, [searchQuery, selectedType, selectedGeneration]);
+  }, [searchQuery, selectedType, selectedGeneration, typeNameRu]);
 
   // Сбрасываем прокрутку при первой загрузке страницы
   useEffect(() => {
@@ -48,19 +59,23 @@ const HomePage = () => {
     <div className="home-page">
       <main className="home-main">
         <div className="container">
-          <HomeFilters 
-            selectedType={selectedType}
-            selectedGeneration={selectedGeneration}
-            onResetFilters={handleResetFilters}
-          />
+          <Suspense fallback={null}>
+            <HomeFilters 
+              selectedType={selectedType}
+              selectedGeneration={selectedGeneration}
+              onResetFilters={handleResetFilters}
+            />
+          </Suspense>
 
           <h2 className="section-title">{sectionTitle}</h2>
 
-          <HomeContent 
-            loading={loading}
-            offset={offset}
-            pokemons={pokemons}
-          />
+          <Suspense fallback={null}>
+            <HomeContent 
+              loading={loading}
+              offset={offset}
+              pokemons={pokemons}
+            />
+          </Suspense>
         </div>
       </main>
 

@@ -8,6 +8,8 @@ import usePrevious from '../../hooks/usePrevious.js';
 import { useInView } from 'react-intersection-observer';
 import './PokemonList.css';
 
+const MAX_VISIBLE = 150;
+
 const PokemonList = () => {
   const {
     pokemons,
@@ -55,7 +57,7 @@ const PokemonList = () => {
 
   return (
     <div className="pokemon-grid">
-      {pokemons.map((pokemon) => (
+      {(pokemons.length > MAX_VISIBLE ? pokemons.slice(-MAX_VISIBLE) : pokemons).map((pokemon) => (
         <PokemonCard key={pokemon.id} pokemon={pokemon} className="pokemon-list-card" />
       ))}
       {loading && Array(6).fill(0).map((_, index) => (

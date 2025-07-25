@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Footer } from '../components/footer/Footer.jsx';
-import LegendaryContent from '../components/legendary/LegendaryContent.jsx';
+const LegendaryContent = lazy(() => import('../components/legendary/LegendaryContent.jsx'));
 import { useLegendaryPokemons } from '../hooks/useLegendaryPokemons.js';
 import usePokemonStore from '../store/pokemonStore.js';
 import PokemonList from '../components/pokemon-list/PokemonList.jsx';
@@ -30,11 +30,13 @@ const LegendaryPage = () => {
         <div className="container">
           <WithGlobalSearch>
             <h1 className="favorites-title">Легендарные покемоны</h1>
-            <LegendaryContent 
-              grouped={grouped} 
-              isLoading={isLoading} 
-              error={error} 
-            />
+            <Suspense fallback={null}>
+              <LegendaryContent 
+                grouped={grouped} 
+                isLoading={isLoading} 
+                error={error} 
+              />
+            </Suspense>
           </WithGlobalSearch>
         </div>
       </main>

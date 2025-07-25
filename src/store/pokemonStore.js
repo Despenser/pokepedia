@@ -13,7 +13,6 @@ import {
     getGenerationDetails
 } from '../api/pokeApi';
 import { safeLocalStorage } from './safeLocalStorage';
-import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 
 // Универсальная функция ограничения размера кеша (FIFO)
 const MAX_CACHE_SIZE = 30;
@@ -59,7 +58,7 @@ const usePokemonStore = create(
                 const {offset, limit, pokemons} = get();
                 set({loading: true});
                 try {
-                    const newPokemons = await fetchPokemonsFromApi(offset, limit); // реализовать функцию
+                    const newPokemons = await fetchPokemonsFromApi(offset, limit);
                     set({
                         pokemons: [...pokemons, ...newPokemons],
                         offset: offset + limit,
@@ -259,10 +258,12 @@ const usePokemonStore = create(
                     // 1. Получаем список всех покемонов (имя, url)
                     const data = await getPokemonList(1000, 0);
 
-                    // 2. Фильтруем по подстроке (en/ru/id)
-                    const filtered = data.results.filter(pokemon => {
+                    // 2. Получаем ru-имена для всех покемонов
+                    const namesRu = await Promise.all(data.results.map(p => getPokemonNameRu(p.name)));
+                    // 3. Фильтруем по подстроке (en/ru/id)
+                    const filtered = data.results.filter((pokemon, idx) => {
                         const name = pokemon.name.toLowerCase();
-                        const nameRu = (pokemonNamesRu && pokemonNamesRu[pokemon.name]) ? pokemonNamesRu[pokemon.name].toLowerCase() : '';
+                        const nameRu = namesRu[idx] ? namesRu[idx].toLowerCase() : '';
                         // id можно получить из url
                         const idMatch = pokemon.url.match(/\/pokemon\/(\d+)\/?$/);
                         const id = idMatch ? idMatch[1] : '';
@@ -671,13 +672,17 @@ const usePokemonStore = create(
 async function fetchPokemonsFromApi(offset, limit) {
     // Получаем список покемонов (метаданные)
     const data = await getPokemonList(limit, offset);
-    // Загружаем подробные данные для каждого покемона
-    const processPokemonData = usePokemonStore.getState().processPokemonData;
-    const pokemons = await Promise.all(
-        data.results.map(p => processPokemonData(p.name))
-    );
-    // Фильтруем null (ошибки загрузки отдельных покемонов)
-    return pokemons.filter(Boolean);
+    // Возвращаем только базовую информацию (имя, id)
+    const pokemons = data.results.map((p, idx) => {
+        // id можно получить из url
+        const idMatch = p.url.match(/\/pokemon\/(\d+)\/?$/);
+        const id = idMatch ? parseInt(idMatch[1], 10) : offset + idx + 1;
+        return {
+            id,
+            name: p.name
+        };
+    });
+    return pokemons;
 }
 
 export default usePokemonStore;

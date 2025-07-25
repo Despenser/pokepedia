@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect, forwardRef } from 'react';
 import { getLocalPokemonImage } from '../../utils/imageUtils';
 import { getGradientByTypes, getContrastTextColor, getContrastTextColorOnTypeGradient } from '../../utils/colorUtils';
-import pokemonNamesRu from '../../assets/translate/pokemon-names-ru.json';
+import { getPokemonNameRu } from '../../utils/localizationUtils';
 import './MiniPokemonCard.css';
 
 /**
@@ -23,7 +23,14 @@ const MiniPokemonCard = memo(forwardRef(({
   variant = 'evolution',
   className = '',
 }, ref) => {
-  const displayName = pokemonNamesRu[name] || name;
+  const [displayName, setDisplayName] = useState(name);
+  useEffect(() => {
+    let mounted = true;
+    getPokemonNameRu(name).then(res => {
+      if (mounted && res) setDisplayName(res);
+    });
+    return () => { mounted = false; };
+  }, [name]);
   const background = getGradientByTypes(types);
   // Определяем позицию и направление градиента для имени
   let textColor;
