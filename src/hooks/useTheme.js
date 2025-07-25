@@ -10,35 +10,32 @@ const DARK_THEME = 'dark';
  * @returns {Object} Состояние и функции для управления темой
  */
 export const useTheme = () => {
-  // Определение начального значения темы из localStorage или системных предпочтений
-  const getInitialTheme = () => {
-    // Проверяем localStorage
-    const savedTheme = localStorage.getItem(THEME_KEY);
-    if (savedTheme) return savedTheme;
-
-    // Проверяем системные предпочтения
+  // Получаем системную тему
+  const getSystemTheme = () => {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return DARK_THEME;
     }
-
-    // По умолчанию используем светлую тему
     return LIGHT_THEME;
   };
 
-  const [theme, setTheme] = useState(getInitialTheme);
+  // Определяем, есть ли ручной выбор
+  const getManualTheme = () => localStorage.getItem(THEME_KEY);
+
+  // Определяем текущую тему: приоритет у ручной, иначе системная
+  const getCurrentTheme = () => {
+    const manual = getManualTheme();
+    return manual || getSystemTheme();
+  };
+
+  const [theme, setTheme] = useState(getCurrentTheme);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  /**
-   * Применение темы к документу
-   * @param {string} newTheme - Тема для применения ('light' или 'dark')
-   */
+  // Применение темы к документу
   const applyTheme = useCallback((newTheme) => {
     document.documentElement.setAttribute('data-theme', newTheme);
   }, []);
 
-  /**
-   * Переключение между темной и светлой темой
-   */
+  // Переключение между темной и светлой темой (ручной выбор)
   const toggleTheme = useCallback(() => {
     setTheme(prevTheme => {
       const newTheme = prevTheme === LIGHT_THEME ? DARK_THEME : LIGHT_THEME;
@@ -47,13 +44,9 @@ export const useTheme = () => {
     });
   }, []);
 
-  /**
-   * Установка конкретной темы
-   * @param {string} newTheme - Тема для установки ('light' или 'dark')
-   */
+  // Установка конкретной темы (ручной выбор)
   const setThemeExplicitly = useCallback((newTheme) => {
     if (newTheme !== LIGHT_THEME && newTheme !== DARK_THEME) return;
-
     setTheme(newTheme);
     localStorage.setItem(THEME_KEY, newTheme);
   }, []);
@@ -61,40 +54,27 @@ export const useTheme = () => {
   // Применяем тему при изменении и добавляем плавный переход
   useEffect(() => {
     const handleTransition = () => {
-      // Добавляем класс для плавного перехода
       document.documentElement.classList.add('theme-transition');
       setIsTransitioning(true);
-
-      // Применяем тему
       applyTheme(theme);
-
-      // Удаляем класс после завершения перехода
       const transitionTimeout = setTimeout(() => {
         document.documentElement.classList.remove('theme-transition');
         setIsTransitioning(false);
-      }, 300); // Длительность перехода в ms
-
+      }, 300);
       return () => clearTimeout(transitionTimeout);
     };
-
     return handleTransition();
   }, [theme, applyTheme]);
 
   // Следим за системными изменениями темы
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
     const handleChange = (e) => {
-      // Обновляем тему, только если пользователь не выбрал ее явно
-      if (!localStorage.getItem(THEME_KEY)) {
-        setTheme(e.matches ? DARK_THEME : LIGHT_THEME);
-      }
+      // При смене системной темы сбрасываем ручной выбор и применяем системную
+      localStorage.removeItem(THEME_KEY);
+      setTheme(e.matches ? DARK_THEME : LIGHT_THEME);
     };
-
-    // Добавляем слушатель изменений в системных настройках
     mediaQuery.addEventListener('change', handleChange);
-
-    // Удаляем слушатель при размонтировании
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
     };
@@ -103,20 +83,26 @@ export const useTheme = () => {
   // Синхронизация темы с localStorage (best practice)
   useEffect(() => {
     // При монтировании проверяем актуальное значение из localStorage
-    const savedTheme = localStorage.getItem(THEME_KEY);
-    if (savedTheme && savedTheme !== theme) {
-      setTheme(savedTheme);
+    const manualTheme = getManualTheme();
+    if (manualTheme && manualTheme !== theme) {
+      setTheme(manualTheme);
     }
     // Слушаем изменения localStorage в других вкладках
     const handleStorage = (event) => {
-      if (event.key === THEME_KEY && event.newValue && event.newValue !== theme) {
-        setTheme(event.newValue);
+      if (event.key === THEME_KEY) {
+        if (event.newValue && event.newValue !== theme) {
+          setTheme(event.newValue);
+        } else if (!event.newValue) {
+          // Если ручной выбор удалён, применяем системную тему
+          setTheme(getSystemTheme());
+        }
       }
     };
     window.addEventListener('storage', handleStorage);
     return () => window.removeEventListener('storage', handleStorage);
   }, [theme]);
 
+  // Для ThemeSwitcher: показываем текущую тему (ручная или системная)
   return {
     theme,
     isLightTheme: theme === LIGHT_THEME,
