@@ -13,6 +13,7 @@ import {
     getGenerationDetails
 } from '../api/pokeApi';
 import { safeLocalStorage } from './safeLocalStorage';
+import pokemonNamesRu from '../assets/translate/pokemon-names-ru.json';
 
 // Универсальная функция ограничения размера кеша (FIFO)
 const MAX_CACHE_SIZE = 30;
@@ -261,7 +262,7 @@ const usePokemonStore = create(
                     // 2. Фильтруем по подстроке (en/ru/id)
                     const filtered = data.results.filter(pokemon => {
                         const name = pokemon.name.toLowerCase();
-                        const nameRu = pokemonNamesRu[pokemon.name]?.toLowerCase() || '';
+                        const nameRu = (pokemonNamesRu && pokemonNamesRu[pokemon.name]) ? pokemonNamesRu[pokemon.name].toLowerCase() : '';
                         // id можно получить из url
                         const idMatch = pokemon.url.match(/\/pokemon\/(\d+)\/?$/);
                         const id = idMatch ? idMatch[1] : '';
