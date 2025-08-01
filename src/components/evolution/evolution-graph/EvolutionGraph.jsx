@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import PokemonCard from '../pokemon-card/PokemonCard.jsx';
-import UniversalPokemonCard from '../shared/UniversalPokemonCard.jsx';
+import PokemonCard from '../../pokemon-card/PokemonCard.jsx';
+import UniversalPokemonCard from '../../shared/UniversalPokemonCard.jsx';
 import './EvolutionGraph.css';
-import { formatPokemonName } from '../../utils/formatUtils';
+import { formatPokemonName } from '../../../utils/formatUtils.js';
 
 function parseEvolutionDetails(details) {
   if (!details || details.length === 0) return '—';

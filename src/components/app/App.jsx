@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useEffect } from 'react';
-import { useThemeStore } from '../../store/themeStore.js';
-import { Loader } from '../loader/Loader.jsx';
-import { Header } from '../header/Header.jsx';
-import { ErrorMessage } from '../error-message/ErrorMessage.jsx';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {Suspense, lazy} from 'react';
+import {ErrorBoundary} from 'react-error-boundary';
+import {useEffect} from 'react';
+import {useThemeStore} from '../../store/themeStore.js';
+import {Loader} from '../loader/Loader.jsx';
+import {Header} from '../header/Header.jsx';
+import {ErrorMessage} from '../error-message/ErrorMessage.jsx';
 
 const HomePage = lazy(() => import('../../pages/home-page/HomePage.jsx'));
 const PokemonDetailPage = lazy(() => import('../../pages/pokemon-detail-page/PokemonDetailPage.jsx'));
@@ -14,11 +14,11 @@ const FavoritesPage = lazy(() => import('../../pages/favorites-page/FavoritesPag
 const NotFoundPage = lazy(() => import('../../pages/not-found-page/NotFoundPage.jsx'));
 const LegendaryPage = lazy(() => import('../../pages/legendary-page/LegendaryPage.jsx'));
 
-const ErrorFallback = ({ error }) => (
-    <ErrorMessage 
-        error={error} 
+const ErrorFallback = ({error}) => (
+    <ErrorMessage
+        error={error}
         code={error?.status || '500'}
-        hasBackButton={true} 
+        hasBackButton={true}
         hasReloadButton={true}
     />
 );
@@ -39,15 +39,15 @@ export const App = () => {
     return (
         <BrowserRouter>
             <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Header />
+                <Header/>
                 <>
-                    <Suspense fallback={<Loader />}>
+                    <Suspense fallback={<Loader/>}>
                         <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
-                            <Route path="/favorites" element={<FavoritesPage />} />
-                            <Route path="/legendary" element={<LegendaryPage />} />
-                            <Route path="*" element={<NotFoundPage />} />
+                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/pokemon/:id" element={<PokemonDetailPage/>}/>
+                            <Route path="/favorites" element={<FavoritesPage/>}/>
+                            <Route path="/legendary" element={<LegendaryPage/>}/>
+                            <Route path="*" element={<NotFoundPage/>}/>
                         </Routes>
                     </Suspense>
                 </>

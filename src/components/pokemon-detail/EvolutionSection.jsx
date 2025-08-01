@@ -1,5 +1,5 @@
 import React from 'react';
-import EvolutionTree from '../evolution-graph/EvolutionTree';
+import {EvolutionTree} from '../evolution/evolution-tree/EvolutionTree.jsx';
 
 /**
  * Компонент для отображения секции эволюции покемона

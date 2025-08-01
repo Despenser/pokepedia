@@ -202,7 +202,6 @@
   min-width: 100px;
   max-width: 120px;
 }
-/* Удалены все стили .evo-mini-card, .evo-mini-img, .evo-mini-name и их модификаторы. Используйте только .mini-pokemon-card */
 
 /* Настройка стрелок для разных экранов */
 .evo-arrow-path {
@@ -406,24 +405,6 @@
 }
 
 @media (max-width: 600px) {
-  /* Удалены переопределения размеров для .evo-branch-vert .mini-pokemon-card, .mini-pokemon-img, .mini-pokemon-name */
-  /*
-  .evo-branch-vert .mini-pokemon-card {
-    min-width: 60px;
-    max-width: 80px;
-    min-height: 70px;
-    max-height: 90px;
-    padding: 4px 2px 2px 2px;
-  }
-  .evo-branch-vert .mini-pokemon-img {
-    width: 36px;
-    height: 36px;
-  }
-  .evo-branch-vert .mini-pokemon-name {
-    font-size: 10px;
-    max-width: 60px;
-  }
-  */
   .evo-row, .evo-arrow-group, .evo-arrow-group-vert {
     gap: 12px;
   }
@@ -554,8 +535,6 @@
     margin: 8px 0;
   }
 } 
-
-/* Удалены все правила .mini-pokemon-card, .mini-pokemon-card:hover, .mini-pokemon-card.current, .mini-pokemon-img, .mini-pokemon-name и их медиа-адаптации. Теперь мини-карточки полностью управляются MiniPokemonCard.css и inline-стилем. */
 
 .evo-mini-name.multi-line {
   white-space: normal !important;
