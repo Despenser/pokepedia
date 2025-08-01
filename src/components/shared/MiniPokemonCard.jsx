@@ -35,9 +35,9 @@ const MiniPokemonCard = memo(forwardRef(({
   // Определяем позицию и направление градиента для имени
   let textColor;
   if (variant === 'evolution' || variant === 'alternative') {
-    textColor = getContrastTextColorOnTypeGradient(types, 'end', 'vertical');
+    textColor = getContrastTextColorOnTypeGradient(types, 'end');
   } else {
-    textColor = getContrastTextColorOnTypeGradient(types, 'start', 'horizontal');
+    textColor = getContrastTextColorOnTypeGradient(types, 'start');
   }
   // Размеры по варианту
   const sizeMap = {

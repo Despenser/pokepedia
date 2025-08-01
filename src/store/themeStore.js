@@ -19,7 +19,7 @@ export const useThemeStore = create(
       })),
     }),
     {
-      name: 'theme-storage', // имя для localStorage
+      name: 'theme-storage'
     }
   )
 );

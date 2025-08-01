@@ -1,11 +1,11 @@
 import React, { Suspense, lazy } from 'react';
-import { Footer } from '../components/footer/Footer.jsx';
-const LegendaryContent = lazy(() => import('../components/legendary/LegendaryContent.jsx'));
-import { useLegendaryPokemons } from '../hooks/useLegendaryPokemons.js';
-import usePokemonStore from '../store/pokemonStore.js';
-import PokemonList from '../components/pokemon-list/PokemonList.jsx';
+import { Footer } from '../../components/footer/Footer.jsx';
+const LegendaryContent = lazy(() => import('../../components/legendary/LegendaryContent.jsx'));
+import { useLegendaryPokemons } from '../../hooks/useLegendaryPokemons.js';
+import usePokemonStore from '../../store/pokemonStore.js';
+import PokemonList from '../../components/pokemon-list/PokemonList.jsx';
 import './LegendaryPage.css';
-import WithGlobalSearch from '../components/search-bar/WithGlobalSearch.jsx';
+import WithGlobalSearch from '../../components/search-bar/WithGlobalSearch.jsx';
 
 const LegendaryPage = () => {
   const { grouped, isLoading, error } = useLegendaryPokemons();

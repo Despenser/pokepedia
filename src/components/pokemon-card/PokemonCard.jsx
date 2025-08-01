@@ -47,8 +47,8 @@ const PokemonCard = memo(({ pokemon, className = '', asDiv = false }) => {
     const background = useMemo(() => getGradientByTypes(fullTypes), [fullTypes]);
     const displayName = useMemo(() => formatPokemonName(fullName, fullPokemon?.nameRu), [fullName, fullPokemon?.nameRu]);
     const formattedId = useMemo(() => formatPokemonId(fullId), [fullId]);
-    const nameTextColor = useMemo(() => getContrastTextColorOnTypeGradient(fullTypes, 'start', 'horizontal'), [fullTypes]);
-    const idTextColor = useMemo(() => getContrastTextColorOnTypeGradient(fullTypes, 'end', 'horizontal'), [fullTypes]);
+    const nameTextColor = useMemo(() => getContrastTextColorOnTypeGradient(fullTypes, 'start'), [fullTypes]);
+    const idTextColor = useMemo(() => getContrastTextColorOnTypeGradient(fullTypes, 'end'), [fullTypes]);
 
     // Используем хук для управления загрузкой изображения (без fallback)
     const { isLoaded, handleLoad } = useImageLoad();

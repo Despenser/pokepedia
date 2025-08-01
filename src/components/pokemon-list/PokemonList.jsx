@@ -4,7 +4,7 @@ import PokemonCard from '../pokemon-card/PokemonCard.jsx';
 import PokemonCardSkeleton from '../pokemon-card-skeleton/PokemonCardSkeleton.jsx';
 import { useFavorites } from '../../hooks/useFavorites.js';
 import { ErrorMessage } from '../error-message/ErrorMessage.jsx';
-import usePrevious from '../../hooks/usePrevious.js';
+import {usePrevious} from '../../hooks/usePrevious.js';
 import { useInView } from 'react-intersection-observer';
 import './PokemonList.css';
 

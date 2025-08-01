@@ -1,58 +1,29 @@
-// Синхронные импорты (DEPRECATED)
-import typeNamesRu from '../assets/translate/pokemon-types-ru.json';
-import statNamesRu from '../assets/translate/pokemon-stats-ru.json';
-import generationNamesRu from '../assets/translate/pokemon-generations-ru.json';
-
 /**
  * Утилиты для локализации текстов в приложении
  */
-
-// Экспортируем переводы для обратной совместимости
-export {typeNamesRu, generationNamesRu};
-
-/**
- * Получение перевода типа покемона на русский язык (DEPRECATED)
- */
-export const getTypeNameRu = (type) => {
-    return typeNamesRu[type] || type;
-};
 
 /**
  * Получение перевода типа покемона на русский язык (ленивая загрузка)
  */
 export async function getTypeNameRuAsync(type) {
-  const typeNames = (await import('../assets/translate/pokemon-types-ru.json')).default;
-  return typeNames[type] || type;
+    const typeNames = (await import('../assets/translate/pokemon-types-ru.json')).default;
+    return typeNames[type] || type;
 }
-
-/**
- * Получение перевода характеристики покемона на русский язык (DEPRECATED)
- */
-export const getStatNameRu = (stat) => {
-    return statNamesRu[stat] || stat;
-};
 
 /**
  * Получение перевода характеристики покемона на русский язык (ленивая загрузка)
  */
 export async function getStatNameRuAsync(stat) {
-  const statNames = (await import('../assets/translate/pokemon-stats-ru.json')).default;
-  return statNames[stat] || stat;
+    const statNames = (await import('../assets/translate/pokemon-stats-ru.json')).default;
+    return statNames[stat] || stat;
 }
-
-/**
- * Получение перевода поколения на русский язык (DEPRECATED)
- */
-export const getGenerationNameRu = (generation) => {
-    return generationNamesRu[generation] || generation;
-};
 
 /**
  * Получение перевода поколения на русский язык (ленивая загрузка)
  */
 export async function getGenerationNameRuAsync(generation) {
-  const genNames = (await import('../assets/translate/pokemon-generations-ru.json')).default;
-  return genNames[generation] || generation;
+    const genNames = (await import('../assets/translate/pokemon-generations-ru.json')).default;
+    return genNames[generation] || generation;
 }
 
 // Кеш для переводов (в памяти на сессию)
@@ -105,9 +76,10 @@ export const translateText = async (text, to = 'ru', from = 'en') => {
 
 // Ленивая загрузка русских имен покемонов
 let cachedNamesRu = null;
+
 export async function getPokemonNameRu(name) {
-  if (!cachedNamesRu) {
-    cachedNamesRu = (await import('../assets/translate/pokemon-names-ru.json')).default;
-  }
-  return cachedNamesRu[name] || undefined;
+    if (!cachedNamesRu) {
+        cachedNamesRu = (await import('../assets/translate/pokemon-names-ru.json')).default;
+    }
+    return cachedNamesRu[name] || undefined;
 }

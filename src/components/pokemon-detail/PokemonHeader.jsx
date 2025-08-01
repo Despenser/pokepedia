@@ -28,7 +28,7 @@ const PokemonHeader = memo(({ pokemon }) => {
   }, []);
 
   // Вычисляем основной цвет первого типа для подбора цвета текста
-  const textColor = getContrastTextColorOnTypeGradient(pokemon?.types, 'start', 'horizontal');
+  const textColor = getContrastTextColorOnTypeGradient(pokemon?.types, 'start');
 
   return (
     <div className="pokemon-detail-header">

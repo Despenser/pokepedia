@@ -11,13 +11,13 @@ import { ErrorMessage } from '../error-message/ErrorMessage.jsx';
 const HomePage = lazy(() => import('../../pages/home-page/HomePage.jsx'));
 const PokemonDetailPage = lazy(() => import('../../pages/pokemon-detail-page/PokemonDetailPage.jsx'));
 const FavoritesPage = lazy(() => import('../../pages/favorites-page/FavoritesPage.jsx'));
-const NotFoundPage = lazy(() => import('../../pages/NotFoundPage.jsx'));
-const LegendaryPage = lazy(() => import('../../pages/LegendaryPage.jsx'));
+const NotFoundPage = lazy(() => import('../../pages/not-found-page/NotFoundPage.jsx'));
+const LegendaryPage = lazy(() => import('../../pages/legendary-page/LegendaryPage.jsx'));
 
 const ErrorFallback = ({ error }) => (
     <ErrorMessage 
         error={error} 
-        code={error?.status || '500'} 
+        code={error?.status || '500'}
         hasBackButton={true} 
         hasReloadButton={true}
     />

@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { useFavorites } from '../../hooks/useFavorites';
 import Button from '../shared/Button.jsx';
+import './FavoritesButton.css';
 
 /**
  * Кнопка добавления/удаления покемона из избранного
@@ -18,7 +19,7 @@ const FavoritesButton = memo(({ pokemonId, pokemonName }) => {
   return (
     <Button
       variant="icon"
-      className={isCurrentPokemonFavorite ? 'is-favorite' : ''}
+      className={`favorites-button ${isCurrentPokemonFavorite ? 'is-favorite' : ''}`}
       aria-label={isCurrentPokemonFavorite ? `Убрать ${pokemonName} из избранного` : `Добавить ${pokemonName} в избранное`}
       onClick={handleToggleFavorite}
     >

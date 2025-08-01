@@ -21,7 +21,7 @@ export const Logo = memo(({onClick}) => (
 ));
 
 const prefetchFavorites = () => import('../../pages/favorites-page/FavoritesPage.jsx');
-const prefetchLegendary = () => import('../../pages/LegendaryPage.jsx');
+const prefetchLegendary = () => import('../../pages/legendary-page/LegendaryPage.jsx');
 
 // Пункт "Избранные" для бургер-меню
 export const BurgerMenuContent = memo(({onClick}) => (

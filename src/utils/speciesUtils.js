@@ -9,19 +9,19 @@
  * @returns {string|null} Описание или null если не найдено
  */
 export const getSpeciesDescription = (species, language = 'ru') => {
-  if (!species?.flavor_text_entries) return null;
-  
-  const entry = species.flavor_text_entries.find(
-    (entry) => entry.language?.name === language
-  );
-  
-  if (!entry) return null;
-  
-  // Очищаем текст от лишних пробелов и переносов строк
-  return entry.flavor_text
-    .replace(/\s+/g, ' ')
-    .replace(/[\n\r\u2028\u2029]+/g, ' ')
-    .trim();
+    if (!species?.flavor_text_entries) return null;
+
+    const entry = species.flavor_text_entries.find(
+        (entry) => entry.language?.name === language
+    );
+
+    if (!entry) return null;
+
+    // Очищаем текст от лишних пробелов и переносов строк
+    return entry.flavor_text
+        .replace(/\s+/g, ' ')
+        .replace(/[\n\r\u2028\u2029]+/g, ' ')
+        .trim();
 };
 
 /**
@@ -30,7 +30,7 @@ export const getSpeciesDescription = (species, language = 'ru') => {
  * @returns {string|null} Русское описание или null
  */
 export const getRussianDescription = (species) => {
-  return getSpeciesDescription(species, 'ru');
+    return getSpeciesDescription(species, 'ru');
 };
 
 /**
@@ -39,7 +39,7 @@ export const getRussianDescription = (species) => {
  * @returns {string|null} Английское описание или null
  */
 export const getEnglishDescription = (species) => {
-  return getSpeciesDescription(species, 'en');
+    return getSpeciesDescription(species, 'en');
 };
 
 /**
@@ -48,5 +48,5 @@ export const getEnglishDescription = (species) => {
  * @returns {boolean} true если информация доступна
  */
 export const isSpeciesInfoAvailable = (species) => {
-  return species !== null && species !== undefined;
+    return species !== null && species !== undefined;
 }; 

@@ -1,29 +1,33 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 import {getUserFriendlyErrorMessage, logError} from '../utils/errorHandlingUtils.js';
-import { getPokemonNameRu } from '../utils/localizationUtils';
+import {getPokemonNameRu} from '../utils/localizationUtils';
+import {safeLocalStorage} from './safeLocalStorage';
 import {
-    getPokemonList,
-    getPokemonByNameOrId,
-    getPokemonSpecies,
     getEvolutionChain,
-    getPokemonTypes,
-    getPokemonsByType,
+    getGenerationDetails,
     getGenerations,
-    getGenerationDetails
+    getPokemonByNameOrId,
+    getPokemonList,
+    getPokemonsByType,
+    getPokemonSpecies,
+    getPokemonTypes
 } from '../api/pokeApi';
-import { safeLocalStorage } from './safeLocalStorage';
+
 
 // Универсальная функция ограничения размера кеша (FIFO)
 const MAX_CACHE_SIZE = 30;
+
 function manageCacheSize(cache, maxEntries = MAX_CACHE_SIZE) {
-  const keys = Object.keys(cache);
-  if (keys.length <= maxEntries) return cache;
-  // FIFO: удаляем самые старые ключи
-  const newCache = { ...cache };
-  const toDelete = keys.slice(0, keys.length - maxEntries);
-  toDelete.forEach(key => { delete newCache[key]; });
-  return newCache;
+    const keys = Object.keys(cache);
+    if (keys.length <= maxEntries) return cache;
+    // FIFO: удаляем самые старые ключи
+    const newCache = {...cache};
+    const toDelete = keys.slice(0, keys.length - maxEntries);
+    toDelete.forEach(key => {
+        delete newCache[key];
+    });
+    return newCache;
 }
 
 const usePokemonStore = create(
@@ -69,7 +73,6 @@ const usePokemonStore = create(
                     set({error, loading: false});
                 }
             },
-            //TODO resetPokemons: () => set({pokemons: [], offset: 0, hasMore: true, error: null}),
 
             // Вспомогательная функция для работы с кешем
             withCache: async (cacheKey, fetchData, setStateOnHit, setStateOnFetch) => {
@@ -624,7 +627,6 @@ const usePokemonStore = create(
                 }
             },
 
-
             clearAll: () => {
                 set({
                     pokemons: [],
@@ -642,26 +644,23 @@ const usePokemonStore = create(
                     searchQuery: '',
                     selectedType: null,
                     selectedGeneration: null,
-                    cache: {} // Очищаем кеш для предотвращения утечек памяти
+                    cache: {}
                 });
             },
 
             // Метод для очистки кеша при низком уровне памяти
             clearCache: () => {
-                set({ cache: {} });
+                set({cache: {}});
             }
         }), {
-            name: 'pokemon-storage', // уникальное имя для localStorage
+            name: 'pokemon-storage',
             storage: safeLocalStorage,
             partialize: (state) => ({
-                // Сохраняем только нужные данные
                 pokemonTypes: state.pokemonTypes,
                 generations: state.generations,
                 selectedType: state.selectedType,
                 selectedGeneration: state.selectedGeneration,
                 cache: manageCacheSize(state.cache, MAX_CACHE_SIZE),
-                // Не сохраняем кеш и подробные данные о покемонах!
-                // Не сохраняем временные данные
                 loading: false,
                 error: null
             }),
@@ -672,8 +671,9 @@ const usePokemonStore = create(
 async function fetchPokemonsFromApi(offset, limit) {
     // Получаем список покемонов (метаданные)
     const data = await getPokemonList(limit, offset);
+
     // Возвращаем только базовую информацию (имя, id)
-    const pokemons = data.results.map((p, idx) => {
+    return data.results.map((p, idx) => {
         // id можно получить из url
         const idMatch = p.url.match(/\/pokemon\/(\d+)\/?$/);
         const id = idMatch ? parseInt(idMatch[1], 10) : offset + idx + 1;
@@ -682,7 +682,6 @@ async function fetchPokemonsFromApi(offset, limit) {
             name: p.name
         };
     });
-    return pokemons;
 }
 
 export default usePokemonStore;
